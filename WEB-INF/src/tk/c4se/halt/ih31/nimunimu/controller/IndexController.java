@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tk.c4se.halt.ih31.nimunimu.model.Member;
+
 public class IndexController extends HttpServlet {
 	/**
 	 * 
@@ -16,6 +18,12 @@ public class IndexController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
+		Member member = (Member) req.getAttribute("currentMember");
+		if (member == null) {
+			resp.sendRedirect("/login");
+			return;
+		}
+		req.setAttribute("partial", "/jsp/index.jsp");
+		req.getRequestDispatcher("/jsp/layout/layout.jsp").forward(req, resp);
 	}
 }

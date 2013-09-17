@@ -33,7 +33,8 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.getRequestDispatcher(JSP_PATH).forward(req, resp);
+		req.setAttribute("partial", JSP_PATH);
+		req.getRequestDispatcher("/jsp/layout/layout.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -70,6 +71,7 @@ public class LoginController extends HttpServlet {
 		req.setAttribute("id", id);
 		req.setAttribute("password", password);
 		req.setAttribute("errors", errors);
-		req.getRequestDispatcher(JSP_PATH).forward(req, resp);
+		req.setAttribute("partial", JSP_PATH);
+		req.getRequestDispatcher("/jsp/layout/layout.jsp").forward(req, resp);
 	}
 }

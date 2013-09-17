@@ -4,13 +4,5 @@
 	Member currentMember = (Member) request
 			.getAttribute("currentMenber");
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
 <title>index</title>
-</head>
-<body>
-	<%=currentMember == null ? "null" : currentMember.toString()%>
-</body>
-</html>
+<%=currentMember == null ? "null" : currentMember.toString()%>
