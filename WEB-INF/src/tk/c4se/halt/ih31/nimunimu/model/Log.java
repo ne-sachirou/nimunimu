@@ -8,9 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Data;
-
-import tk.c4se.hal.ih31.nimunimu.repository.LogRepository;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
+import tk.c4se.halt.ih31.nimunimu.repository.LogRepository;
 
 /**
  * @author ne_Sachirou

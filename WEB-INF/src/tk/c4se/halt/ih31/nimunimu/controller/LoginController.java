@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import lombok.val;
-
-import tk.c4se.hal.ih31.nimunimu.validator.LoginValidator;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.model.Member;
+import tk.c4se.halt.ih31.nimunimu.validator.LoginValidator;
 
 /**
  * @author ne_Sachirou

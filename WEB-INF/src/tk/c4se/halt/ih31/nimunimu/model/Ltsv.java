@@ -53,9 +53,8 @@ public class Ltsv implements Serializable {
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		for (val entry : record.entrySet()) {
-			String key = entry.getKey().replaceAll("[^0-9A-Za-z_.-]", "_")
-					.trim();
-			String value = entry.getValue().toString()
+			val key = entry.getKey().replaceAll("[^0-9A-Za-z_.-]", "_").trim();
+			val value = entry.getValue().toString()
 					.replaceAll("[:\t\n\r]", " ").trim();
 			buffer.append(key + ":" + value + "\t");
 		}
