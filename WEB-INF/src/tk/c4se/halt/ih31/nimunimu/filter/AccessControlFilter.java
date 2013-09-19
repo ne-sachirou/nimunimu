@@ -16,6 +16,7 @@ import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.model.Member;
 import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
+import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;
 
 /**
  * @author ne_Sachirou
@@ -35,7 +36,8 @@ public class AccessControlFilter implements java.io.Serializable,
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
-		val session = ((HttpServletRequest) req).getSession(true);
+		val session = new SessionRepository()
+				.getSeeeion((HttpServletRequest) req);
 		val memberId = (String) session.getAttribute("memberId");
 		Member member = null;
 		try {

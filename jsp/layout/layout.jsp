@@ -15,13 +15,11 @@
 <body>
 	<div class="container">
 		<header class="header">
-			<hgroup>
-				<h1><%=title%></h1>
-			</hgroup>
+			<h1 class="title"><%=title%></h1>
 		</header>
-		<article class="main">
+		<section class="main">
 			<jsp:include page="<%=partial%>"></jsp:include>
-		</article>
+		</section>
 		<footer class="footer"></footer>
 	</div>
 </body>

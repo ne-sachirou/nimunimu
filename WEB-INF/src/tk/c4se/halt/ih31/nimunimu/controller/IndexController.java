@@ -3,27 +3,32 @@ package tk.c4se.halt.ih31.nimunimu.controller;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tk.c4se.halt.ih31.nimunimu.model.Member;
+import tk.c4se.halt.ih31.nimunimu.model.MemberAuthority;
 
-public class IndexController extends HttpServlet {
+public class IndexController extends Controller {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4945277894364938223L;
 
+	public IndexController() {
+		// super();
+		authorities.add(MemberAuthority.ADMIN);
+		authorities.add(MemberAuthority.SALES);
+		authorities.add(MemberAuthority.SALES_MANAGER);
+		authorities.add(MemberAuthority.STORE);
+		authorities.add(MemberAuthority.STORE_MANAGER);
+		authorities.add(MemberAuthority.ACCOUNTING);
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		Member member = (Member) req.getAttribute("currentMember");
-		if (member == null) {
-			resp.sendRedirect("/login");
+		if (!checkAuthorized(req, resp))
 			return;
-		}
-		req.setAttribute("partial", "/jsp/index.jsp");
-		req.getRequestDispatcher("/jsp/layout/layout.jsp").forward(req, resp);
+		forward(req, resp, "index", "/jsp/index.jsp");
 	}
 }

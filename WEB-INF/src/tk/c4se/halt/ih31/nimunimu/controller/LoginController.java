@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,13 +14,14 @@ import javax.servlet.http.HttpSession;
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.model.Member;
+import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;
 import tk.c4se.halt.ih31.nimunimu.validator.LoginValidator;
 
 /**
  * @author ne_Sachirou
  * 
  */
-public class LoginController extends HttpServlet {
+public class LoginController extends Controller {
 
 	/**
 	 * 
@@ -33,13 +33,16 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.setAttribute("partial", JSP_PATH);
-		req.getRequestDispatcher("/jsp/layout/layout.jsp").forward(req, resp);
+		val urlRedirectAfterLogin = req.getParameter("redirect");
+		req.setAttribute("redirect", urlRedirectAfterLogin);
+		forward(req, resp, "login", JSP_PATH);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
+		if (!checkCsrf(req, resp))
+			return;
 		Map<String, Exception> errors = new LoginValidator().validate(req);
 		if (!errors.isEmpty()) {
 			showError(req, resp, errors);
@@ -59,7 +62,7 @@ public class LoginController extends HttpServlet {
 			showError(req, resp, errors);
 			return;
 		}
-		HttpSession session = req.getSession();
+		HttpSession session = new SessionRepository().getSession(req, true);
 		session.setAttribute("memberId", id);
 		resp.sendRedirect("/");
 	}
@@ -71,7 +74,6 @@ public class LoginController extends HttpServlet {
 		req.setAttribute("id", id);
 		req.setAttribute("password", password);
 		req.setAttribute("errors", errors);
-		req.setAttribute("partial", JSP_PATH);
-		req.getRequestDispatcher("/jsp/layout/layout.jsp").forward(req, resp);
+		forward(req, resp, "login", JSP_PATH);
 	}
 }
