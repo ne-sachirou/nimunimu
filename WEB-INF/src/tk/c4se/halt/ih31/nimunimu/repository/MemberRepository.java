@@ -6,6 +6,7 @@ package tk.c4se.halt.ih31.nimunimu.repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +40,10 @@ public class MemberRepository implements java.io.Serializable {
 		members = new ArrayList<>();
 		member = new Member();
 		member.setId("AD00001");
-		member.setIsPasswordResetted(false);
+		member.setIsPasswordReseted(false);
 		member.setAuthority(MemberAuthority.ADMIN);
+		member.setCreatedAt(new Timestamp(0));
+		member.setUpdatedAt(new Timestamp(0));
 		members.add(member);
 		// }}}
 	}
@@ -109,7 +112,7 @@ public class MemberRepository implements java.io.Serializable {
 		member.setId(result.getString("id"));
 		member.setPassword(result.getString("password"));
 		member.setSalt(result.getString("salt"));
-		member.setIsPasswordResetted(result.getInt("is_password_resetted") == 0 ? false
+		member.setIsPasswordReseted(result.getInt("is_password_resetted") == 0 ? false
 				: true);
 		member.setAuthority(MemberAuthority.valueOf(result
 				.getString("authority")));

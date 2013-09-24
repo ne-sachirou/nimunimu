@@ -39,7 +39,7 @@ public class Member implements java.io.Serializable {
 	private String id;
 	private String password;
 	private String salt;
-	private Boolean isPasswordResetted;
+	private Boolean isPasswordReseted;
 	private MemberAuthority authority;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
