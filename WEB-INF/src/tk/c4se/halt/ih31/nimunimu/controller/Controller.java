@@ -62,7 +62,7 @@ public abstract class Controller extends HttpServlet {
 		val is_auth = isAuthorized(req);
 		if (!is_auth) {
 			val url = URLEncoder.encode(req.getRequestURI(), "utf-8");
-			resp.sendRedirect("/login?redirect=" + url);
+			resp.sendRedirect("/nimunimu/login?redirect=" + url);
 		}
 		return is_auth;
 	}

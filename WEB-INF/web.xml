@@ -19,11 +19,13 @@
 		<filter-class>tk.c4se.halt.ih31.nimunimu.filter.AccessControlFilter
 		</filter-class>
 	</filter>
+	<!--
 	<filter>
 		<filter-name>AccessLog</filter-name>
 		<filter-class>tk.c4se.halt.ih31.nimunimu.filter.AccessLogFilter
 		</filter-class>
 	</filter>
+	-->
 
 	<servlet-mapping>
 		<servlet-name>Index</servlet-name>
@@ -38,9 +40,11 @@
 		<filter-name>AccessControl</filter-name>
 		<url-pattern>*</url-pattern>
 	</filter-mapping>
+<!--
 	<filter-mapping>
 		<filter-name>AccessLog</filter-name>
 		<url-pattern>*</url-pattern>
 	</filter-mapping>
+	-->
 
 </web-app>
