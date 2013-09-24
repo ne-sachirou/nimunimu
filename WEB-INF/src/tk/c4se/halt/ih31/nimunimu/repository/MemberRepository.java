@@ -6,6 +6,8 @@ package tk.c4se.halt.ih31.nimunimu.repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Cleanup;
 import lombok.val;
@@ -24,6 +26,25 @@ public class MemberRepository implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = -990443787408704909L;
 
+	protected final int perPage = 20;
+
+	// {{{ debug
+	private static List<Member> members;
+
+	// }}}
+
+	public MemberRepository() {
+		// {{{ debug
+		Member member;
+		members = new ArrayList<>();
+		member = new Member();
+		member.setId("AD00001");
+		member.setIsPasswordResetted(false);
+		member.setAuthority(MemberAuthority.ADMIN);
+		members.add(member);
+		// }}}
+	}
+
 	/**
 	 * 
 	 * @param id
@@ -31,11 +52,13 @@ public class MemberRepository implements java.io.Serializable {
 	 * @throws DBAccessException
 	 */
 	public Member find(String id) throws DBAccessException {
-		Member member = new Member();
-		member.setId("AD00001");
-		member.setIsPasswordResetted(false);
-		member.setAuthority(MemberAuthority.ADMIN);
-		return member;
+		// {{{ debug
+		for (val member : members) {
+			if (member.getId().equals(id))
+				return member;
+		}
+		return null;
+		// }}}
 		/*
 		 * if (id == null || id.isEmpty()) return null; val sql =
 		 * "select * from member where id = ?"; Member member = null; try (val
@@ -47,6 +70,14 @@ public class MemberRepository implements java.io.Serializable {
 		 * (ClassNotFoundException | SQLException e) { throw new
 		 * DBAccessException(); } return member;
 		 */
+	}
+
+	public List<Member> all(int page) {
+		return members;
+	}
+
+	public List<Member> all() {
+		return all(1);
 	}
 
 	/**
