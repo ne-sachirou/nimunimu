@@ -3,12 +3,14 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="WEB-INF/src"/>
 	<classpathentry kind="src" output="work" path="work"/>
-	<classpathentry exported="true" kind="lib" path="bin/lombok.jar"/>
-	<classpathentry exported="true" kind="lib" path="bin/ojdbc6.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/servlet-api.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/jasper.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/jsp-api.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="/kadai06_a_03/WEB-INF/lib/javax.servlet.jsp.jstl-1.2.1.jar"/>
+	<classpathentry kind="lib" path="/kadai06_a_03/WEB-INF/lib/javax.servlet.jsp.jstl-api-1.2.1.jar"/>
+	<classpathentry kind="lib" path="/kadai06_a_03/WEB-INF/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="/kadai06_a_03/WEB-INF/lib/ojdbc6.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
