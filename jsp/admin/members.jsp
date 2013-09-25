@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"
-	import="java.util.*, tk.c4se.halt.ih31.nimunimu.model.*"%>
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	Member currentMember = (Member) request
-			.getAttribute("currentMember");
-	List<Member> members = (List<Member>) request
-			.getAttribute("members");
-%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <table>
 	<tr>
 		<th>ID</th>
@@ -16,20 +10,13 @@
 		<th>作成日時</th>
 		<th>更新日時</th>
 	</tr>
-	<%
-		for (Member member : members) {
-	%>
-	<tr>
-		<td><a
-			href="member?id=<c:out
-					value="<%=member.getId()%>" />"><c:out
-					value="<%=member.getId()%>" /></a></td>
-		<td><%=member.getAuthority()%></td>
-		<td><%=member.getIsPasswordReseted()%></td>
-		<td><%=member.getCreatedAt()%></td>
-		<td><%=member.getUpdatedAt()%></td>
-	</tr>
-	<%
-		}
-	%>
+	<c:forEach items="${members}" var="member">
+		<tr>
+			<td><a href="member?id=${fn:escapeXml(member.id)}">${fn:escapeXml(member.id)}</a></td>
+			<td>${member.authority}</td>
+			<td>${member.isPasswordReseted}</td>
+			<td>${member.createdAt}</td>
+			<td>${member.updatedAt}</td>
+		</tr>
+	</c:forEach>
 </table>
