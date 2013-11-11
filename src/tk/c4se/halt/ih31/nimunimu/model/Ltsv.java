@@ -6,8 +6,7 @@ package tk.c4se.halt.ih31.nimunimu.model;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
-import lombok.val;
+import java.util.Map.Entry;
 
 /**
  * Labeled Tab-separated Values (LTSV) http://ltsv.org/
@@ -41,7 +40,7 @@ public class Ltsv implements Serializable {
 	 * @return
 	 */
 	public Ltsv append(Map<String, Object> externalMap) {
-		for (val entry : externalMap.entrySet())
+		for (final Entry<String, Object> entry : externalMap.entrySet())
 			put(entry.getKey(), entry.getValue());
 		return this;
 	}
@@ -52,9 +51,10 @@ public class Ltsv implements Serializable {
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
-		for (val entry : record.entrySet()) {
-			val key = entry.getKey().replaceAll("[^0-9A-Za-z_.-]", "_").trim();
-			val value = entry.getValue().toString()
+		for (final Entry<String, String> entry : record.entrySet()) {
+			final String key = entry.getKey()
+					.replaceAll("[^0-9A-Za-z_.-]", "_").trim();
+			final String value = entry.getValue().toString()
 					.replaceAll("[:\t\n\r]", " ").trim();
 			buffer.append(key + ":" + value + "\t");
 		}

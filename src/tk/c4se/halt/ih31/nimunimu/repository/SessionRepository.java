@@ -28,7 +28,7 @@ public class SessionRepository implements Serializable {
 	 * @return
 	 */
 	public HttpSession getSession(HttpServletRequest req, boolean isNew) {
-		val session = req.getSession();
+		final HttpSession session = req.getSession();
 		if (isNew)
 			session.invalidate();
 		if (isNew || session.getAttribute("csrf") == null)

@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.naming.NamingException;
+
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.config.DBConfig;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
@@ -35,7 +37,7 @@ public class LogRepository implements Serializable {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, new Ltsv().append(log.getLog()).toString());
 			statement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException | NamingException e) {
 			throw new DBAccessException();
 		}
 	}

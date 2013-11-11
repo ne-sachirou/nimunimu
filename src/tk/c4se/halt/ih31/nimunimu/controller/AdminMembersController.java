@@ -4,12 +4,13 @@
 package tk.c4se.halt.ih31.nimunimu.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import lombok.val;
+import tk.c4se.halt.ih31.nimunimu.model.Member;
 import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 
 /**
@@ -25,7 +26,7 @@ public class AdminMembersController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		val members = new MemberRepository().all();
+		final List<Member> members = new MemberRepository().all();
 		req.setAttribute("members", members);
 		forward(req, resp, "admin/members", "/jsp/admin/members.jsp");
 	}

@@ -12,9 +12,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.val;
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import tk.c4se.halt.ih31.nimunimu.model.Log;
 import tk.c4se.halt.ih31.nimunimu.model.Member;
 
@@ -37,10 +34,11 @@ public class AccessLogFilter implements java.io.Serializable,
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		val uri = ((HttpServletRequest) req).getRequestURI();
-		val method = ((HttpServletRequest) req).getMethod();
-		val memberId = ((Member) req.getAttribute("currentMember")).getId();
-		val protocol = ((HttpServletRequest) req).getProtocol();
+		final String uri = ((HttpServletRequest) req).getRequestURI();
+		final String method = ((HttpServletRequest) req).getMethod();
+		final String memberId = ((Member) req.getAttribute("currentMember"))
+				.getId();
+		final String protocol = ((HttpServletRequest) req).getProtocol();
 		chain.doFilter(req, resp);
 	}
 

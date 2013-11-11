@@ -8,8 +8,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.val;
-
 import tk.c4se.halt.ih31.nimunimu.exception.ValidateException;
 
 /**
@@ -23,8 +21,8 @@ public class LoginValidator implements java.io.Serializable {
 	private static final long serialVersionUID = -2314986808736644911L;
 
 	public Map<String, Exception> validate(HttpServletRequest req) {
-		val id = req.getParameter("id").trim();
-		val password = req.getParameter("password").trim();
+		final String id = req.getParameter("id").trim();
+		final String password = req.getParameter("password").trim();
 		Map<String, Exception> errors = new HashMap<>();
 		if (id == null || id.isEmpty())
 			errors.put("Validate", new ValidateException("ID‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B"));

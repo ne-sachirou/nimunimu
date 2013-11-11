@@ -7,8 +7,7 @@ import java.sql.Timestamp;
 
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
-import lombok.Data;
-import lombok.val;
+import lombok.*;
 
 /**
  * @author ne_Sachirou
@@ -30,7 +29,7 @@ public class Member implements java.io.Serializable {
 	 */
 	public static Boolean isCorrectPassword(String id, String rawPassword)
 			throws DBAccessException {
-		val member = new MemberRepository().find(id);
+		final Member member = new MemberRepository().find(id);
 		if (member == null)
 			return false;
 		return member.isCorrectPassword(rawPassword);

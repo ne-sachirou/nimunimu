@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.model.Member;
@@ -78,9 +79,9 @@ public abstract class Controller extends HttpServlet {
 	 */
 	protected boolean checkCsrf(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		val session = new SessionRepository().getSeeeion(req);
-		val storedToken = (String) session.getAttribute("csrf");
-		val receivedToken = (String) req.getAttribute("csrf");
+		final HttpSession session = new SessionRepository().getSeeeion(req);
+		final String storedToken = (String) session.getAttribute("csrf");
+		final String receivedToken = (String) req.getAttribute("csrf");
 		if (storedToken.equals(receivedToken))
 			return true;
 		else {

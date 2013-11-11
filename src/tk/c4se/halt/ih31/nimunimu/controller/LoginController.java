@@ -33,7 +33,7 @@ public class LoginController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		val urlRedirectAfterLogin = req.getParameter("redirect");
+		final String urlRedirectAfterLogin = req.getParameter("redirect");
 		req.setAttribute("redirect", urlRedirectAfterLogin);
 		forward(req, resp, "login", JSP_PATH);
 	}
@@ -48,8 +48,8 @@ public class LoginController extends Controller {
 			showError(req, resp, errors);
 			return;
 		}
-		val id = req.getParameter("id").trim();
-		val password = req.getParameter("password").trim();
+		final String id = req.getParameter("id").trim();
+		final String password = req.getParameter("password").trim();
 		Boolean isCorrectPassword = false;
 		try {
 			isCorrectPassword = Member.isCorrectPassword(id, password);
