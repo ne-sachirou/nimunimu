@@ -16,7 +16,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 
 /**
  * @author ne_Sachirou
- *
+ * 
  */
 @WebServlet("/admin/members")
 public class AdminMembersController extends Controller {
@@ -30,6 +30,6 @@ public class AdminMembersController extends Controller {
 			throws ServletException, IOException {
 		final List<Member> members = new MemberRepository().all();
 		req.setAttribute("members", members);
-		forward(req, resp, "admin/members", "/jsp/admin/members.jsp");
+		forward(req, resp, "admin/members", "/resource/partial/admin/members.jsp");
 	}
 }

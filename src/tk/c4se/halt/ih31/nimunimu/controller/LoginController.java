@@ -30,7 +30,7 @@ public class LoginController extends Controller {
 	 */
 	private static final long serialVersionUID = 41306642246590835L;
 
-	private static final String JSP_PATH = "/jsp/login.jsp";
+	private static final String JSP_PATH = "/resource/partial/login.jsp";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -59,7 +59,7 @@ public class LoginController extends Controller {
 			errors.put("DBAccess", e);
 		}
 		if (!isCorrectPassword)
-			errors.put("Login", new Exception("ID‚©ƒpƒXƒ[ƒh‚ªˆÙ‚È‚è‚Ü‚·B"));
+			errors.put("Login", new Exception("IDï¿½ï¿½ï¿½pï¿½Xï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½Ù‚È‚ï¿½Ü‚ï¿½ï¿½B"));
 		if (!errors.isEmpty()) {
 			showError(req, resp, errors);
 			return;

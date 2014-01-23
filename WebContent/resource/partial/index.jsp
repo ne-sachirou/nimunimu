@@ -6,22 +6,22 @@
 	String menuJspPath = "";
 	switch (currentMember.getAuthority()) {
 	case ADMIN:
-		menuJspPath = "/jsp/admin/index.jsp";
+		menuJspPath = "/resource/partial/admin/index.jsp";
 		break;
 	case SALES:
-		menuJspPath = "/jsp/sales/index.jsp";
+		menuJspPath = "/resource/partial/sales/index.jsp";
 		break;
 	case SALES_MANAGER:
-		menuJspPath = "/jsp/sales_manager/index.jsp";
+		menuJspPath = "/resource/partial/sales_manager/index.jsp";
 		break;
 	case STORE:
-		menuJspPath = "/jsp/store/index.jsp";
+		menuJspPath = "/resource/partial/store/index.jsp";
 		break;
 	case STORE_MANAGER:
-		menuJspPath = "/jsp/store_manager/index.jsp";
+		menuJspPath = "/resource/partial/store_manager/index.jsp";
 		break;
 	case ACCOUNTING:
-		menuJspPath = "/jsp/accountion/index.jsp";
+		menuJspPath = "/resource/partial/accounting/index.jsp";
 		break;
 	}
 %>
