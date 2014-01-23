@@ -9,16 +9,10 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import lombok.val;
-
 /**
  * @author ne_Sachirou
- * 
  */
 public class SessionRepository implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1733126608931382796L;
 
 	/**
@@ -29,10 +23,12 @@ public class SessionRepository implements Serializable {
 	 */
 	public HttpSession getSession(HttpServletRequest req, boolean isNew) {
 		final HttpSession session = req.getSession();
-		if (isNew)
+		if (isNew) {
 			session.invalidate();
-		if (isNew || session.getAttribute("csrf") == null)
+		}
+		if (isNew || session.getAttribute("csrf") == null) {
 			session.setAttribute("csrf", UUID.randomUUID().toString());
+		}
 		return session;
 	}
 

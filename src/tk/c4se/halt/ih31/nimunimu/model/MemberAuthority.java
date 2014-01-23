@@ -4,21 +4,19 @@
 package tk.c4se.halt.ih31.nimunimu.model;
 
 /**
- * 
  * @author ne_Sachirou
- * 
  */
 public enum MemberAuthority {
-	/** systemŠÇ—Ò (Ğˆõaccount“™‚ÌŠÇ—) */
+	/** systemç®¡ç†è€… (ç¤¾å“¡accountç­‰ã®ç®¡ç†) */
 	ADMIN,
-	/** ‰c‹Æ (ˆê”Ê‰c‹ÆĞˆõ) */
+	/** å–¶æ¥­ (ä¸€èˆ¬å–¶æ¥­ç¤¾å“¡) */
 	SALES,
-	/** ‰c‹ÆŠÇ—Ò (ŠÇ—E) */
+	/** å–¶æ¥­ç®¡ç†è€… (ç®¡ç†è·) */
 	SALES_MANAGER,
-	/** İŒÉ (picking, ’I‰µ) ’S“– */
+	/** åœ¨åº« (picking, æ£šå¸) æ‹…å½“ */
 	STORE,
-	/** İŒÉŠÇ—Ò */
+	/** åœ¨åº«ç®¡ç†è€… */
 	STORE_MANAGER,
-	/** Œo— */
+	/** çµŒç† */
 	ACCOUNTING,
 }

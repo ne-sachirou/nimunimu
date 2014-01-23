@@ -13,13 +13,9 @@ import tk.c4se.halt.ih31.nimunimu.repository.LogRepository;
 
 /**
  * @author ne_Sachirou
- * 
  */
 @Data
 public class Log implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7881950325931115064L;
 
 	private Map<String, Object> log = new HashMap<>();

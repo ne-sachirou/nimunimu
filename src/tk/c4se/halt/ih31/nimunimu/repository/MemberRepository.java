@@ -3,35 +3,27 @@
  */
 package tk.c4se.halt.ih31.nimunimu.repository;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Cleanup;
 import lombok.val;
-import tk.c4se.halt.ih31.nimunimu.config.DBConfig;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.model.Member;
 import tk.c4se.halt.ih31.nimunimu.model.MemberAuthority;
 
 /**
  * @author ne_Sachirou
- * 
  */
 public class MemberRepository implements java.io.Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -990443787408704909L;
 
 	protected final int perPage = 20;
 
 	// {{{ debug
 	private static List<Member> members;
-
 	// }}}
 
 	public MemberRepository() {
@@ -88,7 +80,6 @@ public class MemberRepository implements java.io.Serializable {
 	 * @param member
 	 */
 	public void insert(Member member) {
-
 	}
 
 	/**
@@ -96,7 +87,6 @@ public class MemberRepository implements java.io.Serializable {
 	 * @param member
 	 */
 	public void update(Member member) {
-
 	}
 
 	/**
@@ -104,7 +94,6 @@ public class MemberRepository implements java.io.Serializable {
 	 * @param member
 	 */
 	public void delete(Member member) {
-
 	}
 
 	private void setProperties(Member member, ResultSet result)

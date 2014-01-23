@@ -20,14 +20,9 @@ import tk.c4se.halt.ih31.nimunimu.validator.LoginValidator;
 
 /**
  * @author ne_Sachirou
- * 
  */
 @WebServlet("/login")
 public class LoginController extends Controller {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 41306642246590835L;
 
 	private static final String JSP_PATH = "/resource/partial/login.jsp";
@@ -35,7 +30,7 @@ public class LoginController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		final String urlRedirectAfterLogin = req.getParameter("redirect");
+		val urlRedirectAfterLogin = req.getParameter("redirect");
 		req.setAttribute("redirect", urlRedirectAfterLogin);
 		forward(req, resp, "login", JSP_PATH);
 	}
@@ -43,23 +38,25 @@ public class LoginController extends Controller {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		if (!checkCsrf(req, resp))
+		if (!checkCsrf(req, resp)) {
 			return;
+		}
 		Map<String, Exception> errors = new LoginValidator().validate(req);
 		if (!errors.isEmpty()) {
 			showError(req, resp, errors);
 			return;
 		}
-		final String id = req.getParameter("id").trim();
-		final String password = req.getParameter("password").trim();
+		val id = req.getParameter("id").trim();
+		val password = req.getParameter("password").trim();
 		Boolean isCorrectPassword = false;
 		try {
 			isCorrectPassword = Member.isCorrectPassword(id, password);
 		} catch (DBAccessException e) {
 			errors.put("DBAccess", e);
 		}
-		if (!isCorrectPassword)
+		if (!isCorrectPassword) {
 			errors.put("Login", new Exception("IDかパスワードが異なります。"));
+		}
 		if (!errors.isEmpty()) {
 			showError(req, resp, errors);
 			return;

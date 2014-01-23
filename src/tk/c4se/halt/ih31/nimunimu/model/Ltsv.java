@@ -16,9 +16,6 @@ import java.util.Map.Entry;
  * @author ne_Sachirou
  */
 public class Ltsv implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5281168493052765519L;
 
 	private Map<String, String> record = new HashMap<>();

@@ -20,13 +20,9 @@ import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;
 
 /**
  * @author ne_Sachirou
- * 
  */
 public class AccessControlFilter implements java.io.Serializable,
 		javax.servlet.Filter {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6372244373335629676L;
 
 	@Override
@@ -39,6 +35,7 @@ public class AccessControlFilter implements java.io.Serializable,
 		val session = new SessionRepository()
 				.getSeeeion((HttpServletRequest) req);
 		String memberId = (String) session.getAttribute("memberId");
+		// TODO: Implement Login.
 		memberId = "AD00001";
 		Member member = null;
 		try {
@@ -53,5 +50,4 @@ public class AccessControlFilter implements java.io.Serializable,
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 	}
-
 }

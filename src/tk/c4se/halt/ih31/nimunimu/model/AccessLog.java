@@ -8,18 +8,19 @@ import java.util.Map;
 
 /**
  * @author ne_Sachirou
- * 
  */
 public class AccessLog extends Log {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1531909471149097302L;
 
 	public AccessLog() {
 		super();
 	}
 
+	/**
+	 * 
+	 * @param uri
+	 * @param memberId
+	 */
 	public AccessLog(String uri, String memberId) {
 		super();
 		Map<String, Object> log = new HashMap<>();

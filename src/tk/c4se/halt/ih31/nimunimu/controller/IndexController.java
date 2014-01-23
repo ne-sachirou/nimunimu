@@ -11,13 +11,10 @@ import tk.c4se.halt.ih31.nimunimu.model.MemberAuthority;
 
 @WebServlet("/")
 public class IndexController extends Controller {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4945277894364938223L;
 
 	public IndexController() {
-		// super();
+		super();
 		authorities.add(MemberAuthority.ADMIN);
 		authorities.add(MemberAuthority.SALES);
 		authorities.add(MemberAuthority.SALES_MANAGER);
@@ -29,8 +26,9 @@ public class IndexController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		if (!checkAuthorized(req, resp))
+		if (!checkAuthorized(req, resp)) {
 			return;
+		}
 		forward(req, resp, "index", "/resource/partial/index.jsp");
 	}
 }

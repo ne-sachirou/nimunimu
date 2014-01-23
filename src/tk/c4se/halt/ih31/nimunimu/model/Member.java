@@ -10,14 +10,12 @@ import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 import lombok.*;
 
 /**
- * @author ne_Sachirou
+ * Member bean.
  * 
+ * @author ne_Sachirou
  */
 @Data
 public class Member implements java.io.Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6229745806342640308L;
 
 	/**
@@ -30,8 +28,9 @@ public class Member implements java.io.Serializable {
 	public static Boolean isCorrectPassword(String id, String rawPassword)
 			throws DBAccessException {
 		final Member member = new MemberRepository().find(id);
-		if (member == null)
+		if (member == null) {
 			return false;
+		}
 		return member.isCorrectPassword(rawPassword);
 	}
 
@@ -51,8 +50,9 @@ public class Member implements java.io.Serializable {
 	 */
 	public Boolean isCorrectPassword(String rawPassword) {
 		val password = new PasswordStreacher().streach(rawPassword, getSalt());
-		if (getPassword().equals(password))
+		if (getPassword().equals(password)) {
 			return true;
+		}
 		return false;
 	}
 }
