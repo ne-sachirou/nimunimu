@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package tk.c4se.halt.ih31.nimunimu.controller;
 
@@ -21,18 +21,18 @@ import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;
 
 /**
  * @author ne_Sachirou
- * 
+ *
  */
 public abstract class Controller extends HttpServlet {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -8093435378978911657L;
 
 	protected List<MemberAuthority> authorities = new ArrayList<>();
 
 	/**
-	 * 
+	 *
 	 * @param req
 	 * @param resp
 	 * @param title
@@ -52,7 +52,7 @@ public abstract class Controller extends HttpServlet {
 	/**
 	 * Check the current Member is authorized to access the page, and auto
 	 * redirect to login page.
-	 * 
+	 *
 	 * @param req
 	 * @param resp
 	 * @return
@@ -71,7 +71,7 @@ public abstract class Controller extends HttpServlet {
 	/**
 	 * Check CSRF protection ,and auto return an error when the token is
 	 * invalid.
-	 * 
+	 *
 	 * @param req
 	 * @param resp
 	 * @return
