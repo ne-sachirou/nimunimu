@@ -59,7 +59,7 @@ public class LoginController extends Controller {
 			errors.put("DBAccess", e);
 		}
 		if (!isCorrectPassword)
-			errors.put("Login", new Exception("ID���p�X���[�h���قȂ�܂��B"));
+			errors.put("Login", new Exception("IDかパスワードが異なります。"));
 		if (!errors.isEmpty()) {
 			showError(req, resp, errors);
 			return;
