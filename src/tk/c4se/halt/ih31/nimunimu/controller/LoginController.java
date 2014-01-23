@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import tk.c4se.halt.ih31.nimunimu.validator.LoginValidator;
  * @author ne_Sachirou
  * 
  */
+@WebServlet("/login")
 public class LoginController extends Controller {
 
 	/**

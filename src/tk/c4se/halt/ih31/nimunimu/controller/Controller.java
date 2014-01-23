@@ -46,7 +46,7 @@ public abstract class Controller extends HttpServlet {
 			String title, String partial) throws ServletException, IOException {
 		req.setAttribute("title", title);
 		req.setAttribute("partial", partial);
-		req.getRequestDispatcher("/jsp/layout/layout.jsp").forward(req, resp);
+		req.getRequestDispatcher("/resource/layout/layout.jsp").forward(req, resp);
 	}
 
 	/**
