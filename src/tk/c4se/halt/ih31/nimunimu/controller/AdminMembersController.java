@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package tk.c4se.halt.ih31.nimunimu.controller;
 
@@ -16,12 +16,12 @@ import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 
 /**
  * @author ne_Sachirou
- * 
+ *
  */
 @WebServlet("/admin/members")
 public class AdminMembersController extends Controller {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -8637277308340058722L;
 
