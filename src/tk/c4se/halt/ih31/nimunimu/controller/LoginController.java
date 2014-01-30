@@ -31,7 +31,7 @@ public class LoginController extends Controller {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		val urlRedirectAfterLogin = req.getParameter("redirect");
-		req.setAttribute("redirect", urlRedirectAfterLogin);
+		req.setAttribute("redirectUrl", urlRedirectAfterLogin);
 		forward(req, resp, "login", JSP_PATH);
 	}
 

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tk.c4se.halt.ih31.nimunimu.model.Member;
 import tk.c4se.halt.ih31.nimunimu.model.MemberAuthority;
 
 @WebServlet("/")
@@ -29,6 +30,29 @@ public class IndexController extends Controller {
 		if (!checkAuthorized(req, resp)) {
 			return;
 		}
+		Member currentMember = (Member) req.getAttribute("currentMember");
+		String menuJspPath = "";
+		switch (currentMember.getAuthority()) {
+		case ADMIN:
+			menuJspPath = "/resource/partial/admin/index.jsp";
+			break;
+		case SALES:
+			menuJspPath = "/resource/partial/sales/index.jsp";
+			break;
+		case SALES_MANAGER:
+			menuJspPath = "/resource/partial/sales_manager/index.jsp";
+			break;
+		case STORE:
+			menuJspPath = "/resource/partial/store/index.jsp";
+			break;
+		case STORE_MANAGER:
+			menuJspPath = "/resource/partial/store_manager/index.jsp";
+			break;
+		case ACCOUNTING:
+			menuJspPath = "/resource/partial/accounting/index.jsp";
+			break;
+		}
+		req.setAttribute("menuJspPath", menuJspPath);
 		forward(req, resp, "index", "/resource/partial/index.jsp");
 	}
 }

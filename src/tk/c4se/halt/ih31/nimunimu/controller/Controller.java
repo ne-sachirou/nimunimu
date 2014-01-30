@@ -39,6 +39,11 @@ public abstract class Controller extends HttpServlet {
 	 */
 	protected void forward(HttpServletRequest req, HttpServletResponse resp,
 			String title, String partial) throws ServletException, IOException {
+		if (title == null) {
+			title = "nimunimu";
+		}
+		val session = new SessionRepository().getSeeeion(req);
+		req.setAttribute("csrfToken", (String) session.getAttribute("csrf"));
 		req.setAttribute("title", title);
 		req.setAttribute("partial", partial);
 		req.getRequestDispatcher("/resource/layout/layout.jsp").forward(req,
