@@ -23,7 +23,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;
  */
 public class AccessControlFilter implements java.io.Serializable,
 		javax.servlet.Filter {
-	private static final long serialVersionUID = 6372244373335629676L;
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void destroy() {
@@ -32,18 +32,17 @@ public class AccessControlFilter implements java.io.Serializable,
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
-		val session = new SessionRepository()
-				.getSeeeion((HttpServletRequest) req);
-		String memberId = (String) session.getAttribute("memberId");
-		// TODO: Implement Login.
-		memberId = "AD00001";
+		val loginAccountId = new SessionRepository((HttpServletRequest) req)
+				.getLoginAccountId();
 		Member member = null;
-		try {
-			member = new MemberRepository().find(memberId);
-		} catch (DBAccessException e) {
-			e.printStackTrace();
+		if (loginAccountId != null) {
+			try {
+				member = new MemberRepository().find(loginAccountId);
+			} catch (DBAccessException e) {
+				e.printStackTrace();
+			}
 		}
-		req.setAttribute("currentMember", member);
+		req.setAttribute("loginAccount", member);
 		chain.doFilter(req, resp);
 	}
 

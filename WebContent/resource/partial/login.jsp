@@ -2,7 +2,6 @@
 	pageEncoding="utf-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<title>Admin Login</title>
 <form action="" method="post">
 	<c:if test="${errors != null && !errors.isEmpty()}">
 		<ul>
@@ -23,7 +22,7 @@
 		</div>
 	</div>
 	<button type="submit">送信</button>
-	<input type="hidden" name="redirect"
+	<input type="hidden" name="redirectUrl"
 		value="${fn:escapeXml(redirectUrl)}" /> <input type="hidden"
 		name="csrf" value="${fn:escapeXml(csrfToken)}" />
 </form>

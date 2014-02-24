@@ -42,8 +42,8 @@ public abstract class Controller extends HttpServlet {
 		if (title == null) {
 			title = "nimunimu";
 		}
-		val session = new SessionRepository().getSeeeion(req);
-		req.setAttribute("csrfToken", (String) session.getAttribute("csrf"));
+		val session = new SessionRepository(req);
+		req.setAttribute("csrfToken", session.getCsrfToken());
 		req.setAttribute("title", title);
 		req.setAttribute("partial", partial);
 		req.getRequestDispatcher("/resource/layout/layout.jsp").forward(req,
@@ -80,9 +80,8 @@ public abstract class Controller extends HttpServlet {
 	 */
 	protected boolean checkCsrf(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		val session = new SessionRepository().getSeeeion(req);
-		val storedToken = (String) session.getAttribute("csrf");
-		val receivedToken = (String) req.getAttribute("csrf");
+		val storedToken = new SessionRepository(req).getCsrfToken();
+		val receivedToken = req.getParameter("csrf");
 		if (storedToken.equals(receivedToken)) {
 			return true;
 		} else {
@@ -92,12 +91,15 @@ public abstract class Controller extends HttpServlet {
 	}
 
 	private boolean isAuthorized(HttpServletRequest req) {
-		val currentMember = (Member) req.getAttribute("currentMember");
-		if (authorities.size() == 0 || currentMember == null) {
+		val loginAccount = (Member) req.getAttribute("loginAccount");
+		if (authorities.size() == 0) {
 			return true;
 		}
+		if (loginAccount == null) {
+			return false;
+		}
 		for (val auth : authorities) {
-			if (auth.equals(currentMember.getAuthority())) {
+			if (auth.equals(loginAccount.getAuthority())) {
 				return true;
 			}
 		}

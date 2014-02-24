@@ -13,31 +13,41 @@ import javax.servlet.http.HttpSession;
  * @author ne_Sachirou
  */
 public class SessionRepository implements Serializable {
-	private static final long serialVersionUID = -1733126608931382796L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 * @param req
-	 * @param isNew
-	 * @return
-	 */
-	public HttpSession getSession(HttpServletRequest req, boolean isNew) {
-		final HttpSession session = req.getSession();
-		if (isNew) {
-			session.invalidate();
-		}
-		if (isNew || session.getAttribute("csrf") == null) {
-			session.setAttribute("csrf", UUID.randomUUID().toString());
-		}
-		return session;
+	private HttpSession session;
+
+	public SessionRepository() {
+	}
+
+	public SessionRepository(HttpServletRequest req) {
+		session = req.getSession();
 	}
 
 	/**
 	 * 
-	 * @param req
 	 * @return
 	 */
-	public HttpSession getSeeeion(HttpServletRequest req) {
-		return getSession(req, false);
+	public String getLoginAccountId() {
+		return (String) session.getAttribute("loginAccountId");
+	}
+
+	/**
+	 * 
+	 * @param accountId
+	 */
+	public void setLoginAccountId(String accountId) {
+		session.setAttribute("loginAccountId", accountId);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getCsrfToken() {
+		if (session.getAttribute("csrf") == null) {
+			session.setAttribute("csrf", UUID.randomUUID().toString());
+		}
+		return (String) session.getAttribute("csrf");
 	}
 }

@@ -3,11 +3,10 @@
  */
 package tk.c4se.halt.ih31.nimunimu.model;
 
-import java.sql.Timestamp;
-
+import lombok.Data;
+import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
-import lombok.*;
 
 /**
  * Member bean.
@@ -16,7 +15,7 @@ import lombok.*;
  */
 @Data
 public class Member implements java.io.Serializable {
-	private static final long serialVersionUID = 6229745806342640308L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
@@ -27,7 +26,7 @@ public class Member implements java.io.Serializable {
 	 */
 	public static Boolean isCorrectPassword(String id, String rawPassword)
 			throws DBAccessException {
-		final Member member = new MemberRepository().find(id);
+		val member = new MemberRepository().find(id);
 		if (member == null) {
 			return false;
 		}
@@ -35,13 +34,10 @@ public class Member implements java.io.Serializable {
 	}
 
 	private String id;
+	private String name;
 	private String password;
-	private String salt;
 	private Boolean isPasswordReseted;
 	private MemberAuthority authority;
-	private Timestamp createdAt;
-	private Timestamp updatedAt;
-	private Timestamp deletedAt;
 
 	/**
 	 * 
@@ -49,10 +45,6 @@ public class Member implements java.io.Serializable {
 	 * @return
 	 */
 	public Boolean isCorrectPassword(String rawPassword) {
-		val password = new PasswordStreacher().streach(rawPassword, getSalt());
-		if (getPassword().equals(password)) {
-			return true;
-		}
-		return false;
+		return getPassword().equals(rawPassword);
 	}
 }

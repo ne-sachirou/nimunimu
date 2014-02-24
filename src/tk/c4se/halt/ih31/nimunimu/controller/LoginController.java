@@ -10,11 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import lombok.val;
-import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
-import tk.c4se.halt.ih31.nimunimu.model.Member;
 import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;
 import tk.c4se.halt.ih31.nimunimu.validator.LoginValidator;
 
@@ -23,7 +20,7 @@ import tk.c4se.halt.ih31.nimunimu.validator.LoginValidator;
  */
 @WebServlet("/login")
 public class LoginController extends Controller {
-	private static final long serialVersionUID = 41306642246590835L;
+	private static final long serialVersionUID = 1L;
 
 	private static final String JSP_PATH = "/resource/partial/login.jsp";
 
@@ -38,32 +35,17 @@ public class LoginController extends Controller {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		if (!checkCsrf(req, resp)) {
-			return;
-		}
-		Map<String, Exception> errors = new LoginValidator().validate(req);
+		// if (!checkCsrf(req, resp)) {
+		// return;
+		// }
+		val validator = new LoginValidator(req);
+		val errors = validator.validate();
 		if (!errors.isEmpty()) {
 			showError(req, resp, errors);
 			return;
 		}
-		val id = req.getParameter("id").trim();
-		val password = req.getParameter("password").trim();
-		Boolean isCorrectPassword = false;
-		try {
-			isCorrectPassword = Member.isCorrectPassword(id, password);
-		} catch (DBAccessException e) {
-			errors.put("DBAccess", e);
-		}
-		if (!isCorrectPassword) {
-			errors.put("Login", new Exception("IDかパスワードが異なります。"));
-		}
-		if (!errors.isEmpty()) {
-			showError(req, resp, errors);
-			return;
-		}
-		HttpSession session = new SessionRepository().getSession(req, true);
-		session.setAttribute("memberId", id);
-		resp.sendRedirect("/");
+		new SessionRepository(req).setLoginAccountId(validator.getId());
+		resp.sendRedirect(req.getParameter("redirectUrl"));
 	}
 
 	private void showError(HttpServletRequest req, HttpServletResponse resp,

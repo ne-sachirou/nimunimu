@@ -7,6 +7,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import lombok.val;
 
 /**
@@ -25,13 +26,17 @@ public class DBConnector {
 	/**
 	 * Connect to database.
 	 * 
-	 * @return Returns null when fail.
-	 * @throws SQLException
-	 * @throws NamingException
+	 * @return
+	 * @throws DBAccessException
 	 */
-	public static Connection getConnection() throws NamingException,
-			SQLException {
-		val source = (DataSource) new InitialContext().lookup(contextName);
-		return source.getConnection();
+	public static Connection getConnection() throws DBAccessException {
+		@val
+		javax.sql.DataSource source;
+		try {
+			source = (DataSource) new InitialContext().lookup(contextName);
+			return source.getConnection();
+		} catch (NamingException | SQLException e) {
+			throw new DBAccessException();
+		}
 	}
 }
