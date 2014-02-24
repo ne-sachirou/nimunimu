@@ -12,7 +12,6 @@ import lombok.Data;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.exception.ValidateException;
 import tk.c4se.halt.ih31.nimunimu.model.Member;
-import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 
 /**
  * @author ne_Sachirou
@@ -41,11 +40,6 @@ public class LoginValidator implements java.io.Serializable {
 	 * @return
 	 */
 	public Map<String, Exception> validate() {
-		try {
-			System.out.println(new MemberRepository().all().size());
-		} catch (DBAccessException e1) {
-			// TODO Auto-generated catch block
-		}
 		Map<String, Exception> errors = new HashMap<>();
 		if (getId() == null || getId().isEmpty()) {
 			errors.put("Validate", new ValidateException("IDを入力してください。"));

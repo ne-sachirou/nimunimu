@@ -30,7 +30,7 @@ public class IndexController extends Controller {
 		if (!checkAuthorized(req, resp)) {
 			return;
 		}
-		Member currentMember = (Member) req.getAttribute("currentMember");
+		Member currentMember = (Member) req.getAttribute("loginAccount");
 		String menuJspPath = "";
 		switch (currentMember.getAuthority()) {
 		case ADMIN:

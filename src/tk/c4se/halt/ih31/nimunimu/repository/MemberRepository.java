@@ -49,9 +49,6 @@ public class MemberRepository implements java.io.Serializable {
 			if (result.next()) {
 				member = new Member();
 				setProperties(member, result);
-				System.out.println(member.getId());
-			} else {
-				System.out.println("Account not found.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,6 +67,7 @@ public class MemberRepository implements java.io.Serializable {
 		val sql = "select * from account where rownum between ? and ?";
 		List<Member> members = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, perPage * (page - 1) + 1);
 			statement.setInt(2, perPage * page);
