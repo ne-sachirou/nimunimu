@@ -36,6 +36,7 @@ public class DBConnector {
 			source = (DataSource) new InitialContext().lookup(contextName);
 			return source.getConnection();
 		} catch (NamingException | SQLException e) {
+			e.printStackTrace();
 			throw new DBAccessException();
 		}
 	}
