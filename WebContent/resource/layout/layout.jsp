@@ -6,6 +6,7 @@
 <head>
 <meta charset="utf-8" />
 <title>${fn:escapeXml(title)}|nimunimu</title>
+<script src="${baseUri}/resource/bower_components/q/q.js"></script>
 </head>
 <body>
 	<div class="container">
