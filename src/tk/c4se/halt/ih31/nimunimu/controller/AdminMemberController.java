@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import lombok.val;
+import tk.c4se.hal.ih31.nimunimu.dto.Member;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
-import tk.c4se.halt.ih31.nimunimu.model.Member;
-import tk.c4se.halt.ih31.nimunimu.model.MemberAuthority;
+import tk.c4se.halt.ih31.nimunimu.model.MemberModel;
 import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 
 /**
@@ -44,41 +44,21 @@ public class AdminMemberController extends Controller {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		val requestType = req.getParameter("requestType");
-		val id = req.getParameter("id");
-		val repo = new MemberRepository();
-		Member member = null;
+		val model = new MemberModel();
 		try {
-			member = repo.find(id);
-		} catch (DBAccessException e2) {
-			e2.printStackTrace();
-			resp.sendError(502, e2.getMessage());
-			return;
-		}
-		if (member == null) {
-			resp.sendError(502, "Member " + id + " is not found in DB.");
-			return;
-		}
-		if (requestType.equals("PUT")) {
-			member.setName(req.getParameter("name"));
-			member.setAuthority(MemberAuthority.valueOf(req
-					.getParameter("authority")));
-			try {
-				repo.update(member);
-			} catch (DBAccessException e1) {
-				e1.printStackTrace();
-				resp.sendError(502, e1.getMessage());
+			if (requestType.equals("POST")) {
+				model.postRequest(req, resp);
+			} else if (requestType.equals("PUT")) {
+				model.putRequest(req, resp);
+			} else if (requestType.equals("DELETE")) {
+				model.deleteRequest(req, resp);
+			} else {
+				resp.sendError(502, "Unknown request type: " + requestType);
 				return;
 			}
-		} else if (requestType.equals("DELETE")) {
-			try {
-				repo.delete(member);
-			} catch (DBAccessException e) {
-				e.printStackTrace();
-				resp.sendError(502, e.getMessage());
-				return;
-			}
-		} else {
-			resp.sendError(502, "Unknown request type: " + requestType);
+		} catch (DBAccessException e) {
+			e.printStackTrace();
+			resp.sendError(502, e.getMessage());
 			return;
 		}
 		forward(req, resp, "admin / member",

@@ -2,6 +2,9 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<div>
+	<a class="btn" href="member?new=true">新規</a>
+</div>
 <table>
 	<tr>
 		<th>ID</th>

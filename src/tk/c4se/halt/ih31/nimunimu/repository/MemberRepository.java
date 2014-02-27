@@ -12,10 +12,9 @@ import java.util.List;
 
 import lombok.Cleanup;
 import lombok.val;
+import tk.c4se.hal.ih31.nimunimu.dto.Member;
 import tk.c4se.halt.ih31.nimunimu.config.DBConnector;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
-import tk.c4se.halt.ih31.nimunimu.model.Member;
-import tk.c4se.halt.ih31.nimunimu.model.MemberAuthority;
 
 /**
  * @author ne_Sachirou
@@ -210,7 +209,6 @@ public class MemberRepository implements java.io.Serializable {
 		member.setName(result.getString("name"));
 		member.setPassword(result.getString("password"));
 		member.setIsPasswordReseted(result.getInt("is_password_resetted") != 0);
-		member.setAuthority(MemberAuthority.valueOf(result
-				.getString("authority")));
+		member.setAuthority(result.getString("authority"));
 	}
 }

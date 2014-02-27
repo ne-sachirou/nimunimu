@@ -9,5 +9,12 @@ package tk.c4se.halt.ih31.nimunimu.exception;
  * @author ne_Sachirou
  */
 public class DBAccessException extends Exception {
-	private static final long serialVersionUID = -2016544935073415362L;
+	private static final long serialVersionUID = 1L;
+
+	public DBAccessException() {
+	}
+
+	public DBAccessException(String message) {
+		super(message);
+	}
 }

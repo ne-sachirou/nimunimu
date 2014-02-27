@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tk.c4se.halt.ih31.nimunimu.model;
+package tk.c4se.hal.ih31.nimunimu.dto;
 
 /**
  * @author ne_Sachirou

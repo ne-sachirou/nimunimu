@@ -9,9 +9,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.Data;
+import tk.c4se.hal.ih31.nimunimu.dto.Member;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.exception.ValidateException;
-import tk.c4se.halt.ih31.nimunimu.model.Member;
 
 /**
  * @author ne_Sachirou

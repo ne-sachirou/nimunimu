@@ -10,6 +10,11 @@ if (!Array.from) {
  */
 function EditUi() {
 	this._initNodes();
+	this.isNew = false;
+	if (/new=true/.test(location.search)) {
+		this.isNew = true;
+		this._startEditing();
+	}
 }
 
 /**
@@ -32,20 +37,30 @@ EditUi.prototype.start = function() {
 	this.saveButton.onclick = function() {
 		me._finishEditing();
 		me._save().then(function() {
-			location.reload();
+			if (me.isNew) {
+				history.back();
+			} else {
+				location.reload();
+			}
 		}, function(err) {
 			alert(err.message);
 		});
 	};
 	this.cancelButton.onclick = function() {
 		me._finishEditing();
-		location.reload();
+		if (me.isNew) {
+			history.back();
+		} else {
+			location.reload();
+		}
 	};
 	return this;
 };
 
 EditUi.prototype._save = function() {
-	return this._requestUpdate('PUT', 'field');
+	var method = this.isNew ? 'POST' : 'PUT';
+
+	return this._requestUpdate(method, 'field');
 };
 
 EditUi.prototype._delete = function() {
@@ -75,7 +90,7 @@ EditUi.prototype._requestUpdate = function(requestType, fieldClassName) {
 					return reject(new Error(req.statusText + '\n'
 							+ req.responseText));
 				}
-				reject();
+				resolve();
 			}
 		};
 	});
@@ -92,15 +107,21 @@ EditUi.prototype._initNodes = function() {
 };
 
 EditUi.prototype._startEditing = function() {
+	var nodes;
+
 	this.editButton.style.display = 'none';
 	this.deleteButton.style.display = 'none';
 	this.saveButton.style.display = 'inline';
 	this.cancelButton.style.display = 'inline';
-	Array.from(this.containerNode.querySelectorAll('.field:not(.pk)')).forEach(
-			function(node) {
-				node.contentEditable = true;
-				node.classList.add('editing');
-			});
+	if (this.isNew) {
+		nodes = this.containerNode.querySelectorAll('.field');
+	} else {
+		nodes = this.containerNode.querySelectorAll('.field:not(.pk)');
+	}
+	Array.from(nodes).forEach(function(node) {
+		node.contentEditable = true;
+		node.classList.add('editing');
+	});
 };
 
 EditUi.prototype._finishEditing = function() {
