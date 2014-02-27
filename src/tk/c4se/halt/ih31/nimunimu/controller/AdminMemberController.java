@@ -52,9 +52,11 @@ public class AdminMemberController extends Controller {
 		} catch (DBAccessException e2) {
 			e2.printStackTrace();
 			resp.sendError(502, e2.getMessage());
+			return;
 		}
 		if (member == null) {
 			resp.sendError(502, "Member " + id + " is not found in DB.");
+			return;
 		}
 		if (requestType.equals("PUT")) {
 			member.setName(req.getParameter("name"));
@@ -64,7 +66,6 @@ public class AdminMemberController extends Controller {
 				repo.update(member);
 			} catch (DBAccessException e1) {
 				e1.printStackTrace();
-				resp.setContentType("text/plain");
 				resp.sendError(502, e1.getMessage());
 				return;
 			}
@@ -73,12 +74,10 @@ public class AdminMemberController extends Controller {
 				repo.delete(member);
 			} catch (DBAccessException e) {
 				e.printStackTrace();
-				resp.setContentType("text/plain");
 				resp.sendError(502, e.getMessage());
 				return;
 			}
 		} else {
-			resp.setContentType("text/plain");
 			resp.sendError(502, "Unknown request type: " + requestType);
 			return;
 		}
