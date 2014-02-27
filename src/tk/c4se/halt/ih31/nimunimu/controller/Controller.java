@@ -44,6 +44,8 @@ public abstract class Controller extends HttpServlet {
 		}
 		val session = new SessionRepository(req);
 		req.setAttribute("csrfToken", session.getCsrfToken());
+		req.setAttribute("baseUri", req.getSession().getServletContext()
+				.getContextPath());
 		req.setAttribute("title", title);
 		req.setAttribute("partial", partial);
 		req.getRequestDispatcher("/resource/layout/layout.jsp").forward(req,

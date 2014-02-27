@@ -111,6 +111,7 @@ public class MemberRepository implements java.io.Serializable {
 			statement.setInt(4, member.getIsPasswordReseted() ? 1 : 0);
 			statement.setString(5, member.getAuthority().toString());
 			statement.executeUpdate();
+			connection.commit();
 		} catch (SQLException e) {
 			if (connection != null) {
 				try {
@@ -148,6 +149,7 @@ public class MemberRepository implements java.io.Serializable {
 			statement.setString(4, member.getAuthority().toString());
 			statement.setString(5, member.getId());
 			statement.executeUpdate();
+			connection.commit();
 		} catch (SQLException e) {
 			if (connection != null) {
 				try {
@@ -181,6 +183,7 @@ public class MemberRepository implements java.io.Serializable {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, member.getId());
 			statement.executeUpdate();
+			connection.commit();
 		} catch (SQLException e) {
 			if (connection != null) {
 				try {
