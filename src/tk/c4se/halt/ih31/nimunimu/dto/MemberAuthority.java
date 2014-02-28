@@ -1,9 +1,11 @@
 /**
  * 
  */
-package tk.c4se.hal.ih31.nimunimu.dto;
+package tk.c4se.halt.ih31.nimunimu.dto;
 
 /**
+ * 社員account account権限
+ * 
  * @author ne_Sachirou
  */
 public enum MemberAuthority {

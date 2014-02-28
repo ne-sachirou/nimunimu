@@ -13,7 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.val;
-import tk.c4se.hal.ih31.nimunimu.dto.Member;
+import tk.c4se.halt.ih31.nimunimu.dto.Member;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;

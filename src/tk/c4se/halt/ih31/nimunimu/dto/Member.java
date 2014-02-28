@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tk.c4se.hal.ih31.nimunimu.dto;
+package tk.c4se.halt.ih31.nimunimu.dto;
 
 import lombok.Data;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 
 /**
- * Member bean.
+ * 社員account
  * 
  * @author ne_Sachirou
  */

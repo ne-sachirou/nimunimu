@@ -12,8 +12,8 @@ import java.util.List;
 
 import lombok.Cleanup;
 import lombok.val;
-import tk.c4se.hal.ih31.nimunimu.dto.Member;
 import tk.c4se.halt.ih31.nimunimu.config.DBConnector;
+import tk.c4se.halt.ih31.nimunimu.dto.Member;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 
 /**
@@ -37,7 +37,7 @@ public class MemberRepository implements java.io.Serializable {
 		if (id == null || id.isEmpty()) {
 			return null;
 		}
-		val sql = "select * from account where id = ?";
+		val sql = "select * from member where id = ?";
 		Member member = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
@@ -63,7 +63,7 @@ public class MemberRepository implements java.io.Serializable {
 	 * @throws DBAccessException
 	 */
 	public List<Member> all(int page) throws DBAccessException {
-		val sql = "select * from account where rownum between ? and ?";
+		val sql = "select * from member where rownum between ? and ?";
 		List<Member> members = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
@@ -99,7 +99,7 @@ public class MemberRepository implements java.io.Serializable {
 	 * @throws DBAccessException
 	 */
 	public void insert(Member member) throws DBAccessException {
-		val sql = "insert into account(id, name, password, is_password_resetted, authority) values (?, ?, ?, ?, ?)";
+		val sql = "insert into member(id, name, password, is_password_resetted, authority) values (?, ?, ?, ?, ?)";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -137,7 +137,7 @@ public class MemberRepository implements java.io.Serializable {
 	 * @throws DBAccessException
 	 */
 	public void update(Member member) throws DBAccessException {
-		val sql = "update account set name = ?, password = ?, is_password_resetted = ?, authority = ? where id = ?";
+		val sql = "update member set name = ?, password = ?, is_password_resetted = ?, authority = ? where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -175,7 +175,7 @@ public class MemberRepository implements java.io.Serializable {
 	 * @throws DBAccessException
 	 */
 	public void delete(Member member) throws DBAccessException {
-		val sql = "delete from account where id = ?";
+		val sql = "delete from member where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
