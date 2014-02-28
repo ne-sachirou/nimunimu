@@ -244,7 +244,7 @@ create table payment(
 
 -- 被請求明細
 create table payment_detail(
-  payment_id number(20)   references payment(id),
+  payment_id   number(20) references payment(id),
   our_order_id number(20) references our_order(id),
   primary key (payment_id, our_order_id)
 );

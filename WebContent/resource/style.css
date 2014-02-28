@@ -1,8 +1,45 @@
+a {
+  color: #3b8bba;
+}
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+.button-success {
+  background: #1cb841;
+  /* this is a green */
+}
+.button-error {
+  background: #ca3c3c;
+  /* this is a maroon */
+}
+.button-warning {
+  background: #df7514;
+  /* this is an orange */
+}
+.button-secondary {
+  background: #42b8dd;
+  /* this is a light blue */
+}
 h1.title {
   margin-top: 37px;
+  text-align: center;
+}
+.main-box {
+  align-content: center;
+  display: flex;
+  justify-content: space-around;
+}
+footer {
+  color: #eee;
+  font-size: 87.5%;
+  text-transform: uppercase;
 }
 .editing {
   border: 1px solid yellow;
   box-shadow: 0 0 1px yellow;
 }
-/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22WebContent%2Fresource%2Fstyle.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22AAAA%2CEAAE%3BEACD%2CgBAAA%3B%3BAAGD%3BEACC%2CwBAAA%3BEACA%2C0BAAA%22%7D */
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22WebContent%2Fresource%2Fstyle.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22AAAA%3BEACC%2CcAAA%3B%3BAAGD%3BAACA%3BAACA%3BAACA%3BEACC%2CYAAA%3BEAEA%2CyCAAA%3B%3BAAGD%3BEACC%2CmBAAA%3B%3B%3BAAGD%3BEACC%2CmBAAA%3B%3B%3BAAGD%3BEACC%2CmBAAA%3B%3B%3BAAGD%3BEACC%2CmBAAA%3B%3B%3BAAGD%2CEAAE%3BEACD%2CgBAAA%3BEACA%2CkBAAA%3B%3BAAGD%3BEACC%2CqBAAA%3BEACA%2CaAAA%3BEACA%2C6BAAA%3B%3BAAMD%3BEACC%2CWAAA%3BEACA%2CgBAAA%3BEACA%2CyBAAA%3B%3BAAGD%3BEACC%2CwBAAA%3BEACA%2C0BAAA%22%7D */

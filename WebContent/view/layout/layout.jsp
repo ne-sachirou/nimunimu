@@ -24,12 +24,14 @@
 			</div>
 		</header>
 		<h1 class="title">${fn:escapeXml(title)}</h1>
-		<section class="main">
-			<jsp:include page="${partial}"></jsp:include>
-		</section>
+		<div class="main-box">
+			<section class="main">
+				<jsp:include page="${partial}"></jsp:include>
+			</section>
+		</div>
 		<footer class="footer"></footer>
 	</div>
-	<footer>
+	<footer class="footer">
 		<div>
 			<a href="${baseUri}/">nimunimuトップ</a>
 		</div>

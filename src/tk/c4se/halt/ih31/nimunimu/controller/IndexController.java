@@ -53,6 +53,6 @@ public class IndexController extends Controller {
 			break;
 		}
 		req.setAttribute("menuJspPath", menuJspPath);
-		forward(req, resp, "nimunimuトップ", "/index.jsp");
+		forward(req, resp, "nimunimu", "/index.jsp");
 	}
 }
