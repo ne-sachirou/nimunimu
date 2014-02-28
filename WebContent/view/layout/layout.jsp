@@ -20,6 +20,9 @@
 	</div>
 	<footer>
 		<div>
+			<a href="${baseUri}/logout">ログアウト</a>
+		</div>
+		<div>
 			<a href="${baseUri}/">nimunimuトップ</a>
 		</div>
 	</footer>
