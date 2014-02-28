@@ -22,7 +22,7 @@ import tk.c4se.halt.ih31.nimunimu.validator.LoginValidator;
 public class LoginController extends Controller {
 	private static final long serialVersionUID = 1L;
 
-	private static final String JSP_PATH = "/resource/partial/login.jsp";
+	private static final String JSP_PATH = "/login.jsp";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

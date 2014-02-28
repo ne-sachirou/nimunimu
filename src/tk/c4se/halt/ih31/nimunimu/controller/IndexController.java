@@ -34,25 +34,25 @@ public class IndexController extends Controller {
 		String menuJspPath = "";
 		switch (currentMember.getAuthority()) {
 		case ADMIN:
-			menuJspPath = "/resource/partial/admin/index.jsp";
+			menuJspPath = "/admin/index.jsp";
 			break;
 		case SALES:
-			menuJspPath = "/resource/partial/sales/index.jsp";
+			menuJspPath = "/sales/index.jsp";
 			break;
 		case SALES_MANAGER:
-			menuJspPath = "/resource/partial/sales_manager/index.jsp";
+			menuJspPath = "/sales_manager/index.jsp";
 			break;
 		case STORE:
-			menuJspPath = "/resource/partial/store/index.jsp";
+			menuJspPath = "/store/index.jsp";
 			break;
 		case STORE_MANAGER:
-			menuJspPath = "/resource/partial/store_manager/index.jsp";
+			menuJspPath = "/store_manager/index.jsp";
 			break;
 		case ACCOUNTING:
-			menuJspPath = "/resource/partial/accounting/index.jsp";
+			menuJspPath = "/accounting/index.jsp";
 			break;
 		}
 		req.setAttribute("menuJspPath", menuJspPath);
-		forward(req, resp, "index", "/resource/partial/index.jsp");
+		forward(req, resp, "index", "/index.jsp");
 	}
 }

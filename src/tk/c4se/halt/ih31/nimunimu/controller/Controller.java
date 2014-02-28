@@ -47,9 +47,8 @@ public abstract class Controller extends HttpServlet {
 		req.setAttribute("baseUri", req.getSession().getServletContext()
 				.getContextPath());
 		req.setAttribute("title", title);
-		req.setAttribute("partial", partial);
-		req.getRequestDispatcher("/resource/layout/layout.jsp").forward(req,
-				resp);
+		req.setAttribute("partial", "/view/partial" + partial);
+		req.getRequestDispatcher("/view/layout/layout.jsp").forward(req, resp);
 	}
 
 	/**

@@ -19,21 +19,7 @@
 	</resource-ref>
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
-		<url-pattern>*.js</url-pattern>
-		<url-pattern>*.css</url-pattern>
-		<url-pattern>*.htc</url-pattern>
-		<url-pattern>*.ico</url-pattern>
-		<url-pattern>*.png</url-pattern>
-		<url-pattern>*.jpg</url-pattern>
-		<url-pattern>*.jpeg</url-pattern>
-		<url-pattern>*.gif</url-pattern>
-		<url-pattern>*.webp</url-pattern>
-		<url-pattern>*.mp3</url-pattern>
-		<url-pattern>*.wav</url-pattern>
-		<url-pattern>*.ogg</url-pattern>
-		<url-pattern>*.weba</url-pattern>
-		<url-pattern>*.webm</url-pattern>
-		<url-pattern>*.mp4</url-pattern>
+		<url-pattern>/resource/*</url-pattern>
 	</servlet-mapping>
 
 	<filter>
