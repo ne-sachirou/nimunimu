@@ -19,12 +19,11 @@ import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 /**
  * @author ne_Sachirou
  */
-public class MemberRepository implements java.io.Serializable {
+public class MemberRepository extends RdbRepository<Member> {
 	private static final long serialVersionUID = 1L;
 
-	protected final int perPage = 20;
-
 	public MemberRepository() {
+		super();
 	}
 
 	/**
@@ -203,12 +202,14 @@ public class MemberRepository implements java.io.Serializable {
 		}
 	}
 
-	private void setProperties(Member member, ResultSet result)
+	@Override
+	protected Member setProperties(Member member, ResultSet result)
 			throws SQLException {
 		member.setId(result.getString("id"));
 		member.setName(result.getString("name"));
 		member.setPassword(result.getString("password"));
 		member.setIsPasswordReseted(result.getInt("is_password_resetted") != 0);
 		member.setAuthority(result.getString("authority"));
+		return member;
 	}
 }

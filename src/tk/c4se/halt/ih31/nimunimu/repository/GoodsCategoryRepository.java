@@ -3,7 +3,6 @@
  */
 package tk.c4se.halt.ih31.nimunimu.repository;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,10 +20,12 @@ import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
  * @author ne_Sachirou
  * 
  */
-public class GoodsCategoryRepository implements Serializable {
+public class GoodsCategoryRepository extends RdbRepository<GoodsCategory> {
 	private static final long serialVersionUID = 1L;
 
-	protected final int perPage = 20;
+	public GoodsCategoryRepository() {
+		super();
+	}
 
 	/**
 	 * 
@@ -197,9 +198,11 @@ public class GoodsCategoryRepository implements Serializable {
 		}
 	}
 
-	private void setProperties(GoodsCategory goodsCategory, ResultSet result)
-			throws SQLException {
+	@Override
+	protected GoodsCategory setProperties(GoodsCategory goodsCategory,
+			ResultSet result) throws SQLException {
 		goodsCategory.setId(result.getInt("id"));
 		goodsCategory.setName(result.getString("name"));
+		return goodsCategory;
 	}
 }
