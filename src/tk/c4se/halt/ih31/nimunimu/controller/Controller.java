@@ -24,7 +24,20 @@ import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;
 public abstract class Controller extends HttpServlet {
 	private static final long serialVersionUID = -8093435378978911657L;
 
+	/**
+	 * 
+	 */
 	protected List<MemberAuthority> authorities = new ArrayList<>();
+
+	/**
+	 * 
+	 */
+	protected String title = "";
+	
+	/**
+	 * 
+	 */
+	protected String partial;
 
 	/**
 	 * 
@@ -49,6 +62,18 @@ public abstract class Controller extends HttpServlet {
 		req.setAttribute("title", title);
 		req.setAttribute("partial", "/view/partial" + partial);
 		req.getRequestDispatcher("/view/layout/layout.jsp").forward(req, resp);
+	}
+
+	/**
+	 * 
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void forward(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		forward(req, resp, title, partial);
 	}
 
 	/**

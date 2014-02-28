@@ -19,6 +19,10 @@ import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;
 public class LogoutController extends Controller {
 	private static final long serialVersionUID = 1L;
 
+	public LogoutController() {
+		super();
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tk.c4se.halt.ih31.nimunimu.dto.Member;
+import tk.c4se.halt.ih31.nimunimu.dto.MemberAuthority;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 
@@ -22,9 +23,19 @@ import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 public class AdminMembersController extends Controller {
 	private static final long serialVersionUID = 1L;
 
+	public AdminMembersController() {
+		super();
+		title = "社員アカウント一覧";
+		partial = "/admin/members.jsp";
+		authorities.add(MemberAuthority.ADMIN);
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if (!checkAuthorized(req, resp)) {
+			return;
+		}
 		List<Member> members = null;
 		try {
 			members = new MemberRepository().all();
@@ -32,6 +43,6 @@ public class AdminMembersController extends Controller {
 			e.printStackTrace();
 		}
 		req.setAttribute("members", members);
-		forward(req, resp, "社員accout一覧", "/admin/members.jsp");
+		forward(req, resp);
 	}
 }

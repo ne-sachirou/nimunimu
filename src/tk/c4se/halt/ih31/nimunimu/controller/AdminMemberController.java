@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.dto.Member;
+import tk.c4se.halt.ih31.nimunimu.dto.MemberAuthority;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.model.MemberModel;
 import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
@@ -23,9 +24,19 @@ import tk.c4se.halt.ih31.nimunimu.repository.MemberRepository;
 public class AdminMemberController extends Controller {
 	private static final long serialVersionUID = 1L;
 
+	public AdminMemberController() {
+		super();
+		title = "社員アカウント詳細";
+		partial = "/admin/member.jsp";
+		authorities.add(MemberAuthority.ADMIN);
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if (!checkAuthorized(req, resp)) {
+			return;
+		}
 		val id = req.getParameter("id");
 		@val
 		Member member;
@@ -36,12 +47,15 @@ public class AdminMemberController extends Controller {
 			member = null;
 		}
 		req.setAttribute("member", member);
-		forward(req, resp, "社員account詳細", "/admin/member.jsp");
+		forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if (!checkAuthorized(req, resp)) {
+			return;
+		}
 		val requestType = req.getParameter("requestType");
 		val model = new MemberModel();
 		try {
@@ -60,6 +74,6 @@ public class AdminMemberController extends Controller {
 			resp.sendError(502, e.getMessage());
 			return;
 		}
-		forward(req, resp, "社員account詳細", "/admin/member.jsp");
+		forward(req, resp);
 	}
 }

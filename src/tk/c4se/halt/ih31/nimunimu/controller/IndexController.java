@@ -16,6 +16,8 @@ public class IndexController extends Controller {
 
 	public IndexController() {
 		super();
+		title = "nimunimu";
+		partial = "/index.jsp";
 		authorities.add(MemberAuthority.ADMIN);
 		authorities.add(MemberAuthority.SALES);
 		authorities.add(MemberAuthority.SALES_MANAGER);
@@ -53,6 +55,6 @@ public class IndexController extends Controller {
 			break;
 		}
 		req.setAttribute("menuJspPath", menuJspPath);
-		forward(req, resp, "nimunimu", "/index.jsp");
+		forward(req, resp);
 	}
 }

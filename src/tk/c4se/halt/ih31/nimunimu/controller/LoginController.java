@@ -22,14 +22,18 @@ import tk.c4se.halt.ih31.nimunimu.validator.LoginValidator;
 public class LoginController extends Controller {
 	private static final long serialVersionUID = 1L;
 
-	private static final String JSP_PATH = "/login.jsp";
+	public LoginController() {
+		super();
+		title = "ログイン";
+		partial = "/login.jsp";
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		val urlRedirectAfterLogin = req.getParameter("redirect");
 		req.setAttribute("redirectUrl", urlRedirectAfterLogin);
-		forward(req, resp, "ログイン", JSP_PATH);
+		forward(req, resp);
 	}
 
 	@Override
@@ -55,6 +59,6 @@ public class LoginController extends Controller {
 		req.setAttribute("id", id);
 		req.setAttribute("password", password);
 		req.setAttribute("errors", errors);
-		forward(req, resp, "ログイン", JSP_PATH);
+		forward(req, resp);
 	}
 }
