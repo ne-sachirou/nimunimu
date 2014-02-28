@@ -23,12 +23,6 @@
 <div>
 	<a href="goods_categories">商品category一覧</a>
 </div>
-<style>
-.editing {
-	border: 1px solid yellow;
-	box-shadow: 0 0 1px yellow;
-}
-</style>
 <script src="${baseUri}/resource/editUi.js"></script>
 <script>
 	var ui = new EditUi();
