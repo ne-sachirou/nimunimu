@@ -12,4 +12,9 @@ insert_final_newline = true
 [*.js]
 
 [*.json]
+indent_style = space
+indent_size = 2
 
+[*.sql]
+indent_style = space
+indent_size = 2

@@ -36,29 +36,29 @@ drop sequence notification_pk_seq;
 drop table member;
 
 -- 社員account
-create table member (
-  id                   varchar2(64) primary key,
-  name                 varchar2(50) not null,
+create table member(
+  id                   varchar2(64)  primary key,
+  name                 varchar2(50)  not null,
   password             varchar2(255) not null,
-  is_password_resetted number(1) default 0,
-  authority            varchar2(10) not null
-    check (authority in ('ADMIN', 'SALES', 'SALES_MANAGER', 'STORE', 'STORE_MANAGER', 'ACCOUNTING'))
+  is_password_resetted number(1)     default 0,
+  authority            varchar2(10)  not null,
+  check (authority in ('ADMIN', 'SALES', 'SALES_MANAGER', 'STORE', 'STORE_MANAGER', 'ACCOUNTING'))
 );
 
 -- お報せ
 create sequence notification_pk_seq;
-create table notification (
-  id　　　　　　　　　number(10)    primary key,
-　　member_id　　varchar2(64)  references member(id),
-  message     varchar2(400) not null,
-  create_at   date,
-  deleted_at  date
+create table notification(
+  id         number(10)    primary key,
+  member_id  varchar2(64)  references member(id),
+  message    varchar2(400) not null,
+  create_at  date,
+  deleted_at date
 );
 
 -- 顧客
 create sequence customer_pk_seq;
 create table customer(
-　　id                  number(10)    primary key,
+  id                  number(10)    primary key,
   name                varchar2(100) not null,
   zipcode             varchar2(7)   not null,
   address             varchar2(100) not null,
@@ -84,7 +84,7 @@ create table supplier(
 
 -- 商品category
 create sequence goods_category_pk_seq;
-create table goods_category (
+create table goods_category(
   id   number(4)     primary key,
   name varchar2(100) unique not null
 );
@@ -111,7 +111,7 @@ create table special_price_goods(
 create table store(
    place        varchar2(5),
    goods_id     varchar2(50) references goods(id),
-   goods_number number(5) not null,
+   goods_number number(5)    not null,
    primary key (place, goods_id)
 );
 
@@ -148,8 +148,6 @@ create table quotation_request_sheet_detail(
   primary key (id, quotation_request_sheet_id)
 );
 
-
-
 -- 注文書
 create sequence customer_order_sheet_pk_seq;
 create table customer_order_sheet(
@@ -169,7 +167,7 @@ create table customer_order_sheet_detail(
   goods_id                varchar2(50) references goods(id),
   price                   number(7)    not null,
   goods_number            number(3)    not null,
-  primary key(id, customer_order_sheet_id)
+  primary key (id, customer_order_sheet_id)
 );
 
 -- 受注flow
@@ -181,24 +179,16 @@ create table customer_order(
   customer_order_sheet_id    number(20)   references customer_order_sheet(id),
   member_id                  varchar2(64) references member(id),
   status                     varchar2(15) not null,
-  YET_ESTIMATE               number(1)    not null,
-  ESTIMATED                  number(1)    not null,
-  YET_ACCEPT                 number(1)    not null,
-  YET_DELIVER                number(1)    not null,
-  DELIVERED                  number(1)    not null,
   check (status in ('YET_ESTIMATE', 'ESTIMATED', 'YET_ACCEPT', 'YET_DELIVER', 'DELIVERED'))
 );
 
 -- 請求
 create sequence billing_pk_seq;
 create table billing(
-  id               number(20)   primary key,
-  customer_id      number(10)   references customer(id),
-  member_id        varchar2(64) references member(id),
-  status           varchar2(10) not null,
-  YET_CLAIM	       number(1)    not null,
-  YET_PAY	       number(1)    not null,
-  PAYED	           number(1)    not null,
+  id          number(20)   primary key,
+  customer_id number(10)   references customer(id),
+  member_id   varchar2(64) references member(id),
+  status      varchar2(10) not null,
   check (status in ('YET_CLAIM', 'YET_PAY', 'PAYED'))
 );
 
@@ -206,7 +196,7 @@ create table billing(
 create table billing_detail(
   billing_id        number(20) references billing(id),
   customer_order_id number(20) references customer_order(id),
-  primary key(billing_id, customer_order_id)
+  primary key (billing_id, customer_order_id)
 );
 
 -- 発注書
@@ -228,7 +218,7 @@ create table our_order_sheet_detail(
   goods_id           varchar2(50) references goods(id),
   price              number(7)    not null,
   goods_number       number(3)    not null,
-  primary key(id, our_order_sheet_id)
+  primary key (id, our_order_sheet_id)
 );
 
 -- 発注
@@ -239,8 +229,7 @@ create table our_order(
   our_order_sheet_id number(20)   references our_order_sheet(id),
   member_id          varchar2(64) references member(id),
   status             varchar2(15) not null,
-  YET_RECEIPT        number(1)    not null,
-  RECEIPTED          number(1)    not null
+  check (status in ('YET_RECEIPT', 'RECEIPTED'))
 );
 
 -- 被請求
@@ -250,14 +239,12 @@ create table payment(
   supplier_id number(10)   references supplier(id),
   member_id   varchar2(64) references member(id),
   status      varchar2(7)  not null,
-  YET_PAY　　　　number(1)   not null,
-  PAYED       number(1)    not null
+  check (status in ('YET_PAY', 'PAYED'))
 );
-
 
 -- 被請求明細
 create table payment_detail(
   payment_id number(20)   references payment(id),
   our_order_id number(20) references our_order(id),
-  primary key(payment_id, our_order_id)
+  primary key (payment_id, our_order_id)
 );
