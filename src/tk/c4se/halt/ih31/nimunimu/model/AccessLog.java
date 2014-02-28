@@ -10,7 +10,7 @@ import java.util.Map;
  * @author ne_Sachirou
  */
 public class AccessLog extends Log {
-	private static final long serialVersionUID = -1531909471149097302L;
+	private static final long serialVersionUID = 1L;
 
 	public AccessLog() {
 		super();
