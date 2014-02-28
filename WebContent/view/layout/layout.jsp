@@ -6,23 +6,30 @@
 <head>
 <meta charset="utf-8" />
 <title>${fn:escapeXml(title)}|nimunimu</title>
-<link rel="stylesheet" href="/resource/style.css" />
+<link rel="stylesheet"
+	href="${baseUri}/resource/bower_components/pure/pure-min.css" />
+<link rel="stylesheet" href="${baseUri}/resource/style.css" />
 <script src="${baseUri}/resource/bower_components/q/q.js"></script>
 </head>
 <body>
 	<div class="container">
 		<header class="header">
-			<h1 class="title">${fn:escapeXml(title)}</h1>
+			<div
+				class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+				<a class="pure-menu-heading" href="${baseUri}">nimunimu</a>
+				<ul>
+					<li class="pure-menu-selected"><a href="${baseUri}">Home</a></li>
+					<li><a href="${baseUri}/logout">ログアウト</a></li>
+				</ul>
+			</div>
 		</header>
+		<h1 class="title">${fn:escapeXml(title)}</h1>
 		<section class="main">
 			<jsp:include page="${partial}"></jsp:include>
 		</section>
 		<footer class="footer"></footer>
 	</div>
 	<footer>
-		<div>
-			<a href="${baseUri}/logout">ログアウト</a>
-		</div>
 		<div>
 			<a href="${baseUri}/">nimunimuトップ</a>
 		</div>
