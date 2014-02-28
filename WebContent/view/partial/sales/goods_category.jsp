@@ -15,7 +15,7 @@
 			<th>商品category名</th>
 		</tr>
 		<tr>
-			<td class="field pk" data-field-name="id">${fn:escapeXml(goodsCategory.id)}</td>
+			<td class="pk" data-field-name="id">${fn:escapeXml(goodsCategory.id)}</td>
 			<td class="field" data-field-name="name">${goodsCategory.name}</td>
 		</tr>
 	</table>

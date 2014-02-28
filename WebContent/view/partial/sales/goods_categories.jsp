@@ -12,7 +12,8 @@
 	</tr>
 	<c:forEach items="${goodsCategories}" var="goodsCategory">
 		<tr>
-			<td><a href="member?id=${fn:escapeXml(goodsCategory.id)}">${fn:escapeXml(goodsCategory.id)}</a></td>
+			<td><a
+				href="goods_category?id=${fn:escapeXml(goodsCategory.id)}">${fn:escapeXml(goodsCategory.id)}</a></td>
 			<td>${goodsCategory.name}</td>
 		</tr>
 	</c:forEach>
