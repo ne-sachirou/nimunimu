@@ -36,7 +36,7 @@ public class AdminMemberController extends Controller {
 			member = null;
 		}
 		req.setAttribute("member", member);
-		forward(req, resp, "admin / member", "/admin/member.jsp");
+		forward(req, resp, "社員account詳細", "/admin/member.jsp");
 	}
 
 	@Override
@@ -60,6 +60,6 @@ public class AdminMemberController extends Controller {
 			resp.sendError(502, e.getMessage());
 			return;
 		}
-		forward(req, resp, "admin / member", "/admin/member.jsp");
+		forward(req, resp, "社員account詳細", "/admin/member.jsp");
 	}
 }

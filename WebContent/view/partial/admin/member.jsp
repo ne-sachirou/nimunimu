@@ -26,6 +26,9 @@
 		</tr>
 	</table>
 </div>
+<div>
+	<a href="members">社員account一覧</a>
+</div>
 <style>
 .editing {
 	border: 1px solid yellow;

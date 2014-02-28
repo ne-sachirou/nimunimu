@@ -32,6 +32,6 @@ public class AdminMembersController extends Controller {
 			e.printStackTrace();
 		}
 		req.setAttribute("members", members);
-		forward(req, resp, "admin / members", "/admin/members.jsp");
+		forward(req, resp, "社員accout一覧", "/admin/members.jsp");
 	}
 }

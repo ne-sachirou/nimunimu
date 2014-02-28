@@ -18,5 +18,10 @@
 		</section>
 		<footer class="footer"></footer>
 	</div>
+	<footer>
+		<div>
+			<a href="${baseUri}/">nimunimuトップ</a>
+		</div>
+	</footer>
 </body>
 </html>

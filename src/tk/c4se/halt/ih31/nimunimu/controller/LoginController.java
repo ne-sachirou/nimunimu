@@ -29,7 +29,7 @@ public class LoginController extends Controller {
 			throws ServletException, IOException {
 		val urlRedirectAfterLogin = req.getParameter("redirect");
 		req.setAttribute("redirectUrl", urlRedirectAfterLogin);
-		forward(req, resp, "login", JSP_PATH);
+		forward(req, resp, "ログイン", JSP_PATH);
 	}
 
 	@Override
@@ -55,6 +55,6 @@ public class LoginController extends Controller {
 		req.setAttribute("id", id);
 		req.setAttribute("password", password);
 		req.setAttribute("errors", errors);
-		forward(req, resp, "login", JSP_PATH);
+		forward(req, resp, "ログイン", JSP_PATH);
 	}
 }
