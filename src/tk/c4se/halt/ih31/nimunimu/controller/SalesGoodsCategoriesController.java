@@ -39,9 +39,7 @@ public class SalesGoodsCategoriesController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		if (!checkAuthorized(req, resp)) {
-			return;
-		}
+		super.doGet(req, resp);
 		List<GoodsCategory> goodsCategories = null;
 		try {
 			goodsCategories = new GoodsCategoryRepository().all();

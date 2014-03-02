@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.dto.Member;
 import tk.c4se.halt.ih31.nimunimu.dto.MemberAuthority;
+import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
+import tk.c4se.halt.ih31.nimunimu.model.DoPostModel;
 import tk.c4se.halt.ih31.nimunimu.repository.SessionRepository;
 
 /**
@@ -33,11 +35,27 @@ public abstract class Controller extends HttpServlet {
 	 * 
 	 */
 	protected String title = "";
-	
+
 	/**
 	 * 
 	 */
 	protected String partial;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (!checkAuthorized(req, resp)) {
+			return;
+		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (!checkAuthorized(req, resp) || !checkCsrf(req, resp)) {
+			return;
+		}
+	}
 
 	/**
 	 * 
@@ -87,12 +105,12 @@ public abstract class Controller extends HttpServlet {
 	 */
 	protected boolean checkAuthorized(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		val is_auth = isAuthorized(req);
-		if (!is_auth) {
+		val isAuth = isAuthorized(req);
+		if (!isAuth) {
 			val url = URLEncoder.encode(req.getRequestURI(), "utf-8");
 			resp.sendRedirect("/nimunimu/login?redirect=" + url);
 		}
-		return is_auth;
+		return isAuth;
 	}
 
 	/**
@@ -113,6 +131,32 @@ public abstract class Controller extends HttpServlet {
 		} else {
 			resp.sendError(403, "Invalid CSRF token.");
 			return false;
+		}
+	}
+
+	/**
+	 * 
+	 * @param req
+	 * @param resp
+	 * @param model
+	 * @throws IOException
+	 */
+	protected void processDoPostRequest(HttpServletRequest req,
+			HttpServletResponse resp, DoPostModel model) throws IOException {
+		val requestType = req.getParameter("requestType");
+		try {
+			if (requestType.equals("POST")) {
+				model.postRequest(req, resp);
+			} else if (requestType.equals("PUT")) {
+				model.putRequest(req, resp);
+			} else if (requestType.equals("DELETE")) {
+				model.deleteRequest(req, resp);
+			} else {
+				throw new IOException("Unknown request type: " + requestType);
+			}
+		} catch (DBAccessException e) {
+			e.printStackTrace();
+			throw new IOException(e);
 		}
 	}
 

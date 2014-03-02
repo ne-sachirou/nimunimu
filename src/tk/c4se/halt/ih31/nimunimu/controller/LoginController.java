@@ -31,6 +31,7 @@ public class LoginController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		super.doGet(req, resp);
 		val urlRedirectAfterLogin = req.getParameter("redirect");
 		req.setAttribute("redirectUrl", urlRedirectAfterLogin);
 		forward(req, resp);
@@ -39,9 +40,7 @@ public class LoginController extends Controller {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		// if (!checkCsrf(req, resp)) {
-		// return;
-		// }
+		super.doPost(req, resp);
 		val validator = new LoginValidator(req);
 		val errors = validator.validate();
 		if (!errors.isEmpty()) {

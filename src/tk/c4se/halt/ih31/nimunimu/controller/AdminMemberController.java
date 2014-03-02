@@ -34,9 +34,7 @@ public class AdminMemberController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		if (!checkAuthorized(req, resp)) {
-			return;
-		}
+		super.doGet(req, resp);
 		val id = req.getParameter("id");
 		@val
 		Member member;
@@ -53,24 +51,11 @@ public class AdminMemberController extends Controller {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		if (!checkAuthorized(req, resp)) {
-			return;
-		}
-		val requestType = req.getParameter("requestType");
+		super.doPost(req, resp);
 		val model = new MemberModel();
 		try {
-			if (requestType.equals("POST")) {
-				model.postRequest(req, resp);
-			} else if (requestType.equals("PUT")) {
-				model.putRequest(req, resp);
-			} else if (requestType.equals("DELETE")) {
-				model.deleteRequest(req, resp);
-			} else {
-				resp.sendError(502, "Unknown request type: " + requestType);
-				return;
-			}
-		} catch (DBAccessException e) {
-			e.printStackTrace();
+			processDoPostRequest(req, resp, model);
+		} catch (IOException e) {
 			resp.sendError(502, e.getMessage());
 			return;
 		}

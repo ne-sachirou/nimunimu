@@ -29,9 +29,7 @@ public class IndexController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		if (!checkAuthorized(req, resp)) {
-			return;
-		}
+		super.doGet(req, resp);
 		Member currentMember = (Member) req.getAttribute("loginAccount");
 		String menuJspPath = "";
 		switch (currentMember.getAuthority()) {

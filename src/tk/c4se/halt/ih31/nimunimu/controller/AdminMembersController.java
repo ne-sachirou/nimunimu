@@ -33,9 +33,7 @@ public class AdminMembersController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		if (!checkAuthorized(req, resp)) {
-			return;
-		}
+		super.doGet(req, resp);
 		List<Member> members = null;
 		try {
 			members = new MemberRepository().all();

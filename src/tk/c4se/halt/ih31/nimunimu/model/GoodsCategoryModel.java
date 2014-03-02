@@ -15,7 +15,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.GoodsCategoryRepository;
  * @author ne_Sachirou
  * 
  */
-public class GoodsCategoryModel {
+public class GoodsCategoryModel implements DoPostModel {
 	/**
 	 * 
 	 * @param req

@@ -16,7 +16,7 @@ import lombok.val;
  * @author ne_Sachirou
  * 
  */
-public class MemberModel {
+public class MemberModel implements DoPostModel {
 	/**
 	 * 
 	 * @param req
