@@ -17,4 +17,8 @@ public class DBAccessException extends Exception {
 	public DBAccessException(String message) {
 		super(message);
 	}
+
+	public DBAccessException(Throwable e) {
+		super(e);
+	}
 }

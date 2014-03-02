@@ -11,23 +11,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tk.c4se.halt.ih31.nimunimu.dto.GoodsCategory;
+import tk.c4se.halt.ih31.nimunimu.dto.Customer;
 import tk.c4se.halt.ih31.nimunimu.dto.MemberAuthority;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
-import tk.c4se.halt.ih31.nimunimu.repository.GoodsCategoryRepository;
+import tk.c4se.halt.ih31.nimunimu.repository.CustomerRepository;
 
 /**
  * @author ne_Sachirou
  * 
  */
-@WebServlet("/goods_categories")
-public class SalesGoodsCategoriesController extends Controller {
+@WebServlet("/sales/customers")
+public class CustomersController extends Controller {
 	private static final long serialVersionUID = 1L;
 
-	public SalesGoodsCategoriesController() {
+	public CustomersController() {
 		super();
-		title = "商品カテゴリー一覧";
-		partial = "/goods_categories.jsp";
+		title = "顧客一覧";
+		partial = "/customers.jsp";
 		authorities.add(MemberAuthority.ADMIN);
 		authorities.add(MemberAuthority.SALES);
 		authorities.add(MemberAuthority.SALES_MANAGER);
@@ -40,13 +40,13 @@ public class SalesGoodsCategoriesController extends Controller {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		super.doGet(req, resp);
-		List<GoodsCategory> goodsCategories = null;
+		List<Customer> customers = null;
 		try {
-			goodsCategories = new GoodsCategoryRepository().all();
+			customers = new CustomerRepository().all();
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 		}
-		req.setAttribute("goodsCategories", goodsCategories);
+		req.setAttribute("customers", customers);
 		forward(req, resp);
 	}
 }

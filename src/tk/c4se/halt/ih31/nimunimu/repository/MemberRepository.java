@@ -50,7 +50,7 @@ public class MemberRepository extends RdbRepository<Member> {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DBAccessException();
+			throw new DBAccessException(e);
 		}
 		return member;
 	}
@@ -78,7 +78,7 @@ public class MemberRepository extends RdbRepository<Member> {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DBAccessException();
+			throw new DBAccessException(e);
 		}
 		return members;
 	}
@@ -115,16 +115,16 @@ public class MemberRepository extends RdbRepository<Member> {
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
-					throw new DBAccessException();
+					throw new DBAccessException(e);
 				}
 			}
-			throw new DBAccessException();
+			throw new DBAccessException(e);
 		} finally {
 			if (connection != null) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					throw new DBAccessException();
+					throw new DBAccessException(e);
 				}
 			}
 		}
@@ -153,16 +153,16 @@ public class MemberRepository extends RdbRepository<Member> {
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
-					throw new DBAccessException();
+					throw new DBAccessException(e1);
 				}
 			}
-			throw new DBAccessException();
+			throw new DBAccessException(e);
 		} finally {
 			if (connection != null) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					throw new DBAccessException();
+					throw new DBAccessException(e);
 				}
 			}
 		}
@@ -187,16 +187,16 @@ public class MemberRepository extends RdbRepository<Member> {
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
-					throw new DBAccessException();
+					throw new DBAccessException(e1);
 				}
 			}
-			throw new DBAccessException();
+			throw new DBAccessException(e);
 		} finally {
 			if (connection != null) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					throw new DBAccessException();
+					throw new DBAccessException(e);
 				}
 			}
 		}

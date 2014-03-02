@@ -21,14 +21,14 @@ import tk.c4se.halt.ih31.nimunimu.repository.GoodsCategoryRepository;
  * @author ne_Sachirou
  * 
  */
-@WebServlet("/sales/goods_category")
+@WebServlet("/goods_category")
 public class SalesGoodsCategoryController extends Controller {
 	private static final long serialVersionUID = 1L;
 
 	public SalesGoodsCategoryController() {
 		super();
 		title = "商品カテゴリー詳細";
-		partial = "/sales/goods_category.jsp";
+		partial = "/goods_category.jsp";
 		authorities.add(MemberAuthority.ADMIN);
 		authorities.add(MemberAuthority.SALES);
 		authorities.add(MemberAuthority.SALES_MANAGER);
