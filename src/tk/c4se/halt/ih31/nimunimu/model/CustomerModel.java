@@ -83,7 +83,7 @@ public class CustomerModel implements DoPostModel {
 			throw e;
 		}
 		if (customer == null) {
-			throw new DBAccessException("GoodsCategory " + idStr
+			throw new DBAccessException("Customer " + idStr
 					+ " is not found in DB.");
 		}
 		try {
