@@ -20,7 +20,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.CustomerRepository;
  * @author ne_Sachirou
  * 
  */
-@WebServlet("/sales/customers")
+@WebServlet("/customers")
 public class CustomersController extends Controller {
 	private static final long serialVersionUID = 1L;
 
