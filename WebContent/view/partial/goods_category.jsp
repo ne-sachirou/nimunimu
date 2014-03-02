@@ -9,16 +9,15 @@
 		<button class="save pure-button pure-button-primary">保存</button>
 		<button class="cancel pure-button button-warning">編集取り消し</button>
 	</div>
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>商品カテゴリー名</th>
-		</tr>
-		<tr>
-			<td class="pk" data-field-name="id">${fn:escapeXml(goodsCategory.id)}</td>
-			<td class="field" data-field-name="name">${fn:escapeXml(goodsCategory.name)}</td>
-		</tr>
-	</table>
+	<div class="pure-form pure-form-aligned">
+		<div class="pure-control-group">
+			<label for="">ID</label> <span class="pk" data-field-name="id">${fn:escapeXml(goodsCategory.id)}</span>
+		</div>
+		<div class="pure-control-group">
+			<label for="">商品カテゴリー名</label> <span class="field"
+				data-field-name="name">${fn:escapeXml(goodsCategory.name)}</span>
+		</div>
+	</div>
 </div>
 <div>
 	<a class="pure-button" href="goods_categories">商品カテゴリー一覧へ戻る</a>

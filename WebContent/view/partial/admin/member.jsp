@@ -9,22 +9,26 @@
 		<button class="save pure-button pure-button-primary">保存</button>
 		<button class="cancel pure-button button-warning">編集取り消し</button>
 	</div>
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>名前</th>
-			<th>権限</th>
-			<th>パスワード (debug)</th>
-			<th>is password reseted (debug)</th>
-		</tr>
-		<tr>
-			<td class="field pk" data-field-name="id">${fn:escapeXml(member.id)}</td>
-			<td class="field" data-field-name="name">${fn:escapeXml(member.name)}</td>
-			<td class="field" data-field-name="authority">${fn:escapeXml(member.authority)}</td>
-			<td class="field" data-field-name="password">${fn:escapeXml(member.password)}</td>
-			<td class="" data-field-name="is_password_resetted">${fn:escapeXml(member.isPasswordReseted)}</td>
-		</tr>
-	</table>
+	<div class="pure-form pure-form-aligned">
+		<div class="pure-control-group">
+			<label for="">ID</label> <span class="field pk" data-field-name="id">${fn:escapeXml(member.id)}</span>
+		</div>
+		<div class="pure-control-group">
+			<label for="">名前</label> <span class="field" data-field-name="name">${fn:escapeXml(member.name)}</span>
+		</div>
+		<div class="pure-control-group">
+			<label for="">権限</label> <span class="field"
+				data-field-name="authority">${fn:escapeXml(member.authority)}</span>
+		</div>
+		<div class="pure-control-group">
+			<label for="">パスワード (debug)</label> <span class="field"
+				data-field-name="password">${fn:escapeXml(member.password)}</span>
+		</div>
+		<label for="">is password reseted (debug)</label>
+		<div class="pure-control-group">
+			<span class="" data-field-name="is_password_resetted">${fn:escapeXml(member.isPasswordReseted)}</span>
+		</div>
+	</div>
 </div>
 <div>
 	<a class="pure-button" href="members">社員account一覧へ戻る</a>
