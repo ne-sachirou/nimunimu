@@ -6,6 +6,8 @@ package tk.c4se.halt.ih31.nimunimu.dto;
 import java.io.Serializable;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.val;
 
 /**
  * @author ne_Sachirou
@@ -22,6 +24,38 @@ public class Customer implements Serializable {
 	private String tel;
 	private String fax;
 	private String person;
+	@Getter
 	private int billingCutoffDate;
+	@Getter
 	private int creditLimit;
+
+	public void setBillingCutoffDate(int billingCutoffDate) {
+		this.billingCutoffDate = billingCutoffDate;
+	}
+
+	public void setBillingCutoffDate(String billingCutoffDateStr) {
+		@val
+		int billingCutoffDate;
+		try {
+			billingCutoffDate = Integer.parseInt(billingCutoffDateStr);
+		} catch (NumberFormatException e) {
+			billingCutoffDate = 15;
+		}
+		this.billingCutoffDate = billingCutoffDate;
+	}
+
+	public void setCreditLimit(int creditLimit) {
+		this.creditLimit = creditLimit;
+	}
+
+	public void setCreditLimit(String creditLimitStr) {
+		@val
+		int creditLimit;
+		try {
+			creditLimit = Integer.parseInt(creditLimitStr);
+		} catch (NumberFormatException e) {
+			creditLimit = 15;
+		}
+		this.creditLimit = creditLimit;
+	}
 }

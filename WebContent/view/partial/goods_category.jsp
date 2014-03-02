@@ -16,7 +16,7 @@
 		</tr>
 		<tr>
 			<td class="pk" data-field-name="id">${fn:escapeXml(goodsCategory.id)}</td>
-			<td class="field" data-field-name="name">${goodsCategory.name}</td>
+			<td class="field" data-field-name="name">${fn:escapeXml(goodsCategory.name)}</td>
 		</tr>
 	</table>
 </div>

@@ -17,7 +17,7 @@
 			<tr>
 				<td><a
 					href="goods_category?id=${fn:escapeXml(goodsCategory.id)}">${fn:escapeXml(goodsCategory.id)}</a></td>
-				<td>${goodsCategory.name}</td>
+				<td>${fn:escapeXml(goodsCategory.name)}</td>
 			</tr>
 		</c:forEach>
 	</tbody>

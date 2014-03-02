@@ -19,10 +19,10 @@
 		</tr>
 		<tr>
 			<td class="field pk" data-field-name="id">${fn:escapeXml(member.id)}</td>
-			<td class="field" data-field-name="name">${member.name}</td>
-			<td class="field" data-field-name="authority">${member.authority}</td>
-			<td class="field" data-field-name="password">${member.password}</td>
-			<td class="" data-field-name="is_password_resetted">${member.isPasswordReseted}</td>
+			<td class="field" data-field-name="name">${fn:escapeXml(member.name)}</td>
+			<td class="field" data-field-name="authority">${fn:escapeXml(member.authority)}</td>
+			<td class="field" data-field-name="password">${fn:escapeXml(member.password)}</td>
+			<td class="" data-field-name="is_password_resetted">${fn:escapeXml(member.isPasswordReseted)}</td>
 		</tr>
 	</table>
 </div>

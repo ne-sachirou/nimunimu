@@ -14,8 +14,8 @@
 	<c:forEach items="${members}" var="member">
 		<tr>
 			<td><a href="member?id=${fn:escapeXml(member.id)}">${fn:escapeXml(member.id)}</a></td>
-			<td>${member.name}</td>
-			<td>${member.authority}</td>
+			<td>${fn:escapeXml(member.name)}</td>
+			<td>${fn:escapeXml(member.authority)}</td>
 		</tr>
 	</c:forEach>
 </table>
