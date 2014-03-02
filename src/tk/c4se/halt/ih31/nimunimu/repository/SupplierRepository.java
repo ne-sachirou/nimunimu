@@ -13,17 +13,17 @@ import java.util.List;
 import lombok.Cleanup;
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.config.DBConnector;
-import tk.c4se.halt.ih31.nimunimu.dto.Customer;
+import tk.c4se.halt.ih31.nimunimu.dto.Supplier;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 
 /**
  * @author ne_Sachirou
  * 
  */
-public class CustomerRepository extends RdbRepository<Customer> {
+public class SupplierRepository extends RdbRepository<Supplier> {
 	private static final long serialVersionUID = 1L;
 
-	public CustomerRepository() {
+	public SupplierRepository() {
 		super();
 	}
 
@@ -33,12 +33,12 @@ public class CustomerRepository extends RdbRepository<Customer> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public Customer find(int id) throws DBAccessException {
+	public Supplier find(int id) throws DBAccessException {
 		if (id == 0) {
 			return null;
 		}
-		val sql = "select * from customer where id = ?";
-		Customer customer = null;
+		val sql = "select * from supplier where id = ?";
+		Supplier supplier = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -46,14 +46,14 @@ public class CustomerRepository extends RdbRepository<Customer> {
 			@Cleanup
 			val result = statement.executeQuery();
 			if (result.next()) {
-				customer = new Customer();
-				setProperties(customer, result);
+				supplier = new Supplier();
+				setProperties(supplier, result);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBAccessException(e);
 		}
-		return customer;
+		return supplier;
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class CustomerRepository extends RdbRepository<Customer> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public Customer find(String idStr) throws DBAccessException {
+	public Supplier find(String idStr) throws DBAccessException {
 		final int id;
 		try {
 			id = Integer.parseInt(idStr);
@@ -78,9 +78,9 @@ public class CustomerRepository extends RdbRepository<Customer> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public List<Customer> all(int page) throws DBAccessException {
-		val sql = "select * from customer where rownum between ? and ?";
-		List<Customer> customers = new ArrayList<>();
+	public List<Supplier> all(int page) throws DBAccessException {
+		val sql = "select * from supplier where rownum between ? and ?";
+		List<Supplier> suppliers = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -89,15 +89,15 @@ public class CustomerRepository extends RdbRepository<Customer> {
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {
-				Customer customer = new Customer();
-				setProperties(customer, result);
-				customers.add(customer);
+				Supplier supplier = new Supplier();
+				setProperties(supplier, result);
+				suppliers.add(supplier);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBAccessException(e);
 		}
-		return customers;
+		return suppliers;
 	}
 
 	/**
@@ -105,24 +105,23 @@ public class CustomerRepository extends RdbRepository<Customer> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public List<Customer> all() throws DBAccessException {
+	public List<Supplier> all() throws DBAccessException {
 		return all(1);
 	}
 
-	public void insert(Customer customer) throws DBAccessException {
-		val sql = "insert into customer(id, name, zipcode, address, tel, fax, preson, billing_cutoff_date, credit_limit) values (goods_category_pk_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public void insert(Supplier supplier) throws DBAccessException {
+		val sql = "insert into supplier(id, name, zipcode, address, tel, fax, preson, billing_cutoff_date) values (goods_category_pk_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, customer.getName());
-			statement.setString(2, customer.getZipcode());
-			statement.setString(3, customer.getAddress());
-			statement.setString(4, customer.getTel());
-			statement.setString(5, customer.getFax());
-			statement.setString(6, customer.getPerson());
-			statement.setInt(7, customer.getBillingCutoffDate());
-			statement.setInt(8, customer.getCreditLimit());
+			statement.setString(1, supplier.getName());
+			statement.setString(2, supplier.getZipcode());
+			statement.setString(3, supplier.getAddress());
+			statement.setString(4, supplier.getTel());
+			statement.setString(5, supplier.getFax());
+			statement.setString(6, supplier.getPerson());
+			statement.setInt(7, supplier.getBillingCutoffDate());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -145,21 +144,20 @@ public class CustomerRepository extends RdbRepository<Customer> {
 		}
 	}
 
-	public void update(Customer customer) throws DBAccessException {
-		val sql = "update customer set name = ?, zipcode = ?, address = ?, tel = ?, fax = ?, person = ?, billing_cutoff_date = ?, credit_limit = ? where id = ?";
+	public void update(Supplier supplier) throws DBAccessException {
+		val sql = "update supplier set name = ?, zipcode = ?, address = ?, tel = ?, fax = ?, person = ?, billing_cutoff_date = ? where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, customer.getName());
-			statement.setString(2, customer.getZipcode());
-			statement.setString(3, customer.getAddress());
-			statement.setString(4, customer.getTel());
-			statement.setString(5, customer.getFax());
-			statement.setString(6, customer.getPerson());
-			statement.setInt(7, customer.getBillingCutoffDate());
-			statement.setInt(8, customer.getCreditLimit());
-			statement.setInt(9, customer.getId());
+			statement.setString(1, supplier.getName());
+			statement.setString(2, supplier.getZipcode());
+			statement.setString(3, supplier.getAddress());
+			statement.setString(4, supplier.getTel());
+			statement.setString(5, supplier.getFax());
+			statement.setString(6, supplier.getPerson());
+			statement.setInt(7, supplier.getBillingCutoffDate());
+			statement.setInt(8, supplier.getId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -182,13 +180,13 @@ public class CustomerRepository extends RdbRepository<Customer> {
 		}
 	}
 
-	public void delete(Customer customer) throws DBAccessException {
-		val sql = "delete from customer where id = ?";
+	public void delete(Supplier supplier) throws DBAccessException {
+		val sql = "delete from supplier where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, customer.getId());
+			statement.setInt(1, supplier.getId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -212,17 +210,16 @@ public class CustomerRepository extends RdbRepository<Customer> {
 	}
 
 	@Override
-	protected Customer setProperties(Customer customer, ResultSet result)
+	protected Supplier setProperties(Supplier supplier, ResultSet result)
 			throws SQLException {
-		customer.setId(result.getInt("id"));
-		customer.setName(result.getString("name"));
-		customer.setZipcode(result.getString("zipcode"));
-		customer.setAddress(result.getString("address"));
-		customer.setTel(result.getString("tel"));
-		customer.setFax(result.getString("fax"));
-		customer.setPerson(result.getString("person"));
-		customer.setBillingCutoffDate(result.getInt("billing_cutoff_date"));
-		customer.setCreditLimit(result.getInt("credit_limit"));
-		return customer;
+		supplier.setId(result.getInt("id"));
+		supplier.setName(result.getString("name"));
+		supplier.setZipcode(result.getString("zipcode"));
+		supplier.setAddress(result.getString("address"));
+		supplier.setTel(result.getString("tel"));
+		supplier.setFax(result.getString("fax"));
+		supplier.setPerson(result.getString("person"));
+		supplier.setBillingCutoffDate(result.getInt("billing_cutoff_date"));
+		return supplier;
 	}
 }
