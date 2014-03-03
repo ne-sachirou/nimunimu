@@ -42,7 +42,7 @@ public class AccessControlFilter implements java.io.Serializable,
 				e.printStackTrace();
 			}
 		}
-		req.setAttribute("loginAccount", member);
+		req.setAttribute("loginMember", member);
 		chain.doFilter(req, resp);
 	}
 

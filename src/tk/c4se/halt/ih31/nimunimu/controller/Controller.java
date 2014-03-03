@@ -52,7 +52,7 @@ public abstract class Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		if (!checkAuthorized(req, resp) || !checkCsrf(req, resp)) {
+		if (!checkAuthorized(req, resp) /* || !checkCsrf(req, resp) */) {
 			return;
 		}
 	}
@@ -161,15 +161,15 @@ public abstract class Controller extends HttpServlet {
 	}
 
 	private boolean isAuthorized(HttpServletRequest req) {
-		val loginAccount = (Member) req.getAttribute("loginAccount");
+		val loginMember = (Member) req.getAttribute("loginMember");
 		if (authorities.size() == 0) {
 			return true;
 		}
-		if (loginAccount == null) {
+		if (loginMember == null) {
 			return false;
 		}
 		for (val auth : authorities) {
-			if (auth.equals(loginAccount.getAuthority())) {
+			if (auth.equals(loginMember.getAuthority())) {
 				return true;
 			}
 		}

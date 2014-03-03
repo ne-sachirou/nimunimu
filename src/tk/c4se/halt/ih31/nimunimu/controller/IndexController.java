@@ -30,9 +30,12 @@ public class IndexController extends Controller {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		super.doGet(req, resp);
-		Member currentMember = (Member) req.getAttribute("loginAccount");
+		Member loginMember = (Member) req.getAttribute("loginMember");
+		if (loginMember == null) {
+			return;
+		}
 		String menuJspPath = "";
-		switch (currentMember.getAuthority()) {
+		switch (loginMember.getAuthority()) {
 		case ADMIN:
 			menuJspPath = "/admin/index.jsp";
 			break;
@@ -51,6 +54,9 @@ public class IndexController extends Controller {
 		case ACCOUNTING:
 			menuJspPath = "/accounting/index.jsp";
 			break;
+		default:
+			resp.sendError(502, "");
+			return;
 		}
 		req.setAttribute("menuJspPath", menuJspPath);
 		forward(req, resp);
