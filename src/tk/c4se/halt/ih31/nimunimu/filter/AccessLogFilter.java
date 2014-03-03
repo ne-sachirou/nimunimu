@@ -20,7 +20,7 @@ import tk.c4se.halt.ih31.nimunimu.dto.Member;
  */
 public class AccessLogFilter implements java.io.Serializable,
 		javax.servlet.Filter {
-	private static final long serialVersionUID = -8966715137100711011L;
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void destroy() {

@@ -9,7 +9,7 @@ package tk.c4se.halt.ih31.nimunimu.exception;
  * @author ne_Sachirou
  */
 public class ValidateException extends Exception {
-	private static final long serialVersionUID = 3958441136598856852L;
+	private static final long serialVersionUID = 1L;
 
 	public ValidateException() {
 		super();
@@ -17,5 +17,9 @@ public class ValidateException extends Exception {
 
 	public ValidateException(String message) {
 		super(message);
+	}
+
+	public ValidateException(Throwable e) {
+		super(e);
 	}
 }
