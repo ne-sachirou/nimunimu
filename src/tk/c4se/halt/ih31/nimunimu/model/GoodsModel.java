@@ -53,7 +53,7 @@ public class GoodsModel implements DoPostModel {
 			throw e;
 		}
 		if (goods == null) {
-			throw new DBAccessException("GoodsCategory " + idStr
+			throw new DBAccessException("Goods " + idStr
 					+ " is not found in DB.");
 		}
 		goods.setName(req.getParameter("name"));
@@ -83,7 +83,7 @@ public class GoodsModel implements DoPostModel {
 			throw e;
 		}
 		if (goods == null) {
-			throw new DBAccessException("GoodsCategory " + idStr
+			throw new DBAccessException("Goods " + idStr
 					+ " is not found in DB.");
 		}
 		try {
