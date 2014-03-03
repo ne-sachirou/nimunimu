@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package tk.c4se.halt.ih31.nimunimu.repository;
 
@@ -18,7 +18,7 @@ import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 
 /**
  * @author ne_Sachirou
- * 
+ *
  */
 public class GoodsRepository extends RdbRepository<Goods> {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 * @throws DBAccessException
@@ -57,7 +57,7 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param idStr
 	 * @return
 	 * @throws DBAccessException
@@ -73,7 +73,7 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param page
 	 * @return
 	 * @throws DBAccessException
@@ -101,7 +101,7 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 * @throws DBAccessException
 	 */
@@ -151,7 +151,7 @@ public class GoodsRepository extends RdbRepository<Goods> {
 			statement.setInt(2, goods.getGoodsCategoryId());
 			statement.setInt(3, goods.getSupplierId());
 			statement.setInt(4, goods.getPrice());
-			statement.setInt(5, goods.getId());
+			statement.setString(5, goods.getId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -180,7 +180,7 @@ public class GoodsRepository extends RdbRepository<Goods> {
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, goods.getId());
+			statement.setString(1, goods.getId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -206,7 +206,7 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	@Override
 	protected Goods setProperties(Goods goods, ResultSet result)
 			throws SQLException {
-		goods.setId(result.getInt("id"));
+		goods.setId(result.getString("id"));
 		goods.setName(result.getString("name"));
 		goods.setGoodsCategoryId(result.getInt("goods_category_id"));
 		goods.setSupplierId(result.getInt("supplier_id"));
