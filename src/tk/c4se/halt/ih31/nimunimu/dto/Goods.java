@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package tk.c4se.halt.ih31.nimunimu.dto;
 
@@ -9,13 +9,13 @@ import lombok.Data;
 
 /**
  * @author ne_Sachirou
- * 
+ *
  */
 @Data
 public class Goods implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int id;
+	private String id;
 	private String name;
 	private int goodsCategoryId;
 	private GoodsCategory goodsCategory = null;
