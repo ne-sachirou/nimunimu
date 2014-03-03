@@ -13,11 +13,11 @@ import tk.c4se.halt.ih31.nimunimu.repository.GoodsRepository;
 
 /**
  * @author kei
- *
+ * 
  */
 public class GoodsModel implements DoPostModel {
 	/**
-	 *
+	 * 
 	 * @param req
 	 * @param resp
 	 * @throws DBAccessException
@@ -26,7 +26,12 @@ public class GoodsModel implements DoPostModel {
 			throws DBAccessException {
 		val repo = new GoodsRepository();
 		Goods goods = new Goods();
+		goods.setId(req.getParameter("id"));
 		goods.setName(req.getParameter("name"));
+		goods.setGoodsCategoryId(Integer.parseInt(req
+				.getParameter("goods_category_id")));
+		goods.setSupplierId(Integer.parseInt(req.getParameter("supplier_id")));
+		goods.setPrice(Integer.parseInt(req.getParameter("price")));
 		try {
 			repo.insert(goods);
 		} catch (DBAccessException e) {
@@ -36,27 +41,30 @@ public class GoodsModel implements DoPostModel {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param req
 	 * @param resp
 	 * @throws DBAccessException
 	 */
 	public void putRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws DBAccessException {
-		val idStr = req.getParameter("id");
+		val id = req.getParameter("id");
 		val repo = new GoodsRepository();
 		Goods goods = null;
 		try {
-			goods = repo.find(idStr);
+			goods = repo.find(id);
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 			throw e;
 		}
 		if (goods == null) {
-			throw new DBAccessException("Goods " + idStr
-					+ " is not found in DB.");
+			throw new DBAccessException("Goods " + id + " is not found in DB.");
 		}
 		goods.setName(req.getParameter("name"));
+		goods.setGoodsCategoryId(Integer.parseInt(req
+				.getParameter("goods_category_id")));
+		goods.setSupplierId(Integer.parseInt(req.getParameter("supplier_id")));
+		goods.setPrice(Integer.parseInt(req.getParameter("price")));
 		try {
 			repo.update(goods);
 		} catch (DBAccessException e1) {
@@ -66,25 +74,24 @@ public class GoodsModel implements DoPostModel {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param req
 	 * @param resp
 	 * @throws DBAccessException
 	 */
 	public void deleteRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws DBAccessException {
-		val idStr = req.getParameter("id");
+		val id = req.getParameter("id");
 		val repo = new GoodsRepository();
 		Goods goods = null;
 		try {
-			goods = repo.find(idStr);
+			goods = repo.find(id);
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 			throw e;
 		}
 		if (goods == null) {
-			throw new DBAccessException("Goods " + idStr
-					+ " is not found in DB.");
+			throw new DBAccessException("Goods " + id + " is not found in DB.");
 		}
 		try {
 			repo.delete(goods);

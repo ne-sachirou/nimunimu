@@ -18,7 +18,7 @@ import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 
 /**
  * @author ne_Sachirou
- *
+ * 
  */
 public class GoodsRepository extends RdbRepository<Goods> {
 	private static final long serialVersionUID = 1L;
@@ -28,21 +28,18 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param id
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public Goods find(int id) throws DBAccessException {
-		if (id == 0) {
-			return null;
-		}
+	public Goods find(String id) throws DBAccessException {
 		val sql = "select * from goods where id = ?";
 		Goods goods = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, id);
+			statement.setString(1, id);
 			@Cleanup
 			val result = statement.executeQuery();
 			if (result.next()) {
@@ -57,23 +54,7 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	}
 
 	/**
-	 *
-	 * @param idStr
-	 * @return
-	 * @throws DBAccessException
-	 */
-	public Goods find(String idStr) throws DBAccessException {
-		final int id;
-		try {
-			id = Integer.parseInt(idStr);
-		} catch (NumberFormatException e) {
-			return null;
-		}
-		return find(id);
-	}
-
-	/**
-	 *
+	 * 
 	 * @param page
 	 * @return
 	 * @throws DBAccessException
@@ -101,7 +82,7 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return
 	 * @throws DBAccessException
 	 */
@@ -110,15 +91,16 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	}
 
 	public void insert(Goods goods) throws DBAccessException {
-		val sql = "insert into goods(id, name, goods_category_id, supplier_id, price) values (goods_category_pk_seq.nextval, ?, ?, ?, ?)";
+		val sql = "insert into goods(id, name, goods_category_id, supplier_id, price) values (?, ?, ?, ?, ?)";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, goods.getName());
-			statement.setInt(2, goods.getGoodsCategoryId());
-			statement.setInt(3, goods.getSupplierId());
-			statement.setInt(4, goods.getPrice());
+			statement.setString(1, goods.getId());
+			statement.setString(2, goods.getName());
+			statement.setInt(3, goods.getGoodsCategoryId());
+			statement.setInt(4, goods.getSupplierId());
+			statement.setInt(5, goods.getPrice());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {

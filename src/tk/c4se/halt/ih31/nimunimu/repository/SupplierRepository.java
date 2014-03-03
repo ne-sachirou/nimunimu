@@ -110,7 +110,7 @@ public class SupplierRepository extends RdbRepository<Supplier> {
 	}
 
 	public void insert(Supplier supplier) throws DBAccessException {
-		val sql = "insert into supplier(id, name, zipcode, address, tel, fax, preson, billing_cutoff_date) values (goods_category_pk_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";
+		val sql = "insert into supplier(id, name, zipcode, address, tel, fax, preson, billing_cutoff_date) values (supplier_pk_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
