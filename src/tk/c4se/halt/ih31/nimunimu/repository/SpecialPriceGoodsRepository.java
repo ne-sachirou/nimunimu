@@ -13,46 +13,48 @@ import java.util.List;
 import lombok.Cleanup;
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.config.DBConnector;
-import tk.c4se.halt.ih31.nimunimu.dto.Store;
+import tk.c4se.halt.ih31.nimunimu.dto.SpecialPriceGoods;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 
 /**
  * @author ne_Sachirou
  * 
  */
-public class StoreRepository extends RdbRepository<Store> {
+public class SpecialPriceGoodsRepository extends
+		RdbRepository<SpecialPriceGoods> {
 	private static final long serialVersionUID = 1L;
 
-	public StoreRepository() {
+	public SpecialPriceGoodsRepository() {
 		super();
 	}
 
 	/**
 	 * 
-	 * @param place
 	 * @param goodsId
+	 * @param customerId
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public Store find(String place, String goodsId) throws DBAccessException {
-		val sql = "select * from store where place = ? and goods_id = ?";
-		Store store = null;
+	public SpecialPriceGoods find(String goodsId, int customerId)
+			throws DBAccessException {
+		val sql = "select * from special_price_goods where goods_id = ? and customer_id = ?";
+		SpecialPriceGoods specialPriceGoods = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, place);
-			statement.setString(2, goodsId);
+			statement.setString(1, goodsId);
+			statement.setInt(2, customerId);
 			@Cleanup
 			val result = statement.executeQuery();
 			if (result.next()) {
-				store = new Store();
-				setProperties(store, result);
+				specialPriceGoods = new SpecialPriceGoods();
+				setProperties(specialPriceGoods, result);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBAccessException(e);
 		}
-		return store;
+		return specialPriceGoods;
 	}
 
 	/**
@@ -61,9 +63,9 @@ public class StoreRepository extends RdbRepository<Store> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public List<Store> all(int page) throws DBAccessException {
-		val sql = "select * from store where rownum between ? and ?";
-		List<Store> stores = new ArrayList<>();
+	public List<SpecialPriceGoods> all(int page) throws DBAccessException {
+		val sql = "select * from special_price_goods where rownum between ? and ?";
+		List<SpecialPriceGoods> specialPriceGoodsList = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -72,15 +74,15 @@ public class StoreRepository extends RdbRepository<Store> {
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {
-				Store store = new Store();
-				setProperties(store, result);
-				stores.add(store);
+				SpecialPriceGoods specialPriceGoods = new SpecialPriceGoods();
+				setProperties(specialPriceGoods, result);
+				specialPriceGoodsList.add(specialPriceGoods);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBAccessException(e);
 		}
-		return stores;
+		return specialPriceGoodsList;
 	}
 
 	/**
@@ -88,19 +90,20 @@ public class StoreRepository extends RdbRepository<Store> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public List<Store> all() throws DBAccessException {
+	public List<SpecialPriceGoods> all() throws DBAccessException {
 		return all(1);
 	}
 
-	public void insert(Store store) throws DBAccessException {
-		val sql = "insert into store(place, goods_id, goods_number) values (?, ?, ?)";
+	public void insert(SpecialPriceGoods specialPriceGoods)
+			throws DBAccessException {
+		val sql = "insert into special_price_goods(goods_id, customer_id, price) values (?, ?, ?)";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, store.getPlace());
-			statement.setString(2, store.getGoodsId());
-			statement.setInt(3, store.getGoodsNumber());
+			statement.setString(1, specialPriceGoods.getGoodsId());
+			statement.setInt(2, specialPriceGoods.getCustomerId());
+			statement.setInt(3, specialPriceGoods.getPrice());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -123,15 +126,16 @@ public class StoreRepository extends RdbRepository<Store> {
 		}
 	}
 
-	public void update(Store store) throws DBAccessException {
-		val sql = "update store set goods_number = ? where place = ? and goods_id = ?";
+	public void update(SpecialPriceGoods specialPriceGoods)
+			throws DBAccessException {
+		val sql = "update special_price_goods set price = ? where goods_id = ? and customer_id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, store.getGoodsNumber());
-			statement.setString(2, store.getPlace());
-			statement.setString(3, store.getGoodsId());
+			statement.setInt(1, specialPriceGoods.getPrice());
+			statement.setString(2, specialPriceGoods.getGoodsId());
+			statement.setInt(3, specialPriceGoods.getCustomerId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -154,14 +158,15 @@ public class StoreRepository extends RdbRepository<Store> {
 		}
 	}
 
-	public void delete(Store store) throws DBAccessException {
-		val sql = "delete from store where place = ? and goods_id = ?";
+	public void delete(SpecialPriceGoods apecialPriceGoods)
+			throws DBAccessException {
+		val sql = "delete from special_price_goods where goods_id = ? and customer_id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, store.getPlace());
-			statement.setString(2, store.getGoodsId());
+			statement.setString(1, apecialPriceGoods.getGoodsId());
+			statement.setInt(2, apecialPriceGoods.getCustomerId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -185,11 +190,12 @@ public class StoreRepository extends RdbRepository<Store> {
 	}
 
 	@Override
-	protected Store setProperties(Store store, ResultSet result)
+	protected SpecialPriceGoods setProperties(
+			SpecialPriceGoods specialPriceGoods, ResultSet result)
 			throws SQLException {
-		store.setPlace(result.getString("place"));
-		store.setGoodsId(result.getString("goods_id"));
-		store.setGoodsNumber(result.getInt("goods_number"));
-		return store;
+		specialPriceGoods.setGoodsId(result.getString("goods_id"));
+		specialPriceGoods.setCustomerId(result.getInt("customer_id"));
+		specialPriceGoods.setPrice(result.getInt("price"));
+		return specialPriceGoods;
 	}
 }
