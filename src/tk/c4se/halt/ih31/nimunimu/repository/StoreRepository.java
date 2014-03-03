@@ -33,13 +33,14 @@ public class StoreRepository extends RdbRepository<Store> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public Store find(String place) throws DBAccessException {
-		val sql = "select * from store where place = ?";
+	public Store find(String place, String goodsId) throws DBAccessException {
+		val sql = "select * from store where place = ? and goods_id = ?";
 		Store store = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, place);
+			statement.setString(2, goodsId);
 			@Cleanup
 			val result = statement.executeQuery();
 			if (result.next()) {
@@ -97,7 +98,7 @@ public class StoreRepository extends RdbRepository<Store> {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, store.getPlace());
-			statement.setInt(2, store.getGoodsId());
+			statement.setString(2, store.getGoodsId());
 			statement.setInt(3, store.getGoodsNumber());
 			statement.executeUpdate();
 			connection.commit();
@@ -122,14 +123,14 @@ public class StoreRepository extends RdbRepository<Store> {
 	}
 
 	public void update(Store store) throws DBAccessException {
-		val sql = "update store set goods_id = ?, goods_number = ? where place = ?";
+		val sql = "update store set goods_number = ? where place = ? and goods_id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, store.getGoodsId());
-			statement.setInt(2, store.getGoodsNumber());
-			statement.setString(3, store.getPlace());
+			statement.setInt(1, store.getGoodsNumber());
+			statement.setString(2, store.getPlace());
+			statement.setString(3, store.getGoodsId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -153,12 +154,13 @@ public class StoreRepository extends RdbRepository<Store> {
 	}
 
 	public void delete(Store store) throws DBAccessException {
-		val sql = "delete from store where place = ?";
+		val sql = "delete from store where place = ? and goods_id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, store.getPlace());
+			statement.setString(2, store.getGoodsId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -185,7 +187,7 @@ public class StoreRepository extends RdbRepository<Store> {
 	protected Store setProperties(Store store, ResultSet result)
 			throws SQLException {
 		store.setPlace(result.getString("place"));
-		store.setGoodsId(result.getInt("goods_id"));
+		store.setGoodsId(result.getString("goods_id"));
 		store.setGoodsNumber(result.getInt("goods_number"));
 		return store;
 	}

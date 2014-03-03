@@ -16,7 +16,7 @@ public class Store implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String place;
-	private int goodsId;
+	private String goodsId;
 	private Goods goods;
 	private int goodsNumber;
 }
