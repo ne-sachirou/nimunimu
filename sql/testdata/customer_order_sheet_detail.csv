@@ -1,0 +1,5 @@
+customer_order_sheet_id,goods_id,price,goods_number
+3,a1,100,25
+3,a2,100,25
+3,a3,100,25
+3,b1,250,10

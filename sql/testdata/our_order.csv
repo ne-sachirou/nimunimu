@@ -1,0 +1,9 @@
+supplier_id, our_order_sheet_id,member_id,status
+1,1,adminadmin,YET_RECEIPT
+2,2,salessales,RECEIPTED
+3,3,salesmanager,YET_RECEIPT
+4,4,storestore,RECEIPTED
+5,5,storemanager,YET_RECEIPT
+6,6,accounting,RECEIPTED
+7,7,12345678,YET_RECEIPT
+8,8,passreset,RECEIPTED

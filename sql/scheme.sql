@@ -41,7 +41,7 @@ create table member(
   name                 varchar2(50)  not null,
   password             varchar2(255) not null,
   is_password_resetted number(1)     default 0,
-  authority            varchar2(10)  not null,
+  authority            varchar2(20)  not null,
   check (authority in ('ADMIN', 'SALES', 'SALES_MANAGER', 'STORE', 'STORE_MANAGER', 'ACCOUNTING'))
 );
 
@@ -132,9 +132,9 @@ create table quotation_request_sheet(
   id         number(20) primary key,
   amount     number(8)  not null,
   tax        number(7)  not null,
-  created_at timestamp  not null,
-  updated_at timestamp  not null,
-  deleted_at timestamp  not null
+  created_at timestamp  default systimestamp,
+  updated_at timestamp  default systimestamp,
+  deleted_at timestamp
 );
 
 -- 見積依頼書明細
@@ -154,8 +154,8 @@ create table customer_order_sheet(
   id         number(20) primary key,
   amount     number(8)  not null,
   tax        number(7)  not null,
-  created_at timestamp,
-  updated_at timestamp,
+  created_at timestamp default systimestamp,
+  updated_at timestamp default systimestamp,
   deleted_at timestamp
 );
 
@@ -205,8 +205,8 @@ create table our_order_sheet(
   id         number(20) primary key,
   amount     number(8)  not null,
   tax        number(7)  not null,
-  created_at timestamp,
-  updated_at timestamp,
+  created_at timestamp default systimestamp,
+  updated_at timestamp default systimestamp,
   deleted_at timestamp
 );
 

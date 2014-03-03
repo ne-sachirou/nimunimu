@@ -1,0 +1,11 @@
+customer_id,member_id,status
+1,adminadmin,YET_CLAIM
+2,salessales,YET_PAY
+3,salesmanager,PAYED
+4,storestore,YET_CLAIM
+5,storemanager,YET_PAY
+6,accounting,PAYED
+7,12345678,YET_CLAIM
+8,passreset,YET_PAY
+9,ctqJbEeH,PAYED
+10,5fk4BzpP,YET_CLAIM

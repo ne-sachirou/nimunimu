@@ -1,0 +1,9 @@
+supplier_id,member_id,status
+1,adminadmin,YET_PAY
+2,salessales,PAYED
+3,salesmanager,YET_PAY
+4,storestore,PAYED
+5,storemanager,YET_PAY
+6,accounting,PAYED
+7,12345678,YET_PAY
+8,passreset,PAYED

@@ -1,0 +1,39 @@
+Public Sub WriteCsv(name As String, srcStr As String)
+    Dim src As Range
+    Set src = Worksheets(name).Range(srcStr)
+
+    Dim tmp As Worksheet
+    Set tmp = Worksheets.Add()
+    src.Copy Destination:=tmp.Range("A1")
+    tmp.Move
+    Application.DisplayAlerts = False
+    ActiveWorkbook.SaveAs Filename:=name + ".csv", FileFormat:=xlCSV
+    ActiveWorkbook.Close savechanges:=False
+    Application.DisplayAlerts = True
+End Sub
+
+Sub Main()
+    WriteCsv "member", "A1:E50"
+    WriteCsv "notification", "B1:C4"
+    WriteCsv "goods_category", "B1:B21"
+    WriteCsv "goods", "A1:E118"
+    WriteCsv "customer", "B1:I14"
+    WriteCsv "supplier", "B1:H9"
+    WriteCsv "special_price_goods", "A1:C9"
+    WriteCsv "store", "A1:C118"
+    WriteCsv "stock_taking_result", "A1:E30"
+    WriteCsv "customer_order", "B1:F11"
+    WriteCsv "customer_order_sheet", "B1:C11"
+    WriteCsv "quotation_request_sheet", "B1:C11"
+    WriteCsv "quotation_request_sheet_detail", "B1:E6"
+    WriteCsv "customer_order_sheet_detail", "B1:E5"
+    WriteCsv "billing", "B1:D11"
+    WriteCsv "billing_detail", "A1:B11"
+    WriteCsv "our_order", "B1:E9"
+    WriteCsv "our_order_sheet", "B1:C9"
+    WriteCsv "our_order_sheet_detail", "B1:E9"
+    WriteCsv "payment", "B1:D9"
+    WriteCsv "payment_detail", "A1:B9"
+End Sub
+
+Rem vim:set ft=vb ff=dos:

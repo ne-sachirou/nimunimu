@@ -1,0 +1,11 @@
+customer_id,quotation_request_sheet_id,customer_order_sheet_id,member_id,status
+1,1,1,adminadmin,YET_ESTIMATE
+2,2,2,salessales,ESTIMATED
+3,3,3,salesmanager,YET_ACCEPT
+4,4,4,storestore,YET_DELIVER
+5,5,5,storemanager,DELIVERED
+6,6,6,accounting,YET_ESTIMATE
+7,7,7,12345678,ESTIMATED
+8,8,8,passreset,YET_ACCEPT
+9,9,9,ctqJbEeH,YET_DELIVER
+10,10,10,5fk4BzpP,DELIVERED
