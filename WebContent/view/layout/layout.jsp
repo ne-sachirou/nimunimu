@@ -8,6 +8,7 @@
 <title>${fn:escapeXml(title)}|nimunimu</title>
 <link rel="stylesheet" href="${baseUri}/resource/style.css" />
 <script src="${baseUri}/resource/bower_components/q/q.js"></script>
+<script src="${baseUri}/resource/bower_components/jquery/dist/jquery.js"></script>
 <script>
 	// ES6 Array.from
 	if (!Array.from) {
@@ -28,6 +29,33 @@
 				window.Promise[key] = Q[key];
 			}
 		}());
+	}
+
+	// HTML5 TEMPLATE element http://c4se.hatenablog.com/entry/2013/09/28/004018 
+	if (!('content' in document.createElement('template'))) {
+		(function() {
+			var style = document.createElement('style');
+
+			style.textContent = 'template { display: none; }';
+			document.body.appendChild(style);
+		}());
+		Object.defineProperty(HTMLUnknownElement.prototype, 'content', {
+			/**
+			 * @return {DocumentFragment|undefined}
+			 */
+			get : function() {
+				var fragment;
+
+				if (this.tagName !== 'TEMPLATE')
+					return;
+				fragment = document.createDocumentFragment();
+				Array.prototype.slice.call(this.childNodes).forEach(
+						function(node) {
+							fragment.appendChild(node.cloneNode(true));
+						});
+				return fragment;
+			}
+		});
 	}
 </script>
 </head>
