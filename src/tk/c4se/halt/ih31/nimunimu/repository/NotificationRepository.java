@@ -107,7 +107,8 @@ public class NotificationRepository extends RdbRepository<Notification> {
 	}
 
 	public void insert(Notification notification) throws DBAccessException {
-		val sql = "insert into notification(member_id, message) values (?, ?)";
+		val sql = "insert into notification(id, member_id, message) values (notification_pk_seq, ?, ?)";
+		val sql2 = "select notification_pk_seq.currval from dual";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -115,6 +116,11 @@ public class NotificationRepository extends RdbRepository<Notification> {
 			statement.setString(1, notification.getMemberId());
 			statement.setString(2, notification.getMessage());
 			statement.executeUpdate();
+			statement = connection.prepareStatement(sql2);
+			@Cleanup
+			ResultSet result = statement.executeQuery();
+			result.next();
+			notification.setId(result.getInt(1));
 			connection.commit();
 		} catch (SQLException e) {
 			if (connection != null) {
