@@ -21,6 +21,6 @@ our_order_sheet_detail
 our_order
 payment
 payment_detail}.each do |name|
-	puts "-------\nLoad #{name}"
+  puts "-------\nLoad #{name}"
   system "sqlldr.bat #{name}"
 end
