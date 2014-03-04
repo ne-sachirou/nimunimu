@@ -1,4 +1,3 @@
-customer_id,member_id,status
 1,adminadmin,YET_CLAIM
 2,salessales,YET_PAY
 3,salesmanager,PAYED

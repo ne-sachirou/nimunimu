@@ -1,4 +1,3 @@
-supplier_id, our_order_sheet_id,member_id,status
 1,1,adminadmin,YET_RECEIPT
 2,2,salessales,RECEIPTED
 3,3,salesmanager,YET_RECEIPT

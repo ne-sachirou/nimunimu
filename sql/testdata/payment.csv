@@ -1,4 +1,3 @@
-supplier_id,member_id,status
 1,adminadmin,YET_PAY
 2,salessales,PAYED
 3,salesmanager,YET_PAY

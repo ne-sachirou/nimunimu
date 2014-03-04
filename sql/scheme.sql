@@ -1,36 +1,36 @@
 drop table payment_detail;
-drop sequence payment_pk_seq;
 drop table payment;
-drop sequence our_order_pk_seq;
+drop sequence payment_pk_seq;
 drop table our_order;
-drop sequence our_order_sheet_detail_pk_seq;
+drop sequence our_order_pk_seq;
 drop table our_order_sheet_detail;
-drop sequence our_order_sheet_pk_seq;
+drop sequence our_order_sheet_detail_pk_seq;
 drop table our_order_sheet;
+drop sequence our_order_sheet_pk_seq;
 drop table billing_detail;
 drop sequence billing_pk_seq;
 drop table billing;
-drop sequence customer_order_pk_seq;
 drop table customer_order;
-drop sequence customer_order_sheet_detail_pk_seq;
+drop sequence customer_order_pk_seq;
 drop table customer_order_sheet_detail;
+drop sequence customer_order_sheet_dtl_pk_s;
 drop table customer_order_sheet;
 drop sequence customer_order_sheet_pk_seq;
-drop sequence quotation_request_sheet_detail_pk_seq;
 drop table quotation_request_sheet_detail;
-drop sequence quotation_request_sheet_pk_seq;
+drop sequence quotation_request_sheet_d_pk_s;
 drop table quotation_request_sheet;
+drop sequence quotation_request_sheet_pk_seq;
 drop table stock_taking_result;
 drop table store;
 drop table special_price_goods;
-drop sequence goods_pk_seq;
 drop table goods;
-drop sequence goods_category_pk_seq;
+drop sequence goods_pk_seq;
 drop table goods_category;
-drop sequence supplier_pk_seq;
+drop sequence goods_category_pk_seq;
 drop table supplier;
-drop sequence customer_pk_seq;
+drop sequence supplier_pk_seq;
 drop table customer;
+drop sequence customer_pk_seq;
 drop table notification;
 drop sequence notification_pk_seq;
 drop table member;
@@ -138,7 +138,7 @@ create table quotation_request_sheet(
 );
 
 -- 見積依頼書明細
-create sequence quotation_request_sheet_d_pk_s;
+create sequence quotation_rqst_sht_dtl_pk_s;
 create table quotation_request_sheet_detail(
   id                         number(3),
   quotation_request_sheet_id number(20)   references quotation_request_sheet(id),

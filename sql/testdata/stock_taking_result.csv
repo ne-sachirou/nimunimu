@@ -1,4 +1,3 @@
-stock_taking_date ,place,goods_id,expected_goods_number,actual_goods_number
 2013-01-05,X1000,a1,198,198
 2013-01-06,X1001,b1,90,90
 2013-01-07,X1002,c1,25,25
