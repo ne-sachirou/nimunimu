@@ -38,12 +38,13 @@ public class OurOrderSheetModel implements DoPostModel {
 		OurOrder order = new OurOrder();
 		setProperties(order, req);
 		try {
-			repo.insert(order);
 			sheetRepo.insert(order.getOurOrderSheet());
 			for (val detail : order.getOurOrderSheet()
 					.getOurOrderSheetDetails()) {
 				detailRepo.insert(detail);
 			}
+			order.setOurOrderSheetId(order.getOurOrderSheet().getId());
+			repo.insert(order);
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 			throw e;
@@ -64,13 +65,16 @@ public class OurOrderSheetModel implements DoPostModel {
 		val detailRepo = new OurOrderSheetDetailRepository();
 		OurOrder order = null;
 		try {
-			order = repo.find(idStr);
+			val sheet = sheetRepo.find(idStr);
+			if (sheet != null) {
+				order = repo.findByOurOrderSheetId(sheet.getId());
+			}
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 			throw e;
 		}
 		if (order == null) {
-			throw new DBAccessException("OurOrder " + idStr
+			throw new DBAccessException("OurOrderSheet " + idStr
 					+ " is not found in DB.");
 		}
 		setProperties(order, req);
@@ -97,15 +101,19 @@ public class OurOrderSheetModel implements DoPostModel {
 			throws DBAccessException {
 		val idStr = req.getParameter("id");
 		val repo = new OurOrderRepository();
+		val sheetRepo = new OurOrderSheetRepository();
 		OurOrder order = null;
 		try {
-			order = repo.find(idStr);
+			val sheet = sheetRepo.find(idStr);
+			if (sheet != null) {
+				order = repo.findByOurOrderSheetId(sheet.getId());
+			}
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 			throw e;
 		}
 		if (order == null) {
-			throw new DBAccessException("OurOrder " + idStr
+			throw new DBAccessException("OurOrderSheet " + idStr
 					+ " is not found in DB.");
 		}
 		try {

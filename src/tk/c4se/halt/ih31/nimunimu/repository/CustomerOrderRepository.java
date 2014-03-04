@@ -39,7 +39,7 @@ public class CustomerOrderRepository extends RdbRepository<CustomerOrder> {
 			return null;
 		}
 		val sql = "select * from customer_order where id = ?";
-		CustomerOrder customerOrder = null;
+		CustomerOrder order = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -47,14 +47,62 @@ public class CustomerOrderRepository extends RdbRepository<CustomerOrder> {
 			@Cleanup
 			val result = statement.executeQuery();
 			if (result.next()) {
-				customerOrder = new CustomerOrder();
-				setProperties(customerOrder, result);
+				order = new CustomerOrder();
+				setProperties(order, result);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBAccessException(e);
 		}
-		return customerOrder;
+		return order;
+	}
+
+	public CustomerOrder findByQuotationRequestSheetId(int sheetId)
+			throws DBAccessException {
+		if (sheetId == 0) {
+			return null;
+		}
+		val sql = "select * from customer_order where quotation_request_sheet_id = ?";
+		CustomerOrder order = null;
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, sheetId);
+			@Cleanup
+			val result = statement.executeQuery();
+			if (result.next()) {
+				order = new CustomerOrder();
+				setProperties(order, result);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return order;
+	}
+
+	public CustomerOrder findByCustomerOrderSheetId(int sheetId)
+			throws DBAccessException {
+		if (sheetId == 0) {
+			return null;
+		}
+		val sql = "select * from customer_order where customer_order_sheet_id = ?";
+		CustomerOrder order = null;
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, sheetId);
+			@Cleanup
+			val result = statement.executeQuery();
+			if (result.next()) {
+				order = new CustomerOrder();
+				setProperties(order, result);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return order;
 	}
 
 	/**
@@ -81,7 +129,7 @@ public class CustomerOrderRepository extends RdbRepository<CustomerOrder> {
 	 */
 	public List<CustomerOrder> all(int page) throws DBAccessException {
 		val sql = "select * from customer_order where rownum between ? and ?";
-		List<CustomerOrder> customerOrders = new ArrayList<>();
+		List<CustomerOrder> orders = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -90,15 +138,15 @@ public class CustomerOrderRepository extends RdbRepository<CustomerOrder> {
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {
-				CustomerOrder customerOrder = new CustomerOrder();
-				setProperties(customerOrder, result);
-				customerOrders.add(customerOrder);
+				CustomerOrder order = new CustomerOrder();
+				setProperties(order, result);
+				orders.add(order);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBAccessException(e);
 		}
-		return customerOrders;
+		return orders;
 	}
 
 	/**
@@ -108,28 +156,28 @@ public class CustomerOrderRepository extends RdbRepository<CustomerOrder> {
 	 */
 	public List<CustomerOrder> all() throws DBAccessException {
 		val sql = "select * from customer_order";
-		List<CustomerOrder> customerOrders = new ArrayList<>();
+		List<CustomerOrder> orders = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {
-				CustomerOrder customerOrder = new CustomerOrder();
-				setProperties(customerOrder, result);
-				customerOrders.add(customerOrder);
+				CustomerOrder order = new CustomerOrder();
+				setProperties(order, result);
+				orders.add(order);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBAccessException(e);
 		}
-		return customerOrders;
+		return orders;
 	}
 
 	public List<CustomerOrder> allByMemberId(int memberId)
 			throws DBAccessException {
 		val sql = "select * from customer_order where member_id = ?";
-		List<CustomerOrder> customerOrders = new ArrayList<>();
+		List<CustomerOrder> orders = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -137,35 +185,35 @@ public class CustomerOrderRepository extends RdbRepository<CustomerOrder> {
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {
-				CustomerOrder customerOrder = new CustomerOrder();
-				setProperties(customerOrder, result);
-				customerOrders.add(customerOrder);
+				CustomerOrder order = new CustomerOrder();
+				setProperties(order, result);
+				orders.add(order);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBAccessException(e);
 		}
-		return customerOrders;
+		return orders;
 	}
 
-	public void insert(CustomerOrder customerOrder) throws DBAccessException {
+	public void insert(CustomerOrder order) throws DBAccessException {
 		val sql = "insert into customer_order(id, customer_id, quotation_request_sheet_id, customer_order_sheet_id, member_id, status) values (customer_order_pk_seq.nextval, ?, ?, ?, ?, ?)";
 		val sql2 = "select customer_order_pk_seq.currval from dual";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, customerOrder.getCustomerId());
-			statement.setInt(2, customerOrder.getQuotationRequestSheetId());
-			statement.setInt(3, customerOrder.getCustomerOrderSheetId());
-			statement.setString(4, customerOrder.getMemberId());
-			statement.setString(5, customerOrder.getStatus().toString());
+			statement.setInt(1, order.getCustomerId());
+			statement.setInt(2, order.getQuotationRequestSheetId());
+			statement.setInt(3, order.getCustomerOrderSheetId());
+			statement.setString(4, order.getMemberId());
+			statement.setString(5, order.getStatus().toString());
 			statement.executeUpdate();
 			statement = connection.prepareStatement(sql2);
 			@Cleanup
 			ResultSet result = statement.executeQuery();
 			result.next();
-			customerOrder.setId(result.getInt(1));
+			order.setId(result.getInt(1));
 			connection.commit();
 		} catch (SQLException e) {
 			if (connection != null) {
@@ -187,18 +235,18 @@ public class CustomerOrderRepository extends RdbRepository<CustomerOrder> {
 		}
 	}
 
-	public void update(CustomerOrder customerOrder) throws DBAccessException {
+	public void update(CustomerOrder order) throws DBAccessException {
 		val sql = "update customer_order set customer_id = ?, quotation_request_sheet_id = ?, customer_order_sheet_id = ?, member_id = ?, status = ? where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, customerOrder.getCustomerId());
-			statement.setInt(2, customerOrder.getQuotationRequestSheetId());
-			statement.setInt(3, customerOrder.getCustomerOrderSheetId());
-			statement.setString(4, customerOrder.getMemberId());
-			statement.setString(5, customerOrder.getStatus().toString());
-			statement.setInt(6, customerOrder.getId());
+			statement.setInt(1, order.getCustomerId());
+			statement.setInt(2, order.getQuotationRequestSheetId());
+			statement.setInt(3, order.getCustomerOrderSheetId());
+			statement.setString(4, order.getMemberId());
+			statement.setString(5, order.getStatus().toString());
+			statement.setInt(6, order.getId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -221,13 +269,13 @@ public class CustomerOrderRepository extends RdbRepository<CustomerOrder> {
 		}
 	}
 
-	public void delete(CustomerOrder customerOrder) throws DBAccessException {
+	public void delete(CustomerOrder order) throws DBAccessException {
 		val sql = "delete from customer_order where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, customerOrder.getId());
+			statement.setInt(1, order.getId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -251,17 +299,15 @@ public class CustomerOrderRepository extends RdbRepository<CustomerOrder> {
 	}
 
 	@Override
-	protected CustomerOrder setProperties(CustomerOrder customerOrder,
-			ResultSet result) throws SQLException {
-		customerOrder.setId(result.getInt("id"));
-		customerOrder.setCustomerId(result.getInt("customer_id"));
-		customerOrder.setQuotationRequestSheetId(result
+	protected CustomerOrder setProperties(CustomerOrder order, ResultSet result)
+			throws SQLException {
+		order.setId(result.getInt("id"));
+		order.setCustomerId(result.getInt("customer_id"));
+		order.setQuotationRequestSheetId(result
 				.getInt("quotation_request_sheet_id"));
-		customerOrder.setCustomerOrderSheetId(result
-				.getInt("customer_order_sheet_id"));
-		customerOrder.setMemberId(result.getString("member_id"));
-		customerOrder.setStatus(CustomerOrderStatus.valueOf(result
-				.getString("status")));
-		return customerOrder;
+		order.setCustomerOrderSheetId(result.getInt("customer_order_sheet_id"));
+		order.setMemberId(result.getString("member_id"));
+		order.setStatus(CustomerOrderStatus.valueOf(result.getString("status")));
+		return order;
 	}
 }
