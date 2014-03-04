@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package tk.c4se.halt.ih31.nimunimu.repository;
 
@@ -18,7 +18,7 @@ import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 
 /**
  * @author ne_Sachirou
- * 
+ *
  */
 public class QuotationRequestSheetDetailRepository extends
 		RdbRepository<QuotationRequestSheetDetail> {
@@ -29,7 +29,7 @@ public class QuotationRequestSheetDetailRepository extends
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 * @throws DBAccessException
@@ -38,7 +38,7 @@ public class QuotationRequestSheetDetailRepository extends
 		if (id == 0) {
 			return null;
 		}
-		val sql = "select * from customer_order_sheet_detail where id = ?";
+		val sql = "select * from quotation_request_sheet_detail where id = ?";
 		QuotationRequestSheetDetail detail = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
@@ -58,7 +58,7 @@ public class QuotationRequestSheetDetailRepository extends
 	}
 
 	/**
-	 * 
+	 *
 	 * @param idStr
 	 * @return
 	 * @throws DBAccessException
@@ -75,12 +75,12 @@ public class QuotationRequestSheetDetailRepository extends
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 * @throws DBAccessException
 	 */
 	public List<QuotationRequestSheetDetail> all() throws DBAccessException {
-		val sql = "select * from customer_order_sheet_detail";
+		val sql = "select * from quotation_request_sheet_details";
 		List<QuotationRequestSheetDetail> details = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
@@ -99,14 +99,14 @@ public class QuotationRequestSheetDetailRepository extends
 		return details;
 	}
 
-	public List<QuotationRequestSheetDetail> allByCustomerOrderSheetId(
-			int ourOrderSheetId) throws DBAccessException {
-		val sql = "select * from customer_order_sheet_detail where our_order_sheet_id = ?";
+	public List<QuotationRequestSheetDetail> allByQuotationRequestSheetId(
+			int QuotationRequestSheetId) throws DBAccessException {
+		val sql = "select * from quotation_request_sheet_detail where quotation_request_sheet_id = ?";
 		List<QuotationRequestSheetDetail> details = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, ourOrderSheetId);
+			statement.setInt(1, QuotationRequestSheetId);
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {
@@ -119,12 +119,30 @@ public class QuotationRequestSheetDetailRepository extends
 			throw new DBAccessException(e);
 		}
 		return details;
+	}
+
+	/**
+	 *
+	 * @param QuotationRequestSheetId
+	 * @return
+	 * @throws DBAccessException
+	 */
+	public List<QuotationRequestSheetDetail>
+		allByQuotationRequestSheetId(String QuotationRequestSheetId)
+			throws DBAccessException {
+		final int id;
+		try {
+			id = Integer.parseInt(QuotationRequestSheetId);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+		return allByQuotationRequestSheetId(id);
 	}
 
 	public void insert(QuotationRequestSheetDetail detail)
 			throws DBAccessException {
-		val sql = "insert into customer_order_sheet_detail(id, customer_order_sheet_id, goods_id, price, goods_number) values (customer_order_sheet_dtl_pk_s.nextval, ?, ?, ?, ?)";
-		val sql2 = "select customer_order_sheet_dtl_pk_s.currval from dual";
+		val sql = "insert into quotation_request_sheet_detail(id, quotation_request_sheet_id, goods_id, price, goods_number) values (sequence quotation_rqst_sht_dtl_pk_s.nextval, ?, ?, ?, ?)";
+		val sql2 = "select sequence quotation_rqst_sht_dtl_pk_s.currval from dual";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -162,7 +180,7 @@ public class QuotationRequestSheetDetailRepository extends
 
 	public void update(QuotationRequestSheetDetail detail)
 			throws DBAccessException {
-		val sql = "update customer_order_sheet_detail set customer_order_sheet_id = ?, goods_id = ?, price = ?, goods_number = ? where id = ?";
+		val sql = "update quotation_request_sheet_detail set quotation_request_sheet_id = ?, goods_id = ?, price = ?, goods_number = ? where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -196,7 +214,7 @@ public class QuotationRequestSheetDetailRepository extends
 
 	public void delete(QuotationRequestSheetDetail detail)
 			throws DBAccessException {
-		val sql = "delete from customer_order_sheet_detail where id = ?";
+		val sql = "delete from quotation_request_sheet_detail where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
