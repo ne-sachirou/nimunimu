@@ -16,7 +16,7 @@
 			<tr>
 				<td>${fn:escapeXml(order.id)}</td>
 				<td><a href="${baseUri}/supplier?id=${order.supplierId}">${order.supplierId}</a></td>
-				<td><a href="our_order_sheet?id=${order.ourOrderSheetId}">${order.ourOrderSheetId}</a></td>
+				<td><a href="our_order?id=${order.ourOrderId}">${order.ourOrderSheetId}</a></td>
 				<td>${order.status}</td>
 			</tr>
 		</c:forEach>

@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import lombok.val;
+import tk.c4se.halt.ih31.nimunimu.dto.OurOrder;
 import tk.c4se.halt.ih31.nimunimu.dto.OurOrderSheet;
 import tk.c4se.halt.ih31.nimunimu.dto.OurOrderSheetDetail;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
+import tk.c4se.halt.ih31.nimunimu.repository.OurOrderRepository;
 import tk.c4se.halt.ih31.nimunimu.repository.OurOrderSheetDetailRepository;
 import tk.c4se.halt.ih31.nimunimu.repository.OurOrderSheetRepository;
 
@@ -20,7 +22,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.OurOrderSheetRepository;
  * @author ne_Sachirou
  * 
  */
-public class OurOrderSheetModel implements DoPostModel {
+public class OurOrderModel implements DoPostModel {
 	/**
 	 * 
 	 * @param req
@@ -29,13 +31,16 @@ public class OurOrderSheetModel implements DoPostModel {
 	 */
 	public void postRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws DBAccessException {
-		val repo = new OurOrderSheetRepository();
+		val repo = new OurOrderRepository();
+		val sheetRepo = new OurOrderSheetRepository();
 		val detailRepo = new OurOrderSheetDetailRepository();
-		OurOrderSheet sheet = new OurOrderSheet();
-		setProperties(sheet, req);
+		OurOrder order = new OurOrder();
+		setProperties(order, req);
 		try {
-			repo.insert(sheet);
-			for (val detail : sheet.getOurOrderSheetDetails()) {
+			repo.insert(order);
+			sheetRepo.insert(order.getOurOrderSheet());
+			for (val detail : order.getOurOrderSheet()
+					.getOurOrderSheetDetails()) {
 				detailRepo.insert(detail);
 			}
 		} catch (DBAccessException e) {
@@ -53,23 +58,26 @@ public class OurOrderSheetModel implements DoPostModel {
 	public void putRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws DBAccessException {
 		val idStr = req.getParameter("id");
-		val repo = new OurOrderSheetRepository();
+		val repo = new OurOrderRepository();
+		val sheetRepo = new OurOrderSheetRepository();
 		val detailRepo = new OurOrderSheetDetailRepository();
-		OurOrderSheet sheet = null;
+		OurOrder order = null;
 		try {
-			sheet = repo.find(idStr);
+			order = repo.find(idStr);
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 			throw e;
 		}
-		if (sheet == null) {
-			throw new DBAccessException("OurOrderSheet " + idStr
+		if (order == null) {
+			throw new DBAccessException("OurOrder " + idStr
 					+ " is not found in DB.");
 		}
-		setProperties(sheet, req);
+		setProperties(order, req);
 		try {
-			repo.update(sheet);
-			for (val detail : sheet.getOurOrderSheetDetails()) {
+			repo.update(order);
+			sheetRepo.update(order.getOurOrderSheet());
+			for (val detail : order.getOurOrderSheet()
+					.getOurOrderSheetDetails()) {
 				detailRepo.update(detail);
 			}
 		} catch (DBAccessException e1) {
@@ -87,32 +95,32 @@ public class OurOrderSheetModel implements DoPostModel {
 	public void deleteRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws DBAccessException {
 		val idStr = req.getParameter("id");
-		val repo = new OurOrderSheetRepository();
-		val detailRepo = new OurOrderSheetDetailRepository();
-		OurOrderSheet sheet = null;
+		val repo = new OurOrderRepository();
+		OurOrder order = null;
 		try {
-			sheet = repo.find(idStr);
+			order = repo.find(idStr);
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 			throw e;
 		}
-		if (sheet == null) {
+		if (order == null) {
 			throw new DBAccessException("Customer " + idStr
 					+ " is not found in DB.");
 		}
-		sheet.setOurOrderSheetDetails(detailRepo.allByOurOrderSheetId(sheet
-				.getId()));
 		try {
-			repo.delete(sheet);
+			repo.delete(order);
 		} catch (DBAccessException e1) {
 			e1.printStackTrace();
 			return;
 		}
 	}
 
-	private void setProperties(OurOrderSheet sheet, HttpServletRequest req) {
-		sheet.setAmount(Integer.parseInt(req.getParameter("amount")));
-		sheet.setTax(Integer.parseInt(req.getParameter("tax")));
+	private void setProperties(OurOrder order, HttpServletRequest req) {
+		order.setSupplierId(Integer.parseInt(req.getParameter("supplier_id")));
+		order.setMemberId(req.getParameter("member_id"));
+		OurOrderSheet sheet = new OurOrderSheet();
+		sheet.setAmount(Integer.parseInt(req.getParameter("sheet_amount")));
+		sheet.setTax(Integer.parseInt(req.getParameter("sheet_tax")));
 		List<OurOrderSheetDetail> details = new ArrayList<>();
 		for (int i = 1; req.getParameter("detail_goods_id" + i) != null; ++i) {
 			val goodsId = req.getParameter("detail_goods_id" + i);
@@ -127,5 +135,6 @@ public class OurOrderSheetModel implements DoPostModel {
 			details.add(detail);
 		}
 		sheet.setOurOrderSheetDetails(details);
+		order.setOurOrderSheet(sheet);
 	}
 }

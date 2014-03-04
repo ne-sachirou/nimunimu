@@ -11,26 +11,40 @@
 	</div>
 	<div class="pure-form pure-form-aligned">
 		<div class="pure-control-group">
-			<label for="">ID</label> <span class="pk" data-field-name="id">${fn:escapeXml(sheet.id)}</span>
+			<label for="">発注ID</label> <span class="pk" data-field-name="id">${fn:escapeXml(order.id)}</span>
+		</div>
+		<div class="pure-control-group">
+			<label for="">仕入先ID</label> <span class="field"
+				data-field-name="supplier_id">${fn:escapeXml(order.supplierId)}</span>
+		</div>
+		<div class="pure-control-group">
+			<label for="">担当社員ID</label> <span class="field"
+				data-field-name="member_id">${fn:escapeXml(order.memberId)}</span>
+		</div>
+
+		<div class="pure-control-group">
+			<label for="">発注書ID</label> <span class="" data-field-name="sheet_id">${fn:escapeXml(order.ourOrderSheet.id)}</span>
 		</div>
 		<div class="pure-control-group">
 			<label for="">合計金額</label> <span class="field"
-				data-field-name="amount">${fn:escapeXml(sheet.amount)}</span>
+				data-field-name="sheet_amount">${fn:escapeXml(order.ourOrderSheet.amount)}</span>
 		</div>
 		<div class="pure-control-group">
-			<label for="">税額</label> <span class="field" data-field-name="tax">${fn:escapeXml(sheet.tax)}</span>
+			<label for="">税額</label> <span class="field"
+				data-field-name="sheet_tax">${fn:escapeXml(order.ourOrderSheet.tax)}</span>
 		</div>
 		<div class="pure-control-group">
 			<label for="">作成日時</label> <span class=""
-				data-field-name="created_at">${fn:escapeXml(sheet.createdAt)}</span>
+				data-field-name="sheet_created_at">${fn:escapeXml(order.ourOrderSheet.createdAt)}</span>
 		</div>
 		<div class="pure-control-group">
 			<label for="">更新日時</label> <span class=""
-				data-field-name="updated_at">${fn:escapeXml(sheet.updatedAt)}</span>
+				data-field-name="sheet_updated_at">${fn:escapeXml(order.ourOrderSheet.updatedAt)}</span>
 		</div>
 	</div>
-	<c:forEach items="${sheet.ourOrderSheetDetails}" var="detail"
-		varStatus="v">
+
+	<c:forEach items="${order.ourOrderSheet.ourOrderSheetDetails}"
+		var="detail" varStatus="v">
 		<div class="pure-form pure-form-aligned input-detail">
 			<div class="pure-control-group">
 				<label for="">商品ID</label> <span class="field"
