@@ -21,6 +21,10 @@
 			<label for="">担当社員ID</label> <span class="field"
 				data-field-name="member_id">${fn:escapeXml(order.memberId)}</span>
 		</div>
+		<div class="pure-control-group">
+			<label for="">発注の状態</label> <span class="field"
+				data-field-name="status">${fn:escapeXml(order.status)}</span>
+		</div>
 
 		<div class="pure-control-group">
 			<label for="">発注書ID</label> <span class="" data-field-name="sheet_id">${fn:escapeXml(order.ourOrderSheet.id)}</span>

@@ -13,6 +13,7 @@ import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.dto.OurOrder;
 import tk.c4se.halt.ih31.nimunimu.dto.OurOrderSheet;
 import tk.c4se.halt.ih31.nimunimu.dto.OurOrderSheetDetail;
+import tk.c4se.halt.ih31.nimunimu.dto.OurOrderStatus;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.repository.OurOrderRepository;
 import tk.c4se.halt.ih31.nimunimu.repository.OurOrderSheetDetailRepository;
@@ -104,7 +105,7 @@ public class OurOrderModel implements DoPostModel {
 			throw e;
 		}
 		if (order == null) {
-			throw new DBAccessException("Customer " + idStr
+			throw new DBAccessException("OurOrder " + idStr
 					+ " is not found in DB.");
 		}
 		try {
@@ -118,6 +119,7 @@ public class OurOrderModel implements DoPostModel {
 	private void setProperties(OurOrder order, HttpServletRequest req) {
 		order.setSupplierId(Integer.parseInt(req.getParameter("supplier_id")));
 		order.setMemberId(req.getParameter("member_id"));
+		order.setStatus(OurOrderStatus.valueOf(req.getParameter("status")));
 		OurOrderSheet sheet = new OurOrderSheet();
 		sheet.setAmount(Integer.parseInt(req.getParameter("sheet_amount")));
 		sheet.setTax(Integer.parseInt(req.getParameter("sheet_tax")));
