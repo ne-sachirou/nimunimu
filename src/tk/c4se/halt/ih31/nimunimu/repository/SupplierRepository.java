@@ -106,11 +106,28 @@ public class SupplierRepository extends RdbRepository<Supplier> {
 	 * @throws DBAccessException
 	 */
 	public List<Supplier> all() throws DBAccessException {
-		return all(1);
+		val sql = "select * from supplier";
+		List<Supplier> suppliers = new ArrayList<>();
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			@Cleanup
+			val result = statement.executeQuery();
+			while (result.next()) {
+				Supplier supplier = new Supplier();
+				setProperties(supplier, result);
+				suppliers.add(supplier);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return suppliers;
 	}
 
 	public void insert(Supplier supplier) throws DBAccessException {
 		val sql = "insert into supplier(id, name, zipcode, address, tel, fax, preson, billing_cutoff_date) values (supplier_pk_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";
+		val sql2 = "select supplier_pk_seq.currval from dual";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -123,6 +140,11 @@ public class SupplierRepository extends RdbRepository<Supplier> {
 			statement.setString(6, supplier.getPerson());
 			statement.setInt(7, supplier.getBillingCutoffDate());
 			statement.executeUpdate();
+			statement = connection.prepareStatement(sql2);
+			@Cleanup
+			ResultSet result = statement.executeQuery();
+			result.next();
+			supplier.setId(result.getInt(1));
 			connection.commit();
 		} catch (SQLException e) {
 			if (connection != null) {

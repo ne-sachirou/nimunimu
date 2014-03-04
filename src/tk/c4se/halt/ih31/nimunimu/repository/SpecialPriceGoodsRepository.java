@@ -91,7 +91,23 @@ public class SpecialPriceGoodsRepository extends
 	 * @throws DBAccessException
 	 */
 	public List<SpecialPriceGoods> all() throws DBAccessException {
-		return all(1);
+		val sql = "select * from special_price_goods";
+		List<SpecialPriceGoods> specialPriceGoodsList = new ArrayList<>();
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			@Cleanup
+			val result = statement.executeQuery();
+			while (result.next()) {
+				SpecialPriceGoods specialPriceGoods = new SpecialPriceGoods();
+				setProperties(specialPriceGoods, result);
+				specialPriceGoodsList.add(specialPriceGoods);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return specialPriceGoodsList;
 	}
 
 	public void insert(SpecialPriceGoods specialPriceGoods)

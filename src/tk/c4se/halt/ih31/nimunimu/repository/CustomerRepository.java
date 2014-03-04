@@ -106,11 +106,28 @@ public class CustomerRepository extends RdbRepository<Customer> {
 	 * @throws DBAccessException
 	 */
 	public List<Customer> all() throws DBAccessException {
-		return all(1);
+		val sql = "select * from customer";
+		List<Customer> customers = new ArrayList<>();
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			@Cleanup
+			val result = statement.executeQuery();
+			while (result.next()) {
+				Customer customer = new Customer();
+				setProperties(customer, result);
+				customers.add(customer);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return customers;
 	}
 
 	public void insert(Customer customer) throws DBAccessException {
 		val sql = "insert into customer(id, name, zipcode, address, tel, fax, preson, billing_cutoff_date, credit_limit) values (customer_pk_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+		val sql2 = "select customer_pk_seq.currval from dual";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -124,6 +141,11 @@ public class CustomerRepository extends RdbRepository<Customer> {
 			statement.setInt(7, customer.getBillingCutoffDate());
 			statement.setInt(8, customer.getCreditLimit());
 			statement.executeUpdate();
+			statement = connection.prepareStatement(sql2);
+			@Cleanup
+			ResultSet result = statement.executeQuery();
+			result.next();
+			customer.setId(result.getInt(1));
 			connection.commit();
 		} catch (SQLException e) {
 			if (connection != null) {

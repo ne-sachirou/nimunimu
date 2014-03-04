@@ -87,7 +87,23 @@ public class GoodsRepository extends RdbRepository<Goods> {
 	 * @throws DBAccessException
 	 */
 	public List<Goods> all() throws DBAccessException {
-		return all(1);
+		val sql = "select * from goods";
+		List<Goods> goods = new ArrayList<>();
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			@Cleanup
+			val result = statement.executeQuery();
+			while (result.next()) {
+				Goods goodsItem = new Goods();
+				setProperties(goodsItem, result);
+				goods.add(goodsItem);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return goods;
 	}
 
 	public void insert(Goods goods) throws DBAccessException {

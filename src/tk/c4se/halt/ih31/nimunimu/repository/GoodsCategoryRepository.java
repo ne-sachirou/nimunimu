@@ -106,17 +106,39 @@ public class GoodsCategoryRepository extends RdbRepository<GoodsCategory> {
 	 * @throws DBAccessException
 	 */
 	public List<GoodsCategory> all() throws DBAccessException {
-		return all(1);
+		val sql = "select * from goods_category ?";
+		List<GoodsCategory> goodsCategories = new ArrayList<>();
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			@Cleanup
+			val result = statement.executeQuery();
+			while (result.next()) {
+				GoodsCategory goodsCategory = new GoodsCategory();
+				setProperties(goodsCategory, result);
+				goodsCategories.add(goodsCategory);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return goodsCategories;
 	}
 
 	public void insert(GoodsCategory goodsCategory) throws DBAccessException {
 		val sql = "insert into goods_category(id, name) values (goods_category_pk_seq.nextval, ?)";
+		val sql2 = "select goods_category_pk_seq.currval from dual";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, goodsCategory.getName());
 			statement.executeUpdate();
+			statement = connection.prepareStatement(sql2);
+			@Cleanup
+			ResultSet result = statement.executeQuery();
+			result.next();
+			goodsCategory.setId(result.getInt(1));
 			connection.commit();
 		} catch (SQLException e) {
 			if (connection != null) {

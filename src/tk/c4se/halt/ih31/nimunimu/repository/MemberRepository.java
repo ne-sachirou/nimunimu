@@ -89,7 +89,23 @@ public class MemberRepository extends RdbRepository<Member> {
 	 * @throws DBAccessException
 	 */
 	public List<Member> all() throws DBAccessException {
-		return all(1);
+		val sql = "select * from member";
+		List<Member> members = new ArrayList<>();
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			@Cleanup
+			val result = statement.executeQuery();
+			while (result.next()) {
+				Member member = new Member();
+				setProperties(member, result);
+				members.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return members;
 	}
 
 	/**

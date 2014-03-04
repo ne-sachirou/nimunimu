@@ -89,7 +89,23 @@ public class StoreRepository extends RdbRepository<Store> {
 	 * @throws DBAccessException
 	 */
 	public List<Store> all() throws DBAccessException {
-		return all(1);
+		val sql = "select * from store";
+		List<Store> stores = new ArrayList<>();
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			@Cleanup
+			val result = statement.executeQuery();
+			while (result.next()) {
+				Store store = new Store();
+				setProperties(store, result);
+				stores.add(store);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return stores;
 	}
 
 	public void insert(Store store) throws DBAccessException {
