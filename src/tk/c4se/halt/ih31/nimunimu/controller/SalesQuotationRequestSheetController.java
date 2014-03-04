@@ -10,30 +10,28 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.org.apache.xpath.internal.operations.Quo;
+
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.dto.MemberAuthority;
-import tk.c4se.halt.ih31.nimunimu.dto.Supplier;
+import tk.c4se.halt.ih31.nimunimu.dto.QuotationRequestSheet;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
-import tk.c4se.halt.ih31.nimunimu.model.SupplierModel;
-import tk.c4se.halt.ih31.nimunimu.repository.SupplierRepository;
+import tk.c4se.halt.ih31.nimunimu.repository.QuotationRequestSheetRepository;
 
 /**
  * @author ne_Sachirou
  * 
  */
-@WebServlet("/supplier")
-public class SupplierController extends Controller {
+@WebServlet("/sales/quotation_request_sheet")
+public class SalesQuotationRequestSheetController extends Controller {
 	private static final long serialVersionUID = 1L;
 
-	public SupplierController() {
+	public SalesQuotationRequestSheetController() {
 		super();
-		title = "仕入先詳細";
-		partial = "/supplier.jsp";
-		authorities.add(MemberAuthority.ADMIN);
+		title = "見積依頼書";
+		partial = "/sales/quotation_request_sheet.jsp";
 		authorities.add(MemberAuthority.SALES);
 		authorities.add(MemberAuthority.SALES_MANAGER);
-		authorities.add(MemberAuthority.STORE);
-		authorities.add(MemberAuthority.STORE_MANAGER);
 		authorities.add(MemberAuthority.ACCOUNTING);
 	}
 
@@ -43,14 +41,14 @@ public class SupplierController extends Controller {
 		super.doGet(req, resp);
 		val idStr = req.getParameter("id");
 		@val
-		Supplier supplier = null;
+		QuotationRequestSheet sheet;
 		try {
-			supplier = new SupplierRepository().find(idStr);
+			sheet = new QuotationRequestSheetRepository().find(idStr);
 		} catch (DBAccessException e) {
 			e.printStackTrace();
-			resp.sendError(502, e.getMessage());
+			sheet = null;
 		}
-		req.setAttribute("supplier", supplier);
+		req.setAttribute("goodsCategory", sheet);
 		forward(req, resp);
 	}
 
@@ -58,7 +56,7 @@ public class SupplierController extends Controller {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		super.doPost(req, resp);
-		val model = new SupplierModel();
+		val model = new QuotationRequestSheetModel();
 		try {
 			processDoPostRequest(req, resp, model);
 		} catch (IOException e) {

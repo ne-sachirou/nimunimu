@@ -13,17 +13,18 @@ import java.util.List;
 import lombok.Cleanup;
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.config.DBConnector;
-import tk.c4se.halt.ih31.nimunimu.dto.OurOrderSheet;
+import tk.c4se.halt.ih31.nimunimu.dto.CustomerOrderSheet;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 
 /**
  * @author ne_Sachirou
  * 
  */
-public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
+public class CustomerOrderSheetRepository extends
+		RdbRepository<CustomerOrderSheet> {
 	private static final long serialVersionUID = 1L;
 
-	public OurOrderSheetRepository() {
+	public CustomerOrderSheetRepository() {
 		super();
 	}
 
@@ -33,12 +34,12 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public OurOrderSheet find(int id) throws DBAccessException {
+	public CustomerOrderSheet find(int id) throws DBAccessException {
 		if (id == 0) {
 			return null;
 		}
-		val sql = "select * from our_order_sheet where id = ?";
-		OurOrderSheet sheet = null;
+		val sql = "select * from customer_order_sheet where id = ?";
+		CustomerOrderSheet sheet = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -46,7 +47,7 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 			@Cleanup
 			val result = statement.executeQuery();
 			if (result.next()) {
-				sheet = new OurOrderSheet();
+				sheet = new CustomerOrderSheet();
 				setProperties(sheet, result);
 			}
 		} catch (SQLException e) {
@@ -62,7 +63,7 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public OurOrderSheet find(String idStr) throws DBAccessException {
+	public CustomerOrderSheet find(String idStr) throws DBAccessException {
 		final int id;
 		try {
 			id = Integer.parseInt(idStr);
@@ -78,9 +79,9 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public List<OurOrderSheet> all(int page) throws DBAccessException {
-		val sql = "select * from our_order_sheet where deleted_at = null and rownum between ? and ?";
-		List<OurOrderSheet> sheets = new ArrayList<>();
+	public List<CustomerOrderSheet> all(int page) throws DBAccessException {
+		val sql = "select * from customer_order_sheet where deleted_at = null and rownum between ? and ?";
+		List<CustomerOrderSheet> sheets = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -89,7 +90,7 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {
-				OurOrderSheet sheet = new OurOrderSheet();
+				CustomerOrderSheet sheet = new CustomerOrderSheet();
 				setProperties(sheet, result);
 				sheets.add(sheet);
 			}
@@ -105,16 +106,16 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public List<OurOrderSheet> all() throws DBAccessException {
-		val sql = "select * from our_order_sheet where deleted_at = null";
-		List<OurOrderSheet> sheets = new ArrayList<>();
+	public List<CustomerOrderSheet> all() throws DBAccessException {
+		val sql = "select * from customer_order_sheet where deleted_at = null";
+		List<CustomerOrderSheet> sheets = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {
-				OurOrderSheet sheet = new OurOrderSheet();
+				CustomerOrderSheet sheet = new CustomerOrderSheet();
 				setProperties(sheet, result);
 				sheets.add(sheet);
 			}
@@ -125,9 +126,9 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 		return sheets;
 	}
 
-	public void insert(OurOrderSheet sheet) throws DBAccessException {
-		val sql = "insert into our_order_sheet(id, amount, tax) values (our_order_sheet_pk_seq.nextval, ?, ?)";
-		val sql2 = "select our_order_sheet_pk_seq.currval from dual";
+	public void insert(CustomerOrderSheet sheet) throws DBAccessException {
+		val sql = "insert into customer_order_sheet(id, amount, tax) values (customer_order_sheet_pk_seq.nextval, ?, ?)";
+		val sql2 = "select customer_order_sheet_pk_seq.currval from dual";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -161,35 +162,15 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 		}
 	}
 
-	public void update(OurOrderSheet sheet) throws DBAccessException {
-		val sql = "update our_order_sheet deleted_at = systimestamp where id = ?";
-		val sql2 = "inset into our_order_sheet (id, amount, tax, created_at) values (our_orede_sheet_pk_seq.nextval, ?, ?, systimestamp)";
-		val sql3 = "select our_orede_sheet_pk_seq.currval from dual";
-		val sql4 = "update our_order_sheet_detail set out_order_sheet_id = ? where out_order_sheet_id = ?";
-		val sql5 = "update our_order set  set out_order_sheet_id = ? where out_order_sheet_id = ?";
-		val oldId = sheet.getId();
+	public void update(CustomerOrderSheet sheet) throws DBAccessException {
+		val sql = "update customer_order_sheet set amount = ?, tax = ?, updated_at = systimestamp where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, oldId);
-			statement.executeUpdate();
-			statement = connection.prepareStatement(sql2);
 			statement.setInt(1, sheet.getAmount());
 			statement.setInt(2, sheet.getTax());
-			statement.executeUpdate();
-			statement = connection.prepareStatement(sql3);
-			@Cleanup
-			ResultSet result = statement.executeQuery();
-			result.next();
-			sheet.setId(result.getInt(1));
-			statement = connection.prepareStatement(sql4);
-			statement.setInt(1, sheet.getId());
-			statement.setInt(2, oldId);
-			statement.executeUpdate();
-			statement = connection.prepareStatement(sql5);
-			statement.setInt(1, sheet.getId());
-			statement.setInt(2, oldId);
+			statement.setInt(3, sheet.getId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -212,8 +193,8 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 		}
 	}
 
-	public void delete(OurOrderSheet sheet) throws DBAccessException {
-		val sql = "update our_order_sheet set deleted_at = systimestamp where id = ?";
+	public void delete(CustomerOrderSheet sheet) throws DBAccessException {
+		val sql = "update customer_order_sheet set deleted_at = systimestamp where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -242,8 +223,8 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 	}
 
 	@Override
-	protected OurOrderSheet setProperties(OurOrderSheet sheet, ResultSet result)
-			throws SQLException {
+	protected CustomerOrderSheet setProperties(CustomerOrderSheet sheet,
+			ResultSet result) throws SQLException {
 		sheet.setId(result.getInt("id"));
 		sheet.setAmount(result.getInt("amount"));
 		sheet.setTax(result.getInt("tax"));
