@@ -5,6 +5,7 @@ package tk.c4se.halt.ih31.nimunimu.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -22,4 +23,5 @@ public class OurOrderSheet implements Serializable {
 	private Date createdAt;
 	private Date updatedAt;
 	private Date deletedAt;
+	private List<OurOrderSheetDetail> ourOrderSheetDetails;
 }

@@ -17,6 +17,6 @@ public class PaymentDetail implements Serializable {
 
 	private int paymentId;
 	private Payment payment;
-	private int ourOrderid;
+	private int ourOrderId;
 	private OurOrder ourOrder;
 }

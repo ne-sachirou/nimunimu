@@ -75,18 +75,15 @@ public class OurOrderSheetDetailRepository extends
 
 	/**
 	 * 
-	 * @param page
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public List<OurOrderSheetDetail> all(int page) throws DBAccessException {
-		val sql = "select * from our_order_sheet_detail where rownum between ? and ?";
+	public List<OurOrderSheetDetail> all() throws DBAccessException {
+		val sql = "select * from our_order_sheet_detail";
 		List<OurOrderSheetDetail> details = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, perPage * (page - 1) + 1);
-			statement.setInt(2, perPage * page);
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {
@@ -101,17 +98,14 @@ public class OurOrderSheetDetailRepository extends
 		return details;
 	}
 
-	/**
-	 * 
-	 * @return
-	 * @throws DBAccessException
-	 */
-	public List<OurOrderSheetDetail> all() throws DBAccessException {
-		val sql = "select * from our_order_sheet_detail ?";
+	public List<OurOrderSheetDetail> allByOurOrderSheetId(int ourOrderSheetId)
+			throws DBAccessException {
+		val sql = "select * from our_order_sheet_detail where our_order_sheet_id = ?";
 		List<OurOrderSheetDetail> details = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, ourOrderSheetId);
 			@Cleanup
 			val result = statement.executeQuery();
 			while (result.next()) {

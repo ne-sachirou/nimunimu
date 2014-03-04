@@ -4,6 +4,7 @@
 package tk.c4se.halt.ih31.nimunimu.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Data;
 
@@ -21,4 +22,5 @@ public class Payment implements Serializable {
 	private String memberId;
 	private Member member;
 	private PaymentStatus status;
+	private List<Payment> payments;
 }

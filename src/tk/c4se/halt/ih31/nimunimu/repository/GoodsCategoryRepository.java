@@ -106,7 +106,7 @@ public class GoodsCategoryRepository extends RdbRepository<GoodsCategory> {
 	 * @throws DBAccessException
 	 */
 	public List<GoodsCategory> all() throws DBAccessException {
-		val sql = "select * from goods_category ?";
+		val sql = "select * from goods_category";
 		List<GoodsCategory> goodsCategories = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
