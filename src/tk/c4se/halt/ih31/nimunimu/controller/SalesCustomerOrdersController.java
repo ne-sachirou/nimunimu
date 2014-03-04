@@ -20,7 +20,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.CustomerOrderRepository;
  * @author ne_Sachirou
  * 
  */
-@WebServlet("sales/customer_orders")
+@WebServlet("/sales/customer_orders")
 public class SalesCustomerOrdersController extends Controller {
 	private static final long serialVersionUID = 1L;
 

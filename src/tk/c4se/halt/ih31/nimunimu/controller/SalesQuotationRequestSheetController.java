@@ -25,7 +25,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.QuotationRequestSheetRepository;
  * @author ne_Sachirou
  * 
  */
-@WebServlet("sales/quotation_request_sheet")
+@WebServlet("/sales/quotation_request_sheet")
 public class SalesQuotationRequestSheetController extends Controller {
 	private static final long serialVersionUID = 1L;
 

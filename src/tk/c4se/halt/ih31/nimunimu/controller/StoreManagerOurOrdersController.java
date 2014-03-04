@@ -20,7 +20,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.OurOrderRepository;
  * @author ne_Sachirou
  * 
  */
-@WebServlet("store_manager/our_orders")
+@WebServlet("/store_manager/our_orders")
 public class StoreManagerOurOrdersController extends Controller {
 	private static final long serialVersionUID = 1L;
 

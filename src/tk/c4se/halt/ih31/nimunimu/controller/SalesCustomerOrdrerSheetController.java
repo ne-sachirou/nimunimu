@@ -25,7 +25,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.CustomerOrderSheetRepository;
  * @author ne_Sachirou
  * 
  */
-@WebServlet("sales/customer_order_sheet")
+@WebServlet("/sales/customer_order_sheet")
 public class SalesCustomerOrdrerSheetController extends Controller {
 	private static final long serialVersionUID = 1L;
 

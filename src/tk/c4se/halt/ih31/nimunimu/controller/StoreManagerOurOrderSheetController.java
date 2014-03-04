@@ -25,7 +25,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.OurOrderSheetRepository;
  * @author ne_Sachirou
  * 
  */
-@WebServlet("store_manager/our_order_sheet")
+@WebServlet("/store_manager/our_order_sheet")
 public class StoreManagerOurOrderSheetController extends Controller {
 	private static final long serialVersionUID = 1L;
 

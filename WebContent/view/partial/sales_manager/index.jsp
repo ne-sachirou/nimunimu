@@ -11,10 +11,7 @@
 		<a href="stores">在庫一覧</a>
 	</div>
 	<div class="pure-u-1-3 index-menu-item">
-		<a href="store_manager/stock_tacking_result?new=true">棚卸結果入力</a>
-	</div>
-	<div class="pure-u-1-3 index-menu-item">
-		<a href="store_manager/stock_tacking_results">棚卸結果一覧</a>
+		<a href="store_manager/stock_takeing_results">棚卸結果一覧</a>
 	</div>
 	<div class="pure-u-1-3 index-menu-item">
 		<a href="customers">顧客一覧</a>

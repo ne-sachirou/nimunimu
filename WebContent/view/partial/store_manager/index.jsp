@@ -8,7 +8,7 @@
 		<a href="store_manager/our_orders">発注一覧</a>
 	</div>
 	<div class="pure-u-1-3 index-menu-item">
-		<a href="store_manager/our_order?new=true">発注書新規入力</a>
+		<a href="store_manager/our_order_sheet?new=true">発注書新規入力</a>
 	</div>
 	<div class="pure-u-1-3 index-menu-item">
 		<a href="store/store_in">入庫入力</a>
@@ -18,6 +18,12 @@
 	</div>
 	<div class="pure-u-1-3 index-menu-item">
 		<a href="stores">在庫一覧</a>
+	</div>
+	<div class="pure-u-1-3 index-menu-item">
+		<a href="store_manager/stock_takeing_result?new=true">棚卸結果入力</a>
+	</div>
+	<div class="pure-u-1-3 index-menu-item">
+		<a href="store_manager/stock_takeing_results">棚卸結果一覧</a>
 	</div>
 	<div class="pure-u-1-3 index-menu-item">
 		<a href="customers">顧客一覧</a>
