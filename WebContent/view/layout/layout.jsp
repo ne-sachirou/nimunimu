@@ -8,6 +8,28 @@
 <title>${fn:escapeXml(title)}|nimunimu</title>
 <link rel="stylesheet" href="${baseUri}/resource/style.css" />
 <script src="${baseUri}/resource/bower_components/q/q.js"></script>
+<script>
+	// ES6 Array.from
+	if (!Array.from) {
+		Array.from = function(list) {
+			return [].slice.call(list);
+		};
+	}
+
+	// ES6 Promise http://c4se.hatenablog.com/entry/2014/01/30/023352
+	if (!window.Promise) {
+		window.Promise = Q.Promise || Q.promise;
+		(function() {
+			'use strict';
+			var i = 0, iz = 0, keys = Object.keys(Q), key;
+
+			for (i = 0, iz = keys.length; i < iz; ++i) {
+				key = keys[i];
+				window.Promise[key] = Q[key];
+			}
+		}());
+	}
+</script>
 </head>
 <body>
 	<div class="container">

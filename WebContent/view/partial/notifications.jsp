@@ -15,27 +15,6 @@
 	</tbody>
 </table>
 <script>
-	// ES6 Array.from
-	if (!Array.from) {
-		Array.from = function(list) {
-			return [].slice.call(list);
-		};
-	}
-
-	// ES6 Promise http://c4se.hatenablog.com/entry/2014/01/30/023352
-	if (!window.Promise) {
-		window.Promise = Q.Promise || Q.promise;
-		(function() {
-			'use strict';
-			var i = 0, iz = 0, keys = Object.keys(Q), key;
-
-			for (i = 0, iz = keys.length; i < iz; ++i) {
-				key = keys[i];
-				window.Promise[key] = Q[key];
-			}
-		}());
-	}
-
 	Array.from(document.querySelectorAll('.read-button')).forEach(
 			function(btn) {
 				btn.onclick = function() {
