@@ -1,5 +1,10 @@
+@import (less) "bower_components/pure/pure-min.css";
+
+@anchor_color: #3b8bba;
+@anchor_color2: rgba(66, 184, 221, 0.9);
+
 a {
-	color: #3b8bba;
+	color: @anchor_color;
 }
 
 .button-success,
@@ -26,29 +31,80 @@ a {
 .button-secondary {
 	background: rgb(66, 184, 221); /* this is a light blue */
 }
-	
+
 h1.title {
 	margin-top: 37px;
 	text-align: center;
 }
 
 .main-box {
-	align-content: center;
-	display: flex;
-	justify-content: space-around;
+	// align-content: center;
+	// display: flex;
+	// justify-content: space-around;
 }
 
 .main {
 }
 
+.home-menu {
+}
+
+.index-menu {
+	position: relative;
+
+	.index-menu-item {
+		a {
+			display: block;
+			line-height: 1.4em;
+			min-height: 4em;
+			width: 100%;
+		}
+	}
+
+	.index-menu-item:nth-child(odd) {
+		a {
+			background: @anchor_color2;
+			color: white;
+
+			&:hover, &:focus {
+				background: transparent;
+				color: @anchor_color;
+			}
+		}
+	}
+
+	.index-menu-item:nth-child(even) {
+		a {
+			background: @anchor_color;
+			color: white;
+
+			&:hover, &:focus {
+				background: transparent;
+				color: @anchor_color;
+			}
+		}
+	}
+}
+
 footer {
-	color: #eee;
+	border-top: 1px solid #eee;
+	color: #999;
 	font-size: 87.5%;
+	margin-top: 3em;
+	padding-top: 1px;
 	text-transform: uppercase;
+
+	a {
+		color: inherit;
+	}
 }
 
 .editing {
+	background: rgba(0, 0, 0, 0.1);
 	border: 1px solid yellow;
 	box-shadow: 0 0 1px yellow;
+	display: inline-block;
+	min-height: 1em;
+	min-width: 5em;
 }
 // vim:set ft=css:

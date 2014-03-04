@@ -28,7 +28,7 @@ public class SupplierController extends Controller {
 	public SupplierController() {
 		super();
 		title = "仕入先詳細";
-		partial = "/customer.jsp";
+		partial = "/supplier.jsp";
 		authorities.add(MemberAuthority.ADMIN);
 		authorities.add(MemberAuthority.SALES);
 		authorities.add(MemberAuthority.SALES_MANAGER);
@@ -43,12 +43,16 @@ public class SupplierController extends Controller {
 		super.doGet(req, resp);
 		val idStr = req.getParameter("id");
 		@val
-		Supplier supplier;
+		Supplier supplier = null;
 		try {
 			supplier = new SupplierRepository().find(idStr);
 		} catch (DBAccessException e) {
 			e.printStackTrace();
-			supplier = null;
+			resp.sendError(502, e.getMessage());
+		}
+		if (supplier == null) {
+			resp.sendError(404, "Supplier " + idStr + "is not found in DB.");
+			return;
 		}
 		req.setAttribute("supplier", supplier);
 		forward(req, resp);

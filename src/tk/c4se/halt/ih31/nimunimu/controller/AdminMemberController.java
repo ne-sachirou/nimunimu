@@ -29,6 +29,11 @@ public class AdminMemberController extends Controller {
 		title = "社員アカウント詳細";
 		partial = "/admin/member.jsp";
 		authorities.add(MemberAuthority.ADMIN);
+		authorities.add(MemberAuthority.SALES);
+		authorities.add(MemberAuthority.SALES_MANAGER);
+		authorities.add(MemberAuthority.STORE);
+		authorities.add(MemberAuthority.STORE_MANAGER);
+		authorities.add(MemberAuthority.ACCOUNTING);
 	}
 
 	@Override

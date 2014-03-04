@@ -6,8 +6,6 @@
 <head>
 <meta charset="utf-8" />
 <title>${fn:escapeXml(title)}|nimunimu</title>
-<link rel="stylesheet"
-	href="${baseUri}/resource/bower_components/pure/pure-min.css" />
 <link rel="stylesheet" href="${baseUri}/resource/style.css" />
 <script src="${baseUri}/resource/bower_components/q/q.js"></script>
 </head>
@@ -15,10 +13,12 @@
 	<div class="container">
 		<header class="header">
 			<div
-				class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+				class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed home-menu">
 				<a class="pure-menu-heading" href="${baseUri}">nimunimu</a>
 				<ul>
-					<li class="pure-menu-selected"><a href="${baseUri}">Home</a></li>
+					<li class="pure-menu-selected"><a href="${baseUri}">メニュー</a></li>
+					<li><a href="${baseUri}/notifications">お知らせ</a></li>
+					<li><a href="${baseUri}/admin/member?id=${loginMember.id}">アカウント設定</a></li>
 					<li><a href="${baseUri}/logout">ログアウト</a></li>
 				</ul>
 			</div>
@@ -29,11 +29,10 @@
 				<jsp:include page="${partial}"></jsp:include>
 			</section>
 		</div>
-		<footer class="footer"></footer>
 	</div>
 	<footer class="footer">
 		<div>
-			<a href="${baseUri}/">nimunimuトップ</a>
+			<a href="${baseUri}/">nimunimuメニュー</a>
 		</div>
 	</footer>
 </body>
