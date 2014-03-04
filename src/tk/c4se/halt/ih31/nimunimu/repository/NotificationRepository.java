@@ -33,13 +33,13 @@ public class NotificationRepository extends RdbRepository<Notification> {
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public Notification find(int id) throws DBAccessException {
+	public Notification find(String id) throws DBAccessException {
 		val sql = "select * from notification where id = ?";
 		Notification notification = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, id);
+			statement.setString(1, id);
 			@Cleanup
 			val result = statement.executeQuery();
 			if (result.next()) {
