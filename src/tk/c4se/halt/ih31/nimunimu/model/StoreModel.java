@@ -1,23 +1,23 @@
 /**
- * 
+ *
  */
 package tk.c4se.halt.ih31.nimunimu.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.dto.Store;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 import tk.c4se.halt.ih31.nimunimu.repository.StoreRepository;
-import lombok.val;
 
 /**
  * @author ne_Sachirou
- * 
+ *
  */
 public class StoreModel {
 	/**
-	 * 
+	 *
 	 * @param req
 	 * @param resp
 	 * @throws DBAccessException
@@ -28,6 +28,13 @@ public class StoreModel {
 		val goodsId = req.getParameter("goods_id");
 		val repo = new StoreRepository();
 		Store store = repo.find(place, goodsId);
+		if (store == null) {
+			store = new Store();
+			store.setPlace(place);
+			store.setGoodsId(goodsId);
+			store.setGoodsNumber(0);
+			repo.insert(store);
+		}
 		int goodsNumber = store.getGoodsNumber();
 		goodsNumber += Integer.parseInt(req.getParameter("goods_number"));
 		store.setGoodsNumber(goodsNumber);
@@ -35,7 +42,7 @@ public class StoreModel {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param req
 	 * @param resp
 	 * @throws DBAccessException
