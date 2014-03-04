@@ -18,7 +18,7 @@ import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 
 /**
  * @author ne_Sachirou
- * 
+ *
  */
 public class NotificationRepository extends RdbRepository<Notification> {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class NotificationRepository extends RdbRepository<Notification> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 * @throws DBAccessException
@@ -54,7 +54,7 @@ public class NotificationRepository extends RdbRepository<Notification> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param page
 	 * @return
 	 * @throws DBAccessException
@@ -82,7 +82,7 @@ public class NotificationRepository extends RdbRepository<Notification> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 * @throws DBAccessException
 	 */
@@ -150,7 +150,7 @@ public class NotificationRepository extends RdbRepository<Notification> {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, notification.getMemberId());
 			statement.setString(2, notification.getMessage());
-			statement.setInt(5, notification.getId());
+			statement.setInt(3, notification.getId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
