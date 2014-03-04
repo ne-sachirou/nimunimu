@@ -17,7 +17,7 @@
 				<a class="pure-menu-heading" href="${baseUri}">nimunimu</a>
 				<ul>
 					<li class="pure-menu-selected"><a href="${baseUri}">メニュー</a></li>
-					<li><a href="${baseUri}/notifications">お知らせ</a></li>
+					<li><a href="${baseUri}/notifications">おしらせ</a></li>
 					<li><a href="${baseUri}/admin/member?id=${loginMember.id}">アカウント設定</a></li>
 					<li><a href="${baseUri}/logout">ログアウト</a></li>
 				</ul>

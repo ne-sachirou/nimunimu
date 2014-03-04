@@ -10,7 +10,7 @@ import lombok.Data;
 
 /**
  * @author ne_Sachirou
- *
+ * 
  */
 @Data
 public class Notification implements Serializable {
@@ -18,7 +18,8 @@ public class Notification implements Serializable {
 
 	private int id;
 	private String memberId;
+	private Member member;
 	private String message;
 	private Date createdAt;
-	private Date updatedAt;
+	private Date deletedAt;
 }

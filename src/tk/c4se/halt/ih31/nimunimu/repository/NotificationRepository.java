@@ -18,7 +18,7 @@ import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
 
 /**
  * @author ne_Sachirou
- *
+ * 
  */
 public class NotificationRepository extends RdbRepository<Notification> {
 	private static final long serialVersionUID = 1L;
@@ -28,18 +28,18 @@ public class NotificationRepository extends RdbRepository<Notification> {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param id
 	 * @return
 	 * @throws DBAccessException
 	 */
-	public Notification find(String id) throws DBAccessException {
+	public Notification find(int id) throws DBAccessException {
 		val sql = "select * from notification where id = ?";
 		Notification notification = null;
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, id);
+			statement.setInt(1, id);
 			@Cleanup
 			val result = statement.executeQuery();
 			if (result.next()) {
@@ -54,7 +54,7 @@ public class NotificationRepository extends RdbRepository<Notification> {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param page
 	 * @return
 	 * @throws DBAccessException
@@ -82,12 +82,12 @@ public class NotificationRepository extends RdbRepository<Notification> {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return
 	 * @throws DBAccessException
 	 */
 	public List<Notification> all() throws DBAccessException {
-		val sql = "select * from notification";
+		val sql = "select * from notification and deleted_at = null";
 		List<Notification> notification = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
@@ -106,6 +106,39 @@ public class NotificationRepository extends RdbRepository<Notification> {
 		return notification;
 	}
 
+	/**
+	 * 
+	 * @param memberId
+	 * @return
+	 * @throws DBAccessException
+	 */
+	public List<Notification> allByMemberId(String memberId)
+			throws DBAccessException {
+		val sql = "select * from notification where deleted_at = null and member_id = ?";
+		List<Notification> notification = new ArrayList<>();
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, memberId);
+			@Cleanup
+			val result = statement.executeQuery();
+			while (result.next()) {
+				Notification notificationItem = new Notification();
+				setProperties(notificationItem, result);
+				notification.add(notificationItem);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return notification;
+	}
+
+	/**
+	 * 
+	 * @param notification
+	 * @throws DBAccessException
+	 */
 	public void insert(Notification notification) throws DBAccessException {
 		val sql = "insert into notification(id, member_id, message) values (notification_pk_seq, ?, ?)";
 		val sql2 = "select notification_pk_seq.currval from dual";
@@ -142,39 +175,22 @@ public class NotificationRepository extends RdbRepository<Notification> {
 		}
 	}
 
+	/**
+	 * 
+	 * @param notification
+	 * @throws DBAccessException
+	 */
 	public void update(Notification notification) throws DBAccessException {
-		val sql = "update notification set member_id = ?, message = ? where id = ?";
-		Connection connection = null;
-		try {
-			connection = DBConnector.getConnection();
-			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, notification.getMemberId());
-			statement.setString(2, notification.getMessage());
-			statement.setInt(3, notification.getId());
-			statement.executeUpdate();
-			connection.commit();
-		} catch (SQLException e) {
-			if (connection != null) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {
-					throw new DBAccessException(e1);
-				}
-			}
-			throw new DBAccessException(e);
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					throw new DBAccessException(e);
-				}
-			}
-		}
+		throw new DBAccessException("We cannot update Notification.");
 	}
 
+	/**
+	 * 
+	 * @param notification
+	 * @throws DBAccessException
+	 */
 	public void delete(Notification notification) throws DBAccessException {
-		val sql = "delete from notification where id = ?";
+		val sql = "update notification set deleted_at = systimestamp where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
@@ -208,6 +224,7 @@ public class NotificationRepository extends RdbRepository<Notification> {
 		notification.setId(result.getInt("id"));
 		notification.setMemberId(result.getString("member_id"));
 		notification.setMessage(result.getString("message"));
+		notification.setDeletedAt(result.getDate("deleted_at"));
 		return notification;
 	}
 }
