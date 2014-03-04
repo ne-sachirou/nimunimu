@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package tk.c4se.halt.ih31.nimunimu.controller;
 
@@ -17,16 +17,16 @@ import tk.c4se.halt.ih31.nimunimu.model.StoreModel;
 
 /**
  * @author ne_Sachirou
- * 
+ *
  */
-@WebServlet("/store_in")
+@WebServlet("/store/store_in")
 public class StoreInController extends Controller {
 	private static final long serialVersionUID = 1L;
 
 	public StoreInController() {
 		super();
 		title = "入庫入力";
-		partial = "/store_in.jsp";
+		partial = "/store/store_in.jsp";
 		authorities.add(MemberAuthority.ADMIN);
 		authorities.add(MemberAuthority.SALES_MANAGER);
 		authorities.add(MemberAuthority.STORE);

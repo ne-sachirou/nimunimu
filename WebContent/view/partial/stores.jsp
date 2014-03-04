@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div>
-	<a class="pure-button" href="store_in">入庫する</a> <a class="pure-button"
-		href="store_out">出庫する</a>
+	<a class="pure-button" href="store/store_in">入庫する</a> <a
+		class="pure-button" href="store/store_out">出庫する</a>
 </div>
 <table class="pure-table pure-table-bordered">
 	<thead>
