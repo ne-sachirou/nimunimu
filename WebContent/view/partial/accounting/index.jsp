@@ -2,6 +2,18 @@
 	pageEncoding="utf-8"%>
 <div class="pure-g-r index-menu">
 	<div class="pure-u-1-3 index-menu-item">
+		<a href="accounting/billings">請求一覧</a>
+	</div>
+	<div class="pure-u-1-3 index-menu-item">
+		<a href="accounting/payments">被請求一覧</a>
+	</div>
+	<div class="pure-u-1-3 index-menu-item">
+		<a href="sales/customer_orders">受注一覧</a>
+	</div>
+	<div class="pure-u-1-3 index-menu-item">
+		<a href="store_manager/our_orders">発注一覧</a>
+	</div>
+	<div class="pure-u-1-3 index-menu-item">
 		<a href="stores">在庫一覧</a>
 	</div>
 	<div class="pure-u-1-3 index-menu-item">
