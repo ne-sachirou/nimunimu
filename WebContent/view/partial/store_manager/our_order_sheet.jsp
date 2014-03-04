@@ -11,44 +11,42 @@
 	</div>
 	<div class="pure-form pure-form-aligned">
 		<div class="pure-control-group">
-			<label for="">発注ID</label> <span class="pk" data-field-name="id">${fn:escapeXml(order.id)}</span>
+			<label for="">発注ID</label> <span class="" data-field-name="order_id">${fn:escapeXml(order.id)}</span>
 		</div>
 		<div class="pure-control-group">
 			<label for="">仕入先ID</label> <span class="field"
-				data-field-name="supplier_id">${fn:escapeXml(order.supplierId)}</span>
+				data-field-name="order_supplier_id">${fn:escapeXml(order.supplierId)}</span>
 		</div>
 		<div class="pure-control-group">
 			<label for="">担当社員ID</label> <span class="field"
-				data-field-name="member_id">${fn:escapeXml(order.memberId)}</span>
+				data-field-name="order_member_id">${fn:escapeXml(order.memberId)}</span>
 		</div>
 		<div class="pure-control-group">
 			<label for="">発注の状態</label> <span class="field"
-				data-field-name="status">${fn:escapeXml(order.status)}</span>
+				data-field-name="order_status">${fn:escapeXml(order.status)}</span>
 		</div>
 
 		<div class="pure-control-group">
-			<label for="">発注書ID</label> <span class="" data-field-name="sheet_id">${fn:escapeXml(order.ourOrderSheet.id)}</span>
+			<label for="">発注書ID</label> <span class="pk" data-field-name="id">${fn:escapeXml(sheet.id)}</span>
 		</div>
 		<div class="pure-control-group">
-			<label for="">合計金額</label> <span class="field"
-				data-field-name="sheet_amount">${fn:escapeXml(order.ourOrderSheet.amount)}</span>
+			<label for="">合計金額</label> <span class="" data-field-name="amount">${fn:escapeXml(sheet.amount)}</span>
 		</div>
 		<div class="pure-control-group">
-			<label for="">税額</label> <span class="field"
-				data-field-name="sheet_tax">${fn:escapeXml(order.ourOrderSheet.tax)}</span>
+			<label for="">税額</label> <span class="" data-field-name="tax">${fn:escapeXml(sheet.tax)}</span>
 		</div>
 		<div class="pure-control-group">
 			<label for="">作成日時</label> <span class=""
-				data-field-name="sheet_created_at">${fn:escapeXml(order.ourOrderSheet.createdAt)}</span>
+				data-field-name="created_at">${fn:escapeXml(sheet.createdAt)}</span>
 		</div>
 		<div class="pure-control-group">
 			<label for="">更新日時</label> <span class=""
-				data-field-name="sheet_updated_at">${fn:escapeXml(order.ourOrderSheet.updatedAt)}</span>
+				data-field-name="updated_at">${fn:escapeXml(sheet.updatedAt)}</span>
 		</div>
 	</div>
 
-	<c:forEach items="${order.ourOrderSheet.ourOrderSheetDetails}"
-		var="detail" varStatus="v">
+	<c:forEach items="${sheet.ourOrderSheetDetails}" var="detail"
+		varStatus="v">
 		<div class="pure-form pure-form-aligned input-detail">
 			<div class="pure-control-group">
 				<label for="">商品ID</label> <span class="field"

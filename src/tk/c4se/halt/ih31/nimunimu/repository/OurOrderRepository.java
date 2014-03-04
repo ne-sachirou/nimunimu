@@ -59,6 +59,32 @@ public class OurOrderRepository extends RdbRepository<OurOrder> {
 
 	/**
 	 * 
+	 * @param sheetId
+	 * @return
+	 * @throws DBAccessException
+	 */
+	public OurOrder findByOurOrderSheetId(int sheetId) throws DBAccessException {
+		val sql = "select * from our_order where our_order_sheet_id = ?";
+		OurOrder order = null;
+		try (val connection = DBConnector.getConnection()) {
+			@Cleanup
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, sheetId);
+			@Cleanup
+			val result = statement.executeQuery();
+			if (result.next()) {
+				order = new OurOrder();
+				setProperties(order, result);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBAccessException(e);
+		}
+		return order;
+	}
+
+	/**
+	 * 
 	 * @param idStr
 	 * @return
 	 * @throws DBAccessException

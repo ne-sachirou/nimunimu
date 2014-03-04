@@ -23,7 +23,7 @@ import tk.c4se.halt.ih31.nimunimu.repository.OurOrderSheetRepository;
  * @author ne_Sachirou
  * 
  */
-public class OurOrderModel implements DoPostModel {
+public class OurOrderSheetModel implements DoPostModel {
 	/**
 	 * 
 	 * @param req
@@ -117,12 +117,13 @@ public class OurOrderModel implements DoPostModel {
 	}
 
 	private void setProperties(OurOrder order, HttpServletRequest req) {
-		order.setSupplierId(Integer.parseInt(req.getParameter("supplier_id")));
-		order.setMemberId(req.getParameter("member_id"));
-		order.setStatus(OurOrderStatus.valueOf(req.getParameter("status")));
+		order.setSupplierId(Integer.parseInt(req
+				.getParameter("order_supplier_id")));
+		order.setMemberId(req.getParameter("order_member_id"));
+		order.setStatus(OurOrderStatus.valueOf(req.getParameter("order_status")));
+
 		OurOrderSheet sheet = new OurOrderSheet();
-		sheet.setAmount(Integer.parseInt(req.getParameter("sheet_amount")));
-		sheet.setTax(Integer.parseInt(req.getParameter("sheet_tax")));
+		int amount = 0;
 		List<OurOrderSheetDetail> details = new ArrayList<>();
 		for (int i = 1; req.getParameter("detail_goods_id" + i) != null; ++i) {
 			val goodsId = req.getParameter("detail_goods_id" + i);
@@ -134,9 +135,12 @@ public class OurOrderModel implements DoPostModel {
 			detail.setGoodsId(goodsId);
 			detail.setPrice(price);
 			detail.setGoodsNumber(goodsNumber);
+			amount += price * goodsNumber;
 			details.add(detail);
 		}
 		sheet.setOurOrderSheetDetails(details);
+		sheet.setAmount(amount);
+		sheet.setTax((int) Math.floor(amount * 0.05));
 		order.setOurOrderSheet(sheet);
 	}
 }
