@@ -162,34 +162,14 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 	}
 
 	public void update(OurOrderSheet sheet) throws DBAccessException {
-		val sql = "update our_order_sheet deleted_at = systimestamp where id = ?";
-		val sql2 = "inset into our_order_sheet (id, amount, tax, created_at) values (our_orede_sheet_pk_seq.nextval, ?, ?, systimestamp)";
-		val sql3 = "select our_orede_sheet_pk_seq.currval from dual";
-		val sql4 = "update our_order_sheet_detail set out_order_sheet_id = ? where out_order_sheet_id = ?";
-		val sql5 = "update our_order set  set out_order_sheet_id = ? where out_order_sheet_id = ?";
-		val oldId = sheet.getId();
+		val sql = "update our_order_sheet set amount = ?, tax = ?, updated_at = systimestamp where id = ?";
 		Connection connection = null;
 		try {
 			connection = DBConnector.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, oldId);
-			statement.executeUpdate();
-			statement = connection.prepareStatement(sql2);
 			statement.setInt(1, sheet.getAmount());
 			statement.setInt(2, sheet.getTax());
-			statement.executeUpdate();
-			statement = connection.prepareStatement(sql3);
-			@Cleanup
-			ResultSet result = statement.executeQuery();
-			result.next();
-			sheet.setId(result.getInt(1));
-			statement = connection.prepareStatement(sql4);
-			statement.setInt(1, sheet.getId());
-			statement.setInt(2, oldId);
-			statement.executeUpdate();
-			statement = connection.prepareStatement(sql5);
-			statement.setInt(1, sheet.getId());
-			statement.setInt(2, oldId);
+			statement.setInt(3, sheet.getId());
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -210,6 +190,39 @@ public class OurOrderSheetRepository extends RdbRepository<OurOrderSheet> {
 				}
 			}
 		}
+		/*
+		 * val sql =
+		 * "update our_order_sheet deleted_at = systimestamp where id = ?"; val
+		 * sql2 =
+		 * "inset into our_order_sheet (id, amount, tax, created_at) values (our_orede_sheet_pk_seq.nextval, ?, ?, systimestamp)"
+		 * ; val sql3 = "select our_orede_sheet_pk_seq.currval from dual"; val
+		 * sql4 =
+		 * "update our_order_sheet_detail set out_order_sheet_id = ? where out_order_sheet_id = ?"
+		 * ; val sql5 =
+		 * "update our_order set  set out_order_sheet_id = ? where out_order_sheet_id = ?"
+		 * ; val oldId = sheet.getId(); Connection connection = null; try {
+		 * connection = DBConnector.getConnection(); PreparedStatement statement
+		 * = connection.prepareStatement(sql); statement.setInt(1, oldId);
+		 * statement.executeUpdate(); statement =
+		 * connection.prepareStatement(sql2); statement.setInt(1,
+		 * sheet.getAmount()); statement.setInt(2, sheet.getTax());
+		 * statement.executeUpdate(); statement =
+		 * connection.prepareStatement(sql3);
+		 * 
+		 * @Cleanup ResultSet result = statement.executeQuery(); result.next();
+		 * sheet.setId(result.getInt(1)); statement =
+		 * connection.prepareStatement(sql4); statement.setInt(1,
+		 * sheet.getId()); statement.setInt(2, oldId);
+		 * statement.executeUpdate(); statement =
+		 * connection.prepareStatement(sql5); statement.setInt(1,
+		 * sheet.getId()); statement.setInt(2, oldId);
+		 * statement.executeUpdate(); connection.commit(); } catch (SQLException
+		 * e) { if (connection != null) { try { connection.rollback(); } catch
+		 * (SQLException e1) { throw new DBAccessException(e1); } } throw new
+		 * DBAccessException(e); } finally { if (connection != null) { try {
+		 * connection.close(); } catch (SQLException e) { throw new
+		 * DBAccessException(e); } } }
+		 */
 	}
 
 	public void delete(OurOrderSheet sheet) throws DBAccessException {
