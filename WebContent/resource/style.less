@@ -3,6 +3,10 @@
 @anchor_color: #3b8bba;
 @anchor_color2: rgba(66, 184, 221, 0.9);
 
+body {
+	background: url("bg.png") no-repeat;
+}
+
 a {
 	color: @anchor_color;
 }
@@ -56,6 +60,8 @@ h1.title {
 		font-size: larger;
 
 		a {
+			background: transparent;
+			color: @anchor_color;
 			display: block;
 			line-height: 1.4em;
 			min-height: 4em;
@@ -65,24 +71,20 @@ h1.title {
 
 	.index-menu-item:nth-child(odd) {
 		a {
-			background: @anchor_color2;
-			color: white;
 
 			&:hover, &:focus {
-				background: transparent;
-				color: @anchor_color;
+				background: @anchor_color2;
+				color: white;
 			}
 		}
 	}
 
 	.index-menu-item:nth-child(even) {
 		a {
-			background: @anchor_color;
-			color: white;
 
 			&:hover, &:focus {
-				background: transparent;
-				color: @anchor_color;
+				background: @anchor_color;
+				color: white;
 			}
 		}
 	}

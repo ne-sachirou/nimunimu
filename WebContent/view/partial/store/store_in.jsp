@@ -20,7 +20,7 @@
 	<div class="pure-control-group">
 		<label for="goods_number">商品個数</label> <input id="goods_number"
 			type="number" name="goods_number" placeholder="商品個数"
-			value="${fn:escapeXml(goodsNumber)}" required />
+			value="${fn:escapeXml(goodsNumber)}" value="0" min="1" required />
 	</div>
 	<div class="pure-controls">
 		<button class="pure-button pure-button-primary" type="submit">入庫する</button>

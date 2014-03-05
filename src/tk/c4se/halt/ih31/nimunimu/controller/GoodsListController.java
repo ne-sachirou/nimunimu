@@ -11,10 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.dto.Goods;
 import tk.c4se.halt.ih31.nimunimu.dto.MemberAuthority;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
+import tk.c4se.halt.ih31.nimunimu.repository.GoodsCategoryRepository;
 import tk.c4se.halt.ih31.nimunimu.repository.GoodsRepository;
+import tk.c4se.halt.ih31.nimunimu.repository.SupplierRepository;
 
 /**
  * @author kei
@@ -43,6 +46,12 @@ public class GoodsListController extends Controller {
 		List<Goods> goodsList = null;
 		try {
 			goodsList = new GoodsRepository().all();
+			for (val goods : goodsList) {
+				goods.setGoodsCategory(new GoodsCategoryRepository().find(goods
+						.getGoodsCategoryId()));
+				goods.setSupplier(new SupplierRepository().find(goods
+						.getSupplierId()));
+			}
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 		}

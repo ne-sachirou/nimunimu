@@ -47,7 +47,7 @@ create table member(
 
 -- お報せ
 create sequence notification_pk_seq;
-select notification_pk_seq.nextval from dual;
+-- select notification_pk_seq.nextval from dual;
 create table notification(
   id         number(10)    primary key,
   member_id  varchar2(64)  references member(id),
@@ -58,7 +58,7 @@ create table notification(
 
 -- 顧客
 create sequence customer_pk_seq;
-select customer_pk_seq.nextval from dual;
+-- select customer_pk_seq.nextval from dual;
 create table customer(
   id                  number(10)    primary key,
   name                varchar2(100) not null,
@@ -73,7 +73,7 @@ create table customer(
 
 -- 仕入先
 create sequence supplier_pk_seq;
-select supplier_pk_seq.nextval from dual;
+-- select supplier_pk_seq.nextval from dual;
 create table supplier(
   id                  number(10)    primary key,
   name                varchar2(100) not null,
@@ -87,7 +87,7 @@ create table supplier(
 
 -- 商品category
 create sequence goods_category_pk_seq;
-select goods_category_pk_seq.nextval from dual;
+-- select goods_category_pk_seq.nextval from dual;
 create table goods_category(
   id   number(4)     primary key,
   name varchar2(100) unique not null
@@ -95,7 +95,7 @@ create table goods_category(
 
 -- 商品
 create sequence goods_pk_seq;
-select goods_pk_seq.nextval from dual;
+-- select goods_pk_seq.nextval from dual;
 create table goods(
   id                varchar2(50)  primary key,
   name              varchar2(100) not null,
@@ -114,10 +114,10 @@ create table special_price_goods(
 
 -- 在庫
 create table store(
-   place        varchar2(5),
-   goods_id     varchar2(50) references goods(id),
-   goods_number number(5)    not null,
-   primary key (place, goods_id)
+  place        varchar2(5),
+  goods_id     varchar2(50) references goods(id),
+  goods_number number(5)    not null,
+  primary key (place, goods_id)
 );
 
 -- 棚卸結果
@@ -133,7 +133,7 @@ create table stock_taking_result(
 
 -- 見積依頼書
 create sequence quotation_request_sheet_pk_seq;
-select quotation_request_sheet_pk_seq.nextval from dual;
+-- select quotation_request_sheet_pk_seq.nextval from dual;
 create table quotation_request_sheet(
   id         number(20) primary key,
   amount     number(8)  not null,
@@ -145,7 +145,7 @@ create table quotation_request_sheet(
 
 -- 見積依頼書明細
 create sequence quotation_rqst_sht_dtl_pk_s;
-select quotation_rqst_sht_dtl_pk_s.nextval from dual;
+-- select quotation_rqst_sht_dtl_pk_s.nextval from dual;
 create table quotation_request_sheet_detail(
   id                         number(3),
   quotation_request_sheet_id number(20)   references quotation_request_sheet(id),
@@ -157,7 +157,7 @@ create table quotation_request_sheet_detail(
 
 -- 注文書
 create sequence customer_order_sheet_pk_seq;
-select customer_order_sheet_pk_seq.nextval from dual;
+-- select customer_order_sheet_pk_seq.nextval from dual;
 create table customer_order_sheet(
   id         number(20) primary key,
   amount     number(8)  not null,
@@ -181,7 +181,7 @@ create table customer_order_sheet_detail(
 
 -- 受注flow
 create sequence customer_order_pk_seq;
-select customer_order_pk_seq.nextval from dual;
+-- select customer_order_pk_seq.nextval from dual;
 create table customer_order(
   id                         number(20)   primary key,
   customer_id                number(10)   references customer(id),
@@ -194,7 +194,7 @@ create table customer_order(
 
 -- 請求
 create sequence billing_pk_seq;
-select billing_pk_seq.nextval from dual;
+-- select billing_pk_seq.nextval from dual;
 create table billing(
   id          number(20)   primary key,
   customer_id number(10)   references customer(id),
@@ -212,7 +212,7 @@ create table billing_detail(
 
 -- 発注書
 create sequence our_order_sheet_pk_seq;
-select our_order_sheet_pk_seq.nextval from dual;
+-- select our_order_sheet_pk_seq.nextval from dual;
 create table our_order_sheet(
   id         number(20) primary key,
   amount     number(8)  not null,
@@ -224,7 +224,7 @@ create table our_order_sheet(
 
 -- 発注書明細
 create sequence our_order_sheet_detail_pk_seq;
-select our_order_sheet_detail_pk_seq.nextval from dual;
+-- select our_order_sheet_detail_pk_seq.nextval from dual;
 create table our_order_sheet_detail(
   id                 number(3),
   our_order_sheet_id number(20)   references our_order_sheet(id),
@@ -236,7 +236,7 @@ create table our_order_sheet_detail(
 
 -- 発注
 create sequence our_order_pk_seq;
-select our_order_pk_seq.nextval from dual;
+-- select our_order_pk_seq.nextval from dual;
 create table our_order(
   id                 number(20)   primary key,
   supplier_id        number(10)   references supplier(id),
@@ -248,7 +248,7 @@ create table our_order(
 
 -- 被請求
 create sequence payment_pk_seq;
-select payment_pk_seq.nextval from dual;
+-- select payment_pk_seq.nextval from dual;
 create table payment(
   id          number(20)   primary key,
   supplier_id number(10)   references supplier(id),

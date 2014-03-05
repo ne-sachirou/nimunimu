@@ -11,9 +11,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.dto.MemberAuthority;
 import tk.c4se.halt.ih31.nimunimu.dto.Store;
 import tk.c4se.halt.ih31.nimunimu.exception.DBAccessException;
+import tk.c4se.halt.ih31.nimunimu.repository.GoodsRepository;
 import tk.c4se.halt.ih31.nimunimu.repository.StoreRepository;
 
 /**
@@ -43,6 +45,9 @@ public class StoresController extends Controller {
 		List<Store> stores = null;
 		try {
 			stores = new StoreRepository().all();
+			for (val store : stores) {
+				store.setGoods(new GoodsRepository().find(store.getGoodsId()));
+			}
 		} catch (DBAccessException e) {
 			e.printStackTrace();
 		}

@@ -11,6 +11,7 @@
 		<tr>
 			<th>在庫位置</th>
 			<th>商品ID</th>
+			<th>商品ID</th>
 			<th>個数</th>
 		</tr>
 	</thead>
@@ -19,6 +20,7 @@
 			<tr>
 				<td>${fn:escapeXml(store.place)}</td>
 				<td><a href="goods?id=${fn:escapeXml(store.goodsId)}">${fn:escapeXml(store.goodsId)}</a></td>
+				<td>${fn:escapeXml(store.goods.name)}</td>
 				<td>${fn:escapeXml(store.goodsNumber)}</td>
 			</tr>
 		</c:forEach>

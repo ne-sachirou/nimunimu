@@ -13,11 +13,11 @@ import tk.c4se.halt.ih31.nimunimu.repository.StoreRepository;
 
 /**
  * @author ne_Sachirou
- *
+ * 
  */
 public class StoreModel {
 	/**
-	 *
+	 * 
 	 * @param req
 	 * @param resp
 	 * @throws DBAccessException
@@ -42,7 +42,7 @@ public class StoreModel {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param req
 	 * @param resp
 	 * @throws DBAccessException
@@ -53,6 +53,10 @@ public class StoreModel {
 		val goodsId = req.getParameter("goods_id");
 		val repo = new StoreRepository();
 		Store store = repo.find(place, goodsId);
+		if (store == null) {
+			throw new DBAccessException("There is no Store of " + goodsId
+					+ " at " + place);
+		}
 		int goodsNumber = store.getGoodsNumber();
 		goodsNumber -= Integer.parseInt(req.getParameter("goods_number"));
 		store.setGoodsNumber(goodsNumber);

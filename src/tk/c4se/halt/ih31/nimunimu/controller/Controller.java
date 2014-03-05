@@ -45,7 +45,7 @@ public abstract class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!checkAuthorized(req, resp)) {
-			return;
+			forward(req, resp, "403 Forbidden", "403.jsp");
 		}
 	}
 
@@ -53,7 +53,7 @@ public abstract class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!checkAuthorized(req, resp) /* || !checkCsrf(req, resp) */) {
-			return;
+			forward(req, resp, "403 Forbidden", "403.jsp");
 		}
 	}
 

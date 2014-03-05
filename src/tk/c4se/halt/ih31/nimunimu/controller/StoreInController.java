@@ -17,7 +17,7 @@ import tk.c4se.halt.ih31.nimunimu.model.StoreModel;
 
 /**
  * @author ne_Sachirou
- *
+ * 
  */
 @WebServlet("/store/store_in")
 public class StoreInController extends Controller {

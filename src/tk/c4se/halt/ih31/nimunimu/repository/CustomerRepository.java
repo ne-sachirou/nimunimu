@@ -106,7 +106,7 @@ public class CustomerRepository extends RdbRepository<Customer> {
 	 * @throws DBAccessException
 	 */
 	public List<Customer> all() throws DBAccessException {
-		val sql = "select * from customer";
+		val sql = "select * from customer order by id";
 		List<Customer> customers = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
@@ -126,7 +126,7 @@ public class CustomerRepository extends RdbRepository<Customer> {
 	}
 
 	public void insert(Customer customer) throws DBAccessException {
-		val sql = "insert into customer(id, name, zipcode, address, tel, fax, preson, billing_cutoff_date, credit_limit) values (customer_pk_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+		val sql = "insert into customer(id, name, zipcode, address, tel, fax, person, billing_cutoff_date, credit_limit) values (customer_pk_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
 		val sql2 = "select customer_pk_seq.currval from dual";
 		Connection connection = null;
 		try {

@@ -100,7 +100,7 @@ public class CustomerOrderSheetDetailRepository extends
 
 	public List<CustomerOrderSheetDetail> allByCustomerOrderSheetId(
 			int ourOrderSheetId) throws DBAccessException {
-		val sql = "select * from customer_order_sheet_detail where our_order_sheet_id = ?";
+		val sql = "select * from customer_order_sheet_detail where customer_order_sheet_id = ?";
 		List<CustomerOrderSheetDetail> details = new ArrayList<>();
 		try (val connection = DBConnector.getConnection()) {
 			@Cleanup
