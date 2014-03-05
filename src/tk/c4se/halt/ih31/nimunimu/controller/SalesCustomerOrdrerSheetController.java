@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import lombok.val;
 import tk.c4se.halt.ih31.nimunimu.dto.CustomerOrder;
+import tk.c4se.halt.ih31.nimunimu.dto.CustomerOrderStatus;
 import tk.c4se.halt.ih31.nimunimu.dto.Member;
 import tk.c4se.halt.ih31.nimunimu.dto.MemberAuthority;
 import tk.c4se.halt.ih31.nimunimu.dto.CustomerOrderSheet;
@@ -61,6 +62,7 @@ public class SalesCustomerOrdrerSheetController extends Controller {
 				order = new CustomerOrder();
 				order.setMemberId(((Member) req.getAttribute("loginMember"))
 						.getId());
+				order.setStatus(CustomerOrderStatus.YET_ACCEPT);
 			}
 		} catch (DBAccessException e) {
 			e.printStackTrace();

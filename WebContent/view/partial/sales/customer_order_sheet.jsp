@@ -15,7 +15,7 @@
 		</div>
 		<div class="pure-control-group">
 			<label for="">顧客ID</label> <span class="field"
-				data-field-name="order_customer_id">${fn:escapeXml(order.supplierId)}</span>
+				data-field-name="order_customer_id">${fn:escapeXml(order.customerId)}</span>
 		</div>
 		<div class="pure-control-group">
 			<label for="">担当社員ID</label> <span class="field"
@@ -45,7 +45,7 @@
 		</div>
 	</div>
 
-	<c:forEach items="${sheet.ourOrderSheetDetails}" var="detail"
+	<c:forEach items="${sheet.customerOrderSheetDetails}" var="detail"
 		varStatus="v">
 		<div class="pure-form pure-form-aligned input-detail">
 			<div class="pure-control-group">
@@ -86,44 +86,8 @@
 	<a class="pure-button" href="customer_orders">受注一覧へ戻る</a>
 </div>
 <script src="${baseUri}/resource/editUi.js"></script>
+<script src="${baseUri}/resource/editSheetUi.js"></script>
 <script>
 	var ui = new EditUi();
 	ui.start();
-
-	document.querySelector('.add-detail').onclick = function() {
-		var holder, fields, index = 0;
-
-		index = document.querySelectorAll('.input-detail').length + 1;
-		holder = document.querySelector('#input-detail-template').content
-				.cloneNode(true);
-		fields = holder.querySelectorAll('.field');
-		fields[0].dataset.fieldName = 'detail_goods_id' + index;
-		fields[0].innerHTML = '';
-		fields[1].dataset.fieldName = 'detail_price' + index;
-		fields[1].innerHTML = '';
-		fields[2].dataset.fieldName = 'detail_goods_number' + index;
-		fields[2].innerHTML = '';
-		document.querySelector('#editable').appendChild(holder);
-	};
-
-	jQuery('#editable').on(
-			'click',
-			'.delete-detail',
-			function(evt) {
-				var root = document.querySelector('#editable');
-
-				root.removeChild(evt.target.parentNode);
-				Array.from(root.querySelectorAll('.input-detail')).forEach(
-						function(input, index) {
-							var fields;
-
-							fields = holder.querySelectorAll('.field');
-							fields[0].dataset.fieldName = 'detail_goods_id'
-									+ (index + 1);
-							fields[1].dataset.fieldName = 'detail_price'
-									+ (index + 1);
-							fields[2].dataset.fieldName = 'detail_goods_number'
-									+ (index + 1);
-						});
-			});
 </script>

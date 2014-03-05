@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import lombok.val;
+import tk.c4se.halt.ih31.nimunimu.dto.CustomerOrderStatus;
 import tk.c4se.halt.ih31.nimunimu.dto.OurOrder;
 import tk.c4se.halt.ih31.nimunimu.dto.OurOrderSheet;
 import tk.c4se.halt.ih31.nimunimu.dto.OurOrderSheetDetail;
@@ -77,13 +78,19 @@ public class OurOrderSheetModel implements DoPostModel {
 			throw new DBAccessException("OurOrderSheet " + idStr
 					+ " is not found in DB.");
 		}
+		val oldStatus = order.getStatus();
 		setProperties(order, req);
+		val newStatus = order.getStatus();
 		try {
 			repo.update(order);
 			sheetRepo.update(order.getOurOrderSheet());
 			for (val detail : order.getOurOrderSheet()
 					.getOurOrderSheetDetails()) {
 				detailRepo.update(detail);
+			}
+			if (!oldStatus.equals(CustomerOrderStatus.DELIVERED)
+					&& newStatus.equals(CustomerOrderStatus.DELIVERED)) {
+				// TODO: 出庫処理
 			}
 		} catch (DBAccessException e1) {
 			e1.printStackTrace();
